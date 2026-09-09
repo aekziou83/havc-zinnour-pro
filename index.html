@@ -489,6 +489,35 @@
             to { stroke-dashoffset: 0; }
         }
 
+        /* تنسيقات تقرير الفحص والتشخيص (Diagnostics) */
+        .diag-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .diag-item {
+            background: #071026;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            border-right: 4px solid var(--secondary);
+        }
+
+        .diag-title {
+            font-weight: bold;
+            color: #38bdf8;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+        }
+
+        .diag-desc {
+            font-size: 0.78rem;
+            color: #cbd5e1;
+            line-height: 1.5;
+        }
+
         .tech-note {
             padding: 10px 12px;
             font-size: 11.5px;
@@ -497,6 +526,8 @@
             background: #09122c;
             line-height: 1.5;
             border-top: 1px solid var(--border);
+            margin-top: 15px;
+            border-radius: 6px;
         }
 
         .modal-overlay {
@@ -1199,7 +1230,33 @@
                 </div>
             </div>
 
-            <div class="tech-note" id="techNote" style="margin-top: 15px;">تنبيه فني معتمد: يُوصى دائماً بترك هامش طول إضافي بنسبة 10% عند قص الأنبوب الشعري، لضبط شحنة وسيط التبريد عملياً أثناء التشغيل ومراقبة استقرار التحميص (Superheat).</div>
+            <!-- 3. تقرير الفحص وتشخيص الأعطال (Diagnostics) المضاف بناءً على طلبك -->
+            <div class="abc-clim-card">
+                <div class="abc-clim-title">
+                    <span>🔍 تقرير الفحص وتشخيص الأعطال / Diagnostics</span>
+                    <span class="abc-step-badge">التحليل</span>
+                </div>
+                
+                <div class="diag-grid">
+                    <div class="diag-item">
+                        <div class="diag-title">حالة التحميص / Superheat Status:</div>
+                        <div class="diag-desc" id="diag_sh_text">جاري التحليل...</div>
+                    </div>
+                    <div class="diag-item">
+                        <div class="diag-title">حالة التبريد الدوني / Subcooling Status:</div>
+                        <div class="diag-desc" id="diag_sc_text">جاري التحليل...</div>
+                    </div>
+                    <div class="diag-item">
+                        <div class="diag-title">المعدلات القياسية / Standard Rates:</div>
+                        <div class="diag-desc">
+                            • التحميص المثالي / Ideal SH: <b>5K إلى 8K</b><br>
+                            • التبريد الدوني المثالي / Ideal SC: <b>3K إلى 6K</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tech-note" id="techNote">تنبيه فني معتمد: يُوصى دائماً بترك هامش طول إضافي بنسبة 10% عند قص الأنبوب الشعري، لضبط شحنة وسيط التبريد عملياً أثناء التشغيل ومراقبة استقرار التحميص (Superheat).</div>
         </div>
     </div>
 
@@ -1792,12 +1849,28 @@
         if (screenSh) screenSh.textContent = tEvapInput;
         if (screenSc) screenSc.textContent = tCondInput;
 
-        // حساب التحميص والتبريد الدوني ديناميكياً من مدخلات درجات الحرارة والضغط
+        // حساب التحميص والتبريد الدوني ديناميكياً وعرضها مع حرف K
         let sh = +(Math.abs(tEvapInput) * 0.25 + 6.5).toFixed(1);
         let sc = +(tCondInput * 0.12 + 3.2).toFixed(1);
 
         document.getElementById('res_sh').innerText = sh + " K";
         document.getElementById('res_sc').innerText = sc + " K";
+
+        // تحديث نصوص تقرير الفحص وتشخيص الأعطال تلقائياً
+        let shText = "";
+        if (sh < 5) shText = "⚠️ تحميص منخفض جداً (Low SH): خطر دخول سائل للضاغط (Liquid Slug)! تحقق من الشحنة.";
+        else if (sh >= 5 && sh <= 8) shText = "✅ التحميص في النطاق المثالي والطبيعي للدائرة (Ideal Range).";
+        else shText = "⚠️ تحميص مرتفع جداً (High SH): نقص شحنة فريون أو انسداد في الفلتر/الكابيلري.";
+
+        let scText = "";
+        if (sc < 3) scText = "⚠️ تبريد دوني منخفض جداً (Low SC): غالباً نقص شحنة فريون أو ضعف كفاءة المكثف.";
+        else if (sc >= 3 && sc <= 6) scText = "✅ التبريد الدوني ممتاز ومستقر ضمن النطاق القياسي (Stable).";
+        else scText = "⚠️ تبريد دوني مرتفع جداً (High SC): زيادة شحنة فريون أو وجود هواء غير قابل للتكاثف.";
+
+        const diagShEl = document.getElementById('diag_sh_text');
+        const diagScEl = document.getElementById('diag_sc_text');
+        if (diagShEl) diagShEl.innerText = shText;
+        if (diagScEl) diagScEl.innerText = scText;
     }
 
     function copyTechnicalReport() {
