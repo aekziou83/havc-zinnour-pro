@@ -489,7 +489,6 @@
             to { stroke-dashoffset: 0; }
         }
 
-        /* تنسيقات تقرير الفحص والتشخيص (Diagnostics) */
         .diag-grid {
             display: flex;
             flex-direction: column;
@@ -1849,14 +1848,12 @@
         if (screenSh) screenSh.textContent = tEvapInput;
         if (screenSc) screenSc.textContent = tCondInput;
 
-        // حساب التحميص والتبريد الدوني ديناميكياً وعرضها مع حرف K
         let sh = +(Math.abs(tEvapInput) * 0.25 + 6.5).toFixed(1);
         let sc = +(tCondInput * 0.12 + 3.2).toFixed(1);
 
         document.getElementById('res_sh').innerText = sh + " K";
         document.getElementById('res_sc').innerText = sc + " K";
 
-        // تحديث نصوص تقرير الفحص وتشخيص الأعطال تلقائياً
         let shText = "";
         if (sh < 5) shText = "⚠️ تحميص منخفض جداً (Low SH): خطر دخول سائل للضاغط (Liquid Slug)! تحقق من الشحنة.";
         else if (sh >= 5 && sh <= 8) shText = "✅ التحميص في النطاق المثالي والطبيعي للدائرة (Ideal Range).";
