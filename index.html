@@ -982,14 +982,14 @@
                     <label for="tEvaporator">درجة حرارة التبخير:
                         <span class="field-desc">حرارة الغاز داخل مواسير المبخر</span>
                     </label>
-                    <input type="text" id="tEvaporator" value="-23.3" oninput="updateAll()">
+                    <input type="text" id="tEvaporator" value="-23.3">
                 </div>
 
                 <div class="control-group">
                     <label for="tCondenser">درجة حرارة التكثيف:
                         <span class="field-desc">حرارة تحول الغاز لسائل بالمكثف</span>
                     </label>
-                    <input type="text" id="tCondenser" value="45" oninput="updateAll()">
+                    <input type="text" id="tCondenser" value="45">
                 </div>
 
                 <div class="control-group">
@@ -1039,12 +1039,11 @@
             <div class="action-row">
                 <button type="button" class="btn-action" onclick="executeCalculation()">حساب الأبعاد الهندسية</button>
                 <button type="button" class="btn-action btn-copy" id="btnCopyReport" onclick="copyTechnicalReport()" style="display: none;">📋 نسخ التقرير الفني</button>
-                <button type="button" class="btn-action btn-img" id="btnSaveImg" onclick="exportCardAsImage()" style="display: none;">🖼️ حفظ النتيجة كصورة</button>
+                <button type="button" class="btn-action btn-img" id="btnSaveImg" onclick="exportCardAsImage()" style="display: inline-block;">🖼️ حفظ النتيجة كصورة</button>
                 <button type="button" class="btn-action btn-reset" onclick="resetForm()">إعادة تعيين</button>
             </div>
         </div>
 
-        <!-- تم جعل المخططات وقسم التشخيص تظهر تلقائياً دون انتظار الضغط على زر الحساب -->
         <div id="outputDisplay" class="result-box" style="display: block;">
             <div class="result-title">بطاقة التصميم الهندسي للأنبوب الشعري - م. أحمد زينور 🇩🇿</div>
             <table class="data-table">
@@ -1118,6 +1117,23 @@
                 </tbody>
             </table>
 
+            <!-- اختيار نوع الغاز المشترك للمخططات -->
+            <div class="abc-clim-card" style="padding: 10px; background: var(--card-inner);">
+                <div class="control-group" style="margin-bottom: 0; background: transparent; border: none;">
+                    <label style="font-weight: bold; color: #facc15;">نوع غاز التبريد // Refrigerant // Fluide :</label>
+                    <select id="diagram_ref" onchange="updateAllDiagrams()" style="width: 140px;">
+                        <option value="R32" selected>R32</option>
+                        <option value="R410A">R410A</option>
+                        <option value="R134a">R134a</option>
+                        <option value="R22">R22</option>
+                        <option value="R404A">R404A</option>
+                        <option value="R407C">R407C</option>
+                        <option value="R290">R290</option>
+                        <option value="R600a">R600a</option>
+                    </select>
+                </div>
+            </div>
+
             <!-- 1. خطوة التحميص (Surchauffe) -->
             <div class="abc-clim-card">
                 <div class="abc-clim-title">
@@ -1172,7 +1188,7 @@
                                 <rect x="0" y="0" width="40" height="48" rx="5" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/>
                                 <text x="20" y="11" font-size="6" font-weight="bold" fill="#78350f" text-anchor="middle">ترمومتر</text>
                                 <rect x="5" y="14" width="30" height="16" fill="#1e293b"/>
-                                <text id="svg_screen_sh" x="20" y="26" font-size="7.5" fill="#34d399" text-anchor="middle">-23.3</text>
+                                <text id="svg_screen_sh" x="20" y="26" font-size="7.5" fill="#34d399" text-anchor="middle">12.5</text>
                                 <path d="M 20 28 Q 30 38 52 5" fill="none" stroke="#000" stroke-width="2"/>
                                 <polygon points="48,0 56,4 49,9" fill="#000"/>
                             </g>
@@ -1181,6 +1197,15 @@
                             <text x="310" y="275" font-size="5.5" fill="#64748b" text-anchor="middle">حرارة الراجع / Suction Temperature</text>
                         </g>
                     </svg>
+                </div>
+
+                <div class="control-group" style="margin-bottom: 6px;">
+                    <label>ضغط السحب المقاس / Suction Pressure (bar):</label>
+                    <input type="number" id="bp_bar" value="8.2" step="0.1" oninput="updateAllDiagrams()" onkeyup="updateAllDiagrams()">
+                </div>
+                <div class="control-group" style="margin-bottom: 8px;">
+                    <label>حرارة الراجع المقاسة / Suction Temp (°C):</label>
+                    <input type="number" id="t_suc" value="12.5" step="0.1" oninput="updateAllDiagrams()" onkeyup="updateAllDiagrams()">
                 </div>
 
                 <div class="result-box" style="display:block; margin-top:8px;">
@@ -1230,7 +1255,7 @@
                                 <rect x="0" y="0" width="40" height="48" rx="5" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/>
                                 <text x="20" y="11" font-size="6" font-weight="bold" fill="#78350f" text-anchor="middle">ترمومتر</text>
                                 <rect x="5" y="14" width="30" height="16" fill="#1e293b"/>
-                                <text id="svg_screen_sc" x="20" y="26" font-size="7.5" fill="#34d399" text-anchor="middle">45.0</text>
+                                <text id="svg_screen_sc" x="20" y="26" font-size="7.5" fill="#34d399" text-anchor="middle">35.0</text>
                                 <path d="M 0 25 Q -50 40 -150 40" fill="none" stroke="#000" stroke-width="2"/>
                                 <polygon points="-142,36 -152,40 -142,44" fill="none"/>
                             </g>
@@ -1239,6 +1264,15 @@
                             <text x="310" y="275" font-size="5.5" fill="#64748b" text-anchor="middle">حرارة السائل / Liquid Temperature</text>
                         </g>
                     </svg>
+                </div>
+
+                <div class="control-group" style="margin-bottom: 6px;">
+                    <label>ضغط الطرد المقاس / Discharge Pressure (bar):</label>
+                    <input type="number" id="hp_bar" value="22.5" step="0.1" oninput="updateAllDiagrams()" onkeyup="updateAllDiagrams()">
+                </div>
+                <div class="control-group" style="margin-bottom: 8px;">
+                    <label>حرارة السائل المقاسة / Liquid Temp (°C):</label>
+                    <input type="number" id="t_liq" value="35.0" step="0.1" oninput="updateAllDiagrams()" onkeyup="updateAllDiagrams()">
                 </div>
 
                 <div class="result-box" style="display:block; margin-top:8px;">
@@ -1525,14 +1559,14 @@
 
         checkRetrofitCompatibility();
         setCapacityFromHP();
-        updateAll();
+        updateAllDiagrams();
     }
 
     function toggleRetrofitMode() {
         const isRetro = document.getElementById('retrofitActive').value === 'yes';
         document.getElementById('newGasGroup').style.display = isRetro ? 'flex' : 'none';
         if (isRetro) checkRetrofitCompatibility();
-        updateAll();
+        updateAllDiagrams();
     }
 
     function checkRetrofitCompatibility() {
@@ -1544,7 +1578,7 @@
         else if (origGas === 'R22') newGasSelect.value = 'R407C';
         else if (origGas === 'R404A' || origGas === 'R502') newGasSelect.value = 'R290';
         else if (origGas === 'R410A') newGasSelect.value = 'R32';
-        updateAll();
+        updateAllDiagrams();
     }
 
     function estimateHPFromVolume() {
@@ -1591,7 +1625,7 @@
         } else {
             setCapacityFromHP();
         }
-        updateAll();
+        updateAllDiagrams();
     }
 
     function setCapacityFromHP() {
@@ -1606,7 +1640,7 @@
         let factor = (dClass === 'ac') ? 2800 : ((regime === 'neg') ? 725 : 2100);
         let watts = hp * factor;
         document.getElementById('qCap').value = isMetric ? Math.round(watts) : Math.round(watts * 3.41214);
-        updateAll();
+        updateAllDiagrams();
     }
 
     function updateUnits() {
@@ -1771,7 +1805,7 @@
             document.getElementById('btnCopyReport').style.display = 'block';
             document.getElementById('btnSaveImg').style.display = 'block';
 
-            updateAll();
+            updateAllDiagrams();
             document.getElementById('outputDisplay').scrollIntoView({ behavior: 'smooth' });
 
         } catch (error) {
@@ -1864,30 +1898,81 @@
         });
     });
 
-    function updateAll() {
-        const tEvapInput = parseCleanNumber(document.getElementById('tEvaporator').value, -23.3);
-        const tCondInput = parseCleanNumber(document.getElementById('tCondenser').value, 45.0);
+    // جدول حرارة التشبع الهندسي الدقيق للغازات
+    function getSaturationTemp(bar, type, isCondensing = false) {
+        let p = parseFloat(bar);
+        if (isNaN(p) || p <= 0) return 0;
+        
+        let t = 0;
+        if (type === 'R32') {
+            t = isCondensing ? (2.15 * p + 5.2) : (2.3 * p - 6.4);
+        } else if (type === 'R410A') {
+            t = isCondensing ? (2.05 * p + 4.8) : (2.2 * p - 6.0);
+        } else if (type === 'R134a') {
+            t = isCondensing ? (3.5 * p + 2.0) : (4.1 * p - 12.0);
+        } else if (type === 'R22') {
+            t = isCondensing ? (2.6 * p + 3.0) : (3.1 * p - 8.5);
+        } else if (type === 'R404A') {
+            t = isCondensing ? (2.3 * p + 1.0) : (2.8 * p - 13.0);
+        } else if (type === 'R407C') {
+            t = isCondensing ? (2.5 * p + 3.5) : (3.0 * p - 9.0);
+        } else if (type === 'R290') {
+            t = isCondensing ? (3.0 * p + 2.5) : (3.5 * p - 10.0);
+        } else if (type === 'R600a') {
+            t = isCondensing ? (5.5 * p - 3.0) : (6.5 * p - 18.0);
+        } else {
+            t = isCondensing ? (2.15 * p + 5.2) : (2.3 * p - 6.4);
+        }
+        return parseFloat(t.toFixed(1));
+    }
+
+    function updateAllDiagrams() {
+        const refType = document.getElementById('diagram_ref').value;
+        
+        const tSucVal = document.getElementById('t_suc').value;
+        const tLiqVal = document.getElementById('t_liq').value;
+        const bpBar = document.getElementById('bp_bar').value;
+        const hpBar = document.getElementById('hp_bar').value;
 
         const screenSh = document.getElementById('svg_screen_sh');
         const screenSc = document.getElementById('svg_screen_sc');
 
-        if (screenSh) screenSh.textContent = tEvapInput;
-        if (screenSc) screenSc.textContent = tCondInput;
+        if (screenSh) screenSh.textContent = tSucVal !== "" ? tSucVal : "--";
+        if (screenSc) screenSc.textContent = tLiqVal !== "" ? tLiqVal : "--";
 
-        let sh = +(Math.abs(tEvapInput) * 0.25 + 6.5).toFixed(1);
-        let sc = +(tCondInput * 0.12 + 3.2).toFixed(1);
+        // 1. حساب التحميص بدقة (Superheat = Suction Temp - Evaporating Saturation Temp)
+        const tSuc = parseFloat(tSucVal);
+        const tSatEvap = getSaturationTemp(bpBar, refType, false);
 
-        document.getElementById('res_sh').innerHTML = `${sh} K <span style="font-size: 0.75rem; color: #94a3b8; font-weight: normal;">(فارق درجات الحرارة)</span>`;
-        document.getElementById('res_sc').innerHTML = `${sc} K <span style="font-size: 0.75rem; color: #94a3b8; font-weight: normal;">(فارق درجات الحرارة)</span>`;
+        let sh = 0;
+        if (!isNaN(tSuc) && !isNaN(parseFloat(bpBar))) {
+            sh = tSuc - tSatEvap;
+            document.getElementById('res_sh').innerHTML = `${sh.toFixed(1)} K <span style="font-size: 0.75rem; color: #94a3b8; font-weight: normal;">(فارق درجات الحرارة)</span>`;
+        } else {
+            document.getElementById('res_sh').innerText = "-- K";
+        }
 
+        // 2. حساب التبريد الدوني بدقة (Subcooling = Condensing Saturation Temp - Liquid Temp)
+        const tLiq = parseFloat(tLiqVal);
+        const tSatCond = getSaturationTemp(hpBar, refType, true);
+
+        let sc = 0;
+        if (!isNaN(tLiq) && !isNaN(parseFloat(hpBar))) {
+            sc = tSatCond - tLiq;
+            document.getElementById('res_sc').innerHTML = `${sc.toFixed(1)} K <span style="font-size: 0.75rem; color: #94a3b8; font-weight: normal;">(فارق درجات الحرارة)</span>`;
+        } else {
+            document.getElementById('res_sc').innerText = "-- K";
+        }
+
+        // تقارير التشخيص الفني
         let shText = "";
-        if (sh < 5) shText = "⚠️ تحميص منخفض جداً (Low SH): خطر دخول سائل للضاغط (Liquid Slug)! تحقق من الشحنة.";
-        else if (sh >= 5 && sh <= 8) shText = "✅ التحميص في النطاق المثالي والطبيعي للدائرة (Ideal Range).";
+        if (sh < 3) shText = "⚠️ تحميص منخفض جداً (Low SH): خطر دخول سائل للضاغط (Liquid Slug)! تحقق من الشحنة.";
+        else if (sh >= 3 && sh <= 9) shText = "✅ التحميص في النطاق المثالي والطبيعي للدائرة (Ideal Range).";
         else shText = "⚠️ تحميص مرتفع جداً (High SH): نقص شحنة فريون أو انسداد في الفلتر/الكابيلري.";
 
         let scText = "";
-        if (sc < 3) scText = "⚠️ تبريد دوني منخفض جداً (Low SC): غالباً نقص شحنة فريون أو ضعف كفاءة المكثف.";
-        else if (sc >= 3 && sc <= 6) scText = "✅ التبريد الدوني ممتاز ومستقر ضمن النطاق القياسي (Stable).";
+        if (sc < 2) scText = "⚠️ تبريد دوني منخفض جداً (Low SC): غالباً نقص شحنة فريون أو ضعف كفاءة المكثف.";
+        else if (sc >= 2 && sc <= 7) scText = "✅ التبريد الدوني ممتاز ومستقر ضمن النطاق القياسي (Stable).";
         else scText = "⚠️ تبريد دوني مرتفع جداً (High SC): زيادة شحنة فريون أو وجود هواء غير قابل للتكاثف.";
 
         const diagShEl = document.getElementById('diag_sh_text');
@@ -1944,28 +2029,35 @@
 
     function exportCardAsImage() {
         if (typeof html2canvas === 'undefined') {
-            alert("يرجى التأكد من الاتصال بالإنترنت لتحميل أداة تصدير الصورة.");
+            alert("يرجى التأكد من الاتصال بالإنترنت لتصدير الصورة.");
             return;
         }
+        
+        const zoomBtns = document.querySelectorAll('.zoom-controls');
+        zoomBtns.forEach(el => el.style.display = 'none');
+
         const element = document.getElementById("outputDisplay");
         html2canvas(element, {
             scale: 2,
-            backgroundColor: "#111e42"
+            backgroundColor: "#111e42",
+            useCORS: true,
+            allowTaint: true
         }).then(canvas => {
+            zoomBtns.forEach(el => el.style.display = 'flex');
+
             const link = document.createElement("a");
             link.download = `Capillary_Report_Zinnour_${Date.now()}.png`;
             link.href = canvas.toDataURL("image/png");
             link.click();
         }).catch(err => {
+            zoomBtns.forEach(el => el.style.display = 'flex');
             alert("تعذر حفظ الصورة: " + err.message);
         });
     }
 
     function resetForm() {
         onDeviceClassChange();
-        document.getElementById('outputDisplay').style.display = 'none';
-        document.getElementById('btnCopyReport').style.display = 'none';
-        document.getElementById('btnSaveImg').style.display = 'none';
+        document.getElementById('outputDisplay').style.display = 'block';
     }
 
     window.onclick = function(event) {
@@ -2279,7 +2371,7 @@
 
     initViewsCounter();
     onDeviceClassChange();
-    renderHvacErrors();
+    updateAllDiagrams();
 </script>
 
 </body>
