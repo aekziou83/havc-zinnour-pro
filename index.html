@@ -298,7 +298,6 @@
         .btn-action:hover { opacity: 0.92; transform: translateY(-1px); }
 
         .result-box {
-            display: none;
             margin-top: 20px;
             border: 1px solid var(--secondary);
             border-radius: 8px;
@@ -517,7 +516,6 @@
             line-height: 1.5;
         }
 
-        /* صندوق شرح المصطلحات للمبتدئين */
         .glossary-box {
             background: linear-gradient(135deg, #09122c 0%, #0f1c3f 100%);
             border: 1px dashed var(--secondary);
@@ -1046,7 +1044,8 @@
             </div>
         </div>
 
-        <div id="outputDisplay" class="result-box">
+        <!-- تم جعل المخططات وقسم التشخيص تظهر تلقائياً دون انتظار الضغط على زر الحساب -->
+        <div id="outputDisplay" class="result-box" style="display: block;">
             <div class="result-title">بطاقة التصميم الهندسي للأنبوب الشعري - م. أحمد زينور 🇩🇿</div>
             <table class="data-table">
                 <tbody>
@@ -1054,7 +1053,7 @@
                         <th>نمط التشغيل / الحالة:
                             <span class="field-desc">تصنيف الدورة التبريدية (تجميد أو حفظ)</span>
                         </th>
-                        <td id="outRegime">--</td>
+                        <td id="outRegime"><span class="badge badge-negative">سالب / تجميد (LBP)</span></td>
                     </tr>
                     <tr id="retrofitRow" style="display: none;">
                         <th>حالة الاستبدال (Retrofit):
@@ -1066,13 +1065,13 @@
                         <th>القطر الداخلي المناسب للأنبوب:
                             <span class="field-desc">القطر الداخلي الدقيق بالمليمتر والإنش</span>
                         </th>
-                        <td id="outID">--</td>
+                        <td id="outID">0.91 mm (0.036 in)</td>
                     </tr>
                     <tr>
                         <th>الطول الهندسي المطلوب للكابلري:
                             <span class="field-desc">طول الماسورة الشعرية الواجب قصها وتركيبها</span>
                         </th>
-                        <td id="outLength">--</td>
+                        <td id="outLength">2.75 m (108.5 in)</td>
                     </tr>
                     <tr id="distributorRow" style="display: none;">
                         <th>خيار دارة التوزيع (موزع Distributeur):
@@ -1084,37 +1083,37 @@
                         <th>شحنة وسيط التبريد التقديرية (وزن الغاز):
                             <span class="field-desc">الوزن الأولي لشحن الدورة بالجرام بالميزان</span>
                         </th>
-                        <td id="outCharge" class="highlight-charge">--</td>
+                        <td id="outCharge" class="highlight-charge">136 ~ 159 g (جرام)</td>
                     </tr>
                     <tr>
                         <th>معدل تدفق الغاز الكتلي:
                             <span class="field-desc">كمية الغاز المتدفقة بالساعة عبر الدورة <span dir="ltr">(Mass Flow)</span></span>
                         </th>
-                        <td id="outMass">--</td>
+                        <td id="outMass">2.59 kg/h</td>
                     </tr>
                     <tr>
                         <th>ضغوط الإشباع (التكثيف / التبخير):
                             <span class="field-desc">الضغوط النظرية المتوقعة بساعة المانومتر</span>
                         </th>
-                        <td id="outPressure">--</td>
+                        <td id="outPressure">11.60 bar / 1.15 bar</td>
                     </tr>
                     <tr>
                         <th>التبريد الدوني المستهدف (SC):
                             <span class="field-desc">الفارق المطلوب لوصول سائل نقي لمدخل الكابلري <span dir="ltr">(Sous&#8209;refroidissement)</span></span>
                         </th>
-                        <td id="outTargetSC" style="color: #2dd4bf; font-weight: bold;">--</td>
+                        <td id="outTargetSC" style="color: #2dd4bf; font-weight: bold;">6.0 ~ 9.0 K (SLHEX)</td>
                     </tr>
                     <tr>
                         <th>التحميص المستهدف (SH):
                             <span class="field-desc">الفارق المطلوب لتبخر كامل الغاز وحماية الضاغط <span dir="ltr">(Surchauffe)</span></span>
                         </th>
-                        <td id="outTargetSH" style="color: #fde047; font-weight: bold;">--</td>
+                        <td id="outTargetSH" style="color: #fde047; font-weight: bold;">7.0 ~ 12.0 K (Aspiration)</td>
                     </tr>
                     <tr>
                         <th>توصية نوع الزيت والتوافق:
                             <span class="field-desc">نوع زيت التزييت المتوافق كيميائياً مع الغاز</span>
                         </th>
-                        <td id="outOil">--</td>
+                        <td id="outOil">POE / PAG</td>
                     </tr>
                 </tbody>
             </table>
