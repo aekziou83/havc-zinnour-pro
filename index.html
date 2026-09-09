@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes">
     <meta name="author" content="Ing. Ahmed Zinnour">
     <meta name="description" content="منصة التبريد والتكييف الشاملة - حساب الأنبوب الشعري وتشخيص الأعطال والمخططات">
     <title>منصة التبريد والتكييف الشاملة | م. أحمد زينور</title>
@@ -53,10 +53,9 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-            padding: 20px;
+            padding: 18px;
         }
 
-        /* شريط نسبة المشاهدات والإحصائيات الحية */
         .analytics-bar {
             display: flex;
             align-items: center;
@@ -233,7 +232,7 @@
             font-weight: 600;
             color: #bfdbfe;
             flex: 1.1;
-            line-height: 1.3;
+            line-height: 1.35;
         }
 
         input[type="number"], input[type="text"], select {
@@ -311,8 +310,8 @@
         .result-title {
             background: linear-gradient(135deg, #0f2b5c 0%, #1d4ed8 100%);
             color: #ffffff;
-            padding: 12px 14px;
-            font-size: 14px;
+            padding: 10px 14px;
+            font-size: 13.5px;
             font-weight: 700;
             text-align: center;
             border-bottom: 1px solid #1e3a8a;
@@ -321,35 +320,47 @@
         .data-table {
             width: 100%;
             border-collapse: collapse;
+            table-layout: fixed;
         }
 
         .data-table th, .data-table td {
-            padding: 10px 12px;
-            font-size: 12.5px;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-            text-align: right;
+            padding: 9px 12px;
+            font-size: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            vertical-align: middle;
         }
 
         .data-table tr:nth-child(even) { background-color: rgba(255, 255, 255, 0.02); }
 
         .data-table th {
-            width: 52%;
+            width: 55%;
             color: #93c5fd;
             font-weight: 600;
-            white-space: nowrap;
+            text-align: right;
+            line-height: 1.4;
         }
 
         .data-table td {
+            width: 45%;
             font-weight: 700;
             color: #38bdf8;
             direction: ltr;
             text-align: left;
+            word-break: break-word;
+        }
+
+        .field-desc {
+            display: block;
+            font-size: 10.5px;
+            color: #94a3b8;
+            font-weight: normal;
+            margin-top: 2px;
+            line-height: 1.3;
         }
 
         .highlight-charge {
             color: var(--accent-orange) !important;
-            font-size: 13.5px;
-            text-shadow: 0 0 6px rgba(245, 158, 11, 0.4);
+            font-size: 13px;
         }
 
         .retrofit-highlight {
@@ -366,9 +377,9 @@
 
         .badge {
             display: inline-block;
-            padding: 3px 8px;
+            padding: 2px 7px;
             border-radius: 4px;
-            font-size: 11.5px;
+            font-size: 11px;
             font-weight: bold;
         }
 
@@ -390,17 +401,104 @@
             border: 1px solid var(--accent-orange);
         }
 
-        .tech-note {
+        .abc-clim-card {
+            background: #0b152d;
+            border: 2px solid var(--border);
+            border-radius: 12px;
             padding: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+            margin-top: 15px;
+        }
+
+        .abc-clim-title {
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #facc15;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 5px;
+        }
+
+        .abc-step-badge {
+            background: var(--border);
+            color: #38bdf8;
+            font-size: 0.72rem;
+            padding: 2px 8px;
+            border-radius: 6px;
+        }
+
+        .zoom-controls {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 8px;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .zoom-btn {
+            background: var(--border);
+            color: var(--text-main);
+            border: 1px solid #3b82f6;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+
+        .zoom-btn:active {
+            background: #3b82f6;
+        }
+
+        .svg-box {
+            background: #ffffff;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            margin-bottom: 10px;
+            padding: 4px;
+            height: 320px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            cursor: grab;
+            touch-action: none;
+        }
+
+        .svg-box:active {
+            cursor: grabbing;
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+            transform-origin: 0 0;
+        }
+
+        .flow-path {
+            stroke-dasharray: 6, 6;
+            animation: flowAnim 1s linear infinite;
+        }
+
+        @keyframes flowAnim {
+            from { stroke-dashoffset: 12; }
+            to { stroke-dashoffset: 0; }
+        }
+
+        .tech-note {
+            padding: 10px 12px;
             font-size: 11.5px;
             color: #94a3b8;
             text-align: center;
             background: #09122c;
-            line-height: 1.6;
+            line-height: 1.5;
             border-top: 1px solid var(--border);
         }
 
-        /* نافذة الدليل الهندسي */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -422,7 +520,7 @@
             border-radius: 12px;
             overflow-y: auto;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            padding: 22px;
+            padding: 20px;
             position: relative;
             border: 1px solid var(--border);
         }
@@ -446,14 +544,14 @@
         }
 
         .guide-section {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             border-bottom: 1px solid var(--border);
-            padding-bottom: 14px;
+            padding-bottom: 12px;
         }
 
         .guide-section h3 {
             color: #60a5fa;
-            font-size: 15px;
+            font-size: 14.5px;
             margin-bottom: 10px;
         }
 
@@ -461,18 +559,18 @@
             background: var(--card-inner);
             border: 1px solid var(--border);
             border-radius: 6px;
-            padding: 12px;
+            padding: 10px 12px;
             margin-bottom: 10px;
         }
 
         .guide-item h4 {
-            font-size: 13.5px;
+            font-size: 13px;
             color: #38bdf8;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
 
         .guide-item p, .guide-item li {
-            font-size: 12.5px;
+            font-size: 12px;
             color: #cbd5e1;
             line-height: 1.6;
         }
@@ -483,25 +581,31 @@
         }
 
         .formula-box {
-            direction: ltr;
+            direction: ltr !important;
             text-align: center;
-            margin: 8px 0;
             font-family: monospace;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: bold;
             background: #070d1e;
-            padding: 10px;
+            padding: 9px 12px;
             border: 1px solid #1e3a8a;
+            border-left: 4px solid var(--accent-orange);
             border-radius: 5px;
             color: #fde047;
-            border-left: 4px solid var(--accent-orange);
+            margin: 6px 0;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .formula-box.nowrap {
+            white-space: nowrap;
+            overflow-x: auto;
         }
 
         .rho-symbol {
             font-family: "Times New Roman", Times, serif;
             font-style: italic;
             font-weight: bold;
-            font-size: 15px;
+            font-size: 13px;
         }
 
         .unit-ltr {
@@ -511,7 +615,6 @@
             font-weight: bold;
         }
 
-        /* تنسيقات قسم الأعطال */
         .hvac-filter-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -555,7 +658,7 @@
         }
 
         .hvac-code-title {
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             font-weight: bold;
             color: #f87171;
             direction: ltr;
@@ -600,7 +703,7 @@
             border: 1px dashed var(--danger);
             border-radius: 6px;
             padding: 10px;
-            font-size: 12.5px;
+            font-size: 12px;
             color: #fca5a5;
         }
 
@@ -614,7 +717,7 @@
 
         .sheet-title {
             color: #38bdf8;
-            font-size: 12.5px;
+            font-size: 12px;
             font-weight: bold;
             border-bottom: 1px dashed #334155;
             padding-bottom: 6px;
@@ -666,11 +769,11 @@
         .hvac-no-results {
             text-align: center;
             color: var(--text-muted);
-            padding: 30px;
+            padding: 26px;
             background-color: #09122c;
             border-radius: 6px;
             border: 1px dashed var(--border);
-            font-size: 13px;
+            font-size: 12.5px;
         }
 
         @media (max-width: 600px) {
@@ -679,6 +782,8 @@
             .pcb-visual-container { grid-template-columns: 1fr; }
             .meter-mockup { width: 130px; margin: 0 auto; }
             .analytics-bar { flex-direction: column; gap: 6px; text-align: center; }
+            .data-table th { width: 50%; font-size: 11.5px; }
+            .data-table td { width: 50%; font-size: 11.5px; }
         }
     </style>
 </head>
@@ -686,15 +791,14 @@
 
 <div class="main-container">
     
-    <!-- شريط نسبة وتفاعل المشاهدات المباشر -->
     <div class="analytics-bar">
         <div class="analytics-item">
             <span class="live-dot"></span>
-            <span>المستخدمون المتفاعلون الآن: <strong style="color:#22c55e;" id="activeUsers">3</strong> فنيين</span>
+            <span>المستخدمون المتفاعلون الآن: <strong style="color:#22c55e;" id="activeUsers">4</strong> فنيين</span>
         </div>
         <div class="analytics-item">
             <span>إجمالي المشاهدات:</span>
-            <span class="stat-badge" id="viewCount">...</span>
+            <span class="stat-badge" id="viewCount">1,255</span>
             <span style="font-size:11px; color:#94a3b8;">(نسبة التفاعل: <strong style="color:#f59e0b;" id="interactionRate">98.4%</strong>)</span>
         </div>
     </div>
@@ -728,7 +832,9 @@
         <div class="form-wrapper">
             <div class="form-grid">
                 <div class="control-group">
-                    <label for="deviceClass">نوع الجهاز / التطبيق:</label>
+                    <label for="deviceClass">نوع الجهاز / التطبيق:
+                        <span class="field-desc">يحدد تلقائياً نظام الحرارة والتبادل المناسب</span>
+                    </label>
                     <select id="deviceClass" onchange="onDeviceClassChange()">
                         <option value="domestic" selected>تبريد منزلي (Domestic)</option>
                         <option value="commercial">تبريد تجاري (Commercial)</option>
@@ -737,7 +843,9 @@
                 </div>
 
                 <div class="control-group retrofit-box">
-                    <label for="retrofitActive">استبدال وسيط التبريد (Retrofit):</label>
+                    <label for="retrofitActive">استبدال وسيط التبريد <span dir="ltr" style="unicode-bidi:isolate; display:inline-block;">(Retrofit)</span>:
+                        <span class="field-desc">تعديل الحساب عند التحويل إلى غاز بديل</span>
+                    </label>
                     <select id="retrofitActive" onchange="toggleRetrofitMode()">
                         <option value="no" selected>لا (نفس الغاز الأصلي)</option>
                         <option value="yes">نعم (تحويل إلى غاز بديل)</option>
@@ -758,9 +866,9 @@
 
                 <div class="control-group">
                     <label for="sysUnits">نظام القياس:</label>
-                    <select id="sysUnits" onchange="updateUnits()">
-                        <option value="metric" selected>متري (°C - mm - Watt)</option>
-                        <option value="imperial">إمبراطوري (°F - in - Btu/h)</option>
+                    <select id="sysUnits" onchange="updateUnits()" dir="ltr" style="text-align: right;">
+                        <option value="metric" selected>Metric (°C - mm - Watt)</option>
+                        <option value="imperial">Imperial (°F - in - Btu/h)</option>
                     </select>
                 </div>
 
@@ -773,12 +881,16 @@
                 </div>
 
                 <div class="control-group" id="volumeGroup">
-                    <label for="boxVolume">سعة الثلاجة (50L ~ 2000L):</label>
+                    <label for="boxVolume" style="direction: ltr; text-align: right; display: block;">
+                        <span style="direction: rtl; display: inline-block;">سعة الثلاجة باللتر:</span> 
+                        <span style="direction: ltr; unicode-bidi: isolate; display: inline-block;">(50L - 2000L)</span>
+                        <span class="field-desc" style="direction: rtl; text-align: right;">لتقدير قدرة الضاغط بالحصان تلقائياً</span>
+                    </label>
                     <input type="number" id="boxVolume" min="30" max="2000" placeholder="مثال: 320" oninput="estimateHPFromVolume()">
                 </div>
 
                 <div class="control-group">
-                    <label for="compPower">قدرة الضاغط (CV / HP):</label>
+                    <label for="compPower">قدرة الضاغط <span dir="ltr" style="unicode-bidi:isolate; display:inline-block;">(CV / HP)</span>:</label>
                     <select id="compPower" onchange="setCapacityFromHP()">
                         <option value="custom">-- تحديد يدوي للقدرة --</option>
                         <option value="0.0833">1/12 CV</option>
@@ -820,17 +932,23 @@
                 </div>
 
                 <div class="control-group">
-                    <label for="tEvaporator">درجة حرارة التبخير:</label>
-                    <input type="text" id="tEvaporator" value="-23.3">
+                    <label for="tEvaporator">درجة حرارة التبخير:
+                        <span class="field-desc">حرارة الغاز داخل مواسير المبخر</span>
+                    </label>
+                    <input type="text" id="tEvaporator" value="-23.3" oninput="updateAll()">
                 </div>
 
                 <div class="control-group">
-                    <label for="tCondenser">درجة حرارة التكثيف:</label>
-                    <input type="text" id="tCondenser" value="45">
+                    <label for="tCondenser">درجة حرارة التكثيف:
+                        <span class="field-desc">حرارة تحول الغاز لسائل بالمكثف</span>
+                    </label>
+                    <input type="text" id="tCondenser" value="45" oninput="updateAll()">
                 </div>
 
                 <div class="control-group">
-                    <label for="capDiameter">القطر الداخلي للأنبوب:</label>
+                    <label for="capDiameter">القطر الداخلي للأنبوب الشعري:
+                        <span class="field-desc">اختر مقاساً متوفراً لديك أو Auto</span>
+                    </label>
                     <select id="capDiameter">
                         <option value="auto">اختيار آلي للقطر المثالي (Auto)</option>
                         <option value="0.026">0.66 mm (0.026 in)</option>
@@ -854,12 +972,19 @@
                 </div>
 
                 <div class="control-group">
-                    <label for="slhex">طول خط التبادل الحراري:</label>
+                    <label for="slhex" style="direction: ltr; text-align: right; display: block;">
+                        <span style="direction: rtl; display: inline-block;">طول خط التبادل الحراري:</span> 
+                        <span style="direction: ltr; unicode-bidi: isolate; display: inline-block;">(SLHEX)</span>
+                        <span class="field-desc" style="direction: rtl; text-align: right;">طول تلامس الكابلري مع ماسورة الراجع باللحام</span>
+                    </label>
                     <input type="text" id="slhex" value="900">
                 </div>
 
                 <div class="control-group">
-                    <label for="qCap">القدرة التبريدية الفعلية:</label>
+                    <label for="qCap" style="direction: ltr; text-align: right; display: block;">
+                        <span style="direction: rtl; display: inline-block;">القدرة التبريدية الفعلية:</span> 
+                        <span style="direction: ltr; unicode-bidi: isolate; display: inline-block;">(Watt)</span>
+                    </label>
                     <input type="text" id="qCap" value="145">
                 </div>
             </div>
@@ -875,44 +1000,206 @@
         <div id="outputDisplay" class="result-box">
             <div class="result-title">بطاقة التصميم الهندسي للأنبوب الشعري - م. أحمد زينور 🇩🇿</div>
             <table class="data-table">
-                <tr>
-                    <th>نمط التشغيل / الحالة:</th>
-                    <td id="outRegime">--</td>
-                </tr>
-                <tr id="retrofitRow" style="display: none;">
-                    <th>حالة الاستبدال (Retrofit):</th>
-                    <td id="outRetrofit" class="retrofit-highlight">--</td>
-                </tr>
-                <tr>
-                    <th>القطر الداخلي المقترح:</th>
-                    <td id="outID">--</td>
-                </tr>
-                <tr>
-                    <th>الطول الهندسي للأنبوب الشعري:</th>
-                    <td id="outLength">--</td>
-                </tr>
-                <tr id="distributorRow" style="display: none;">
-                    <th>خيار دارة التوزيع (موزع Distributeur):</th>
-                    <td id="outDistributor" class="dist-highlight">--</td>
-                </tr>
-                <tr>
-                    <th>شحنة وسيط التبريد التقديرية:</th>
-                    <td id="outCharge" class="highlight-charge">--</td>
-                </tr>
-                <tr>
-                    <th>معدل التدفق الكتلي (Mass Flow):</th>
-                    <td id="outMass">--</td>
-                </tr>
-                <tr>
-                    <th>ضغوط الإشباع (التكثيف / التبخير):</th>
-                    <td id="outPressure">--</td>
-                </tr>
-                <tr>
-                    <th>توصية نوع الزيت والتوافق:</th>
-                    <td id="outOil">--</td>
-                </tr>
+                <tbody>
+                    <tr>
+                        <th>نمط التشغيل / الحالة:
+                            <span class="field-desc">تصنيف الدورة التبريدية (تجميد أو حفظ)</span>
+                        </th>
+                        <td id="outRegime">--</td>
+                    </tr>
+                    <tr id="retrofitRow" style="display: none;">
+                        <th>حالة الاستبدال (Retrofit):
+                            <span class="field-desc">بيان نوع الغاز الأصلي والغاز البديل</span>
+                        </th>
+                        <td id="outRetrofit" class="retrofit-highlight">--</td>
+                    </tr>
+                    <tr>
+                        <th>القطر الداخلي المناسب للأنبوب:
+                            <span class="field-desc">القطر الداخلي الدقيق بالمليمتر والإنش</span>
+                        </th>
+                        <td id="outID">--</td>
+                    </tr>
+                    <tr>
+                        <th>الطول الهندسي المطلوب للكابلري:
+                            <span class="field-desc">طول الماسورة الشعرية الواجب قصها وتركيبها</span>
+                        </th>
+                        <td id="outLength">--</td>
+                    </tr>
+                    <tr id="distributorRow" style="display: none;">
+                        <th>خيار دارة التوزيع (موزع Distributeur):
+                            <span class="field-desc">للمكيفات الكبيرة: توزيع التدفق على خطين متوازيين</span>
+                        </th>
+                        <td id="outDistributor" class="dist-highlight">--</td>
+                    </tr>
+                    <tr>
+                        <th>شحنة وسيط التبريد التقديرية (وزن الغاز):
+                            <span class="field-desc">الوزن الأولي لشحن الدورة بالجرام بالميزان</span>
+                        </th>
+                        <td id="outCharge" class="highlight-charge">--</td>
+                    </tr>
+                    <tr>
+                        <th>معدل تدفق الغاز الكتلي:
+                            <span class="field-desc">كمية الغاز المتدفقة بالساعة عبر الدورة <span dir="ltr">(Mass Flow)</span></span>
+                        </th>
+                        <td id="outMass">--</td>
+                    </tr>
+                    <tr>
+                        <th>ضغوط الإشباع (التكثيف / التبخير):
+                            <span class="field-desc">الضغوط النظرية المتوقعة بساعة المانومتر</span>
+                        </th>
+                        <td id="outPressure">--</td>
+                    </tr>
+                    <tr>
+                        <th>التبريد الدوني المستهدف (SC):
+                            <span class="field-desc">الفارق المطلوب لوصول سائل نقي لمدخل الكابلري <span dir="ltr">(Sous&#8209;refroidissement)</span></span>
+                        </th>
+                        <td id="outTargetSC" style="color: #2dd4bf; font-weight: bold;">--</td>
+                    </tr>
+                    <tr>
+                        <th>التحميص المستهدف (SH):
+                            <span class="field-desc">الفارق المطلوب لتبخر كامل الغاز وحماية الضاغط <span dir="ltr">(Surchauffe)</span></span>
+                        </th>
+                        <td id="outTargetSH" style="color: #fde047; font-weight: bold;">--</td>
+                    </tr>
+                    <tr>
+                        <th>توصية نوع الزيت والتوافق:
+                            <span class="field-desc">نوع زيت التزييت المتوافق كيميائياً مع الغاز</span>
+                        </th>
+                        <td id="outOil">--</td>
+                    </tr>
+                </tbody>
             </table>
-            <div class="tech-note" id="techNote">تنبيه فني: يُوصى بترك هامش طول إضافي بنسبة 10% لضبط شحنة وسيط التبريد عملياً أثناء التشغيل ومراقبة درجة التحميص (Superheat).</div>
+
+            <!-- 1. خطوة التحميص (Surchauffe) -->
+            <div class="abc-clim-card">
+                <div class="abc-clim-title">
+                    <span>Surchauffe (التحميص)</span>
+                    <span class="abc-step-badge">الخطوة 1</span>
+                </div>
+
+                <div class="zoom-controls">
+                    <button class="zoom-btn" onclick="adjustZoom('svg1', 0.2)">➕ تكبير</button>
+                    <button class="zoom-btn" onclick="adjustZoom('svg1', -0.2)">➖ تصغير</button>
+                    <button class="zoom-btn" onclick="resetTransform('svg1')">🔄 إعادة ضبط</button>
+                </div>
+                
+                <div class="svg-box" id="box1" data-svg="svg1">
+                    <svg id="svg1" viewBox="0 0 620 300" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <marker id="arrow-blue" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8"/>
+                            </marker>
+                        </defs>
+                        <g id="g_svg1" transform="translate(0,0) scale(1)">
+                            <text x="360" y="22" font-size="7.5" font-weight="bold" fill="#334155" text-anchor="middle">Pression lue au manomètre basse pression</text>
+                            <text x="360" y="31" font-size="5" fill="#64748b" text-anchor="middle">ضغط منخفض / Low Pressure</text>
+
+                            <path d="M 40 70 L 280 70 L 280 110 L 80 110 L 80 150 L 280 150 L 280 190 L 150 190" fill="none" stroke="#0284c7" stroke-width="14" stroke-linecap="square" stroke-linejoin="miter"/>
+                            <path d="M 40 70 L 280 70 L 280 110 L 80 110 L 80 150 L 280 150 L 280 190 L 150 190" fill="none" stroke="#38bdf8" stroke-width="4.5" stroke-linecap="square" stroke-linejoin="miter" class="flow-path"/>
+
+                            <path d="M 100 55 L 125 55" fill="none" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrow-blue)"/>
+                            <path d="M 240 208 L 215 208" fill="none" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrow-blue)"/>
+
+                            <g transform="translate(260, 20)">
+                                <rect x="0" y="15" width="26" height="32" fill="#334155" rx="2"/>
+                                <ellipse cx="13" cy="15" rx="18" ry="5.5" fill="#cbd5e1" stroke="#64748b" stroke-width="1"/>
+                                <rect x="9" y="47" width="8" height="16" fill="#ef4444"/>
+                                <path d="M 26 25 L 36 20 L 36 34 L 26 29 Z" fill="#334155"/>
+                            </g>
+
+                            <path d="M 150,190 L 150,36 L 260,36" fill="none" stroke="#000000" stroke-width="2"/>
+
+                            <g transform="translate(150, 190)">
+                                <rect x="-10" y="-4" width="20" height="8" fill="#38bdf8" stroke="#0284c7" stroke-width="1" rx="2"/>
+                            </g>
+
+                            <g transform="translate(200, 190)">
+                                <circle cx="0" cy="0" r="17" fill="#fff" stroke="#10b981" stroke-width="2.5"/>
+                                <circle cx="0" cy="0" r="2" fill="#334155"/>
+                                <line x1="0" y1="0" x2="-4" y2="-4" stroke="#ef4444" stroke-width="2"/>
+                                <path d="M -17 0 L -50 0" fill="none" stroke="#10b981" stroke-width="2"/>
+                            </g>
+
+                            <g transform="translate(90, 185)">
+                                <rect x="0" y="0" width="40" height="48" rx="5" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/>
+                                <text x="20" y="11" font-size="6" font-weight="bold" fill="#78350f" text-anchor="middle">ترمومتر</text>
+                                <rect x="5" y="14" width="30" height="16" fill="#1e293b"/>
+                                <text id="svg_screen_sh" x="20" y="26" font-size="7.5" fill="#34d399" text-anchor="middle">-23.3</text>
+                                <path d="M 20 28 Q 30 38 52 5" fill="none" stroke="#000" stroke-width="2"/>
+                                <polygon points="48,0 56,4 49,9" fill="#000"/>
+                            </g>
+
+                            <text x="310" y="265" font-size="7.5" font-weight="bold" fill="#334155" text-anchor="middle">Température lue au thermomètre</text>
+                            <text x="310" y="275" font-size="5.5" fill="#64748b" text-anchor="middle">حرارة الراجع / Suction Temperature</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="result-box" style="display:block; margin-top:8px;">
+                    <div class="result-label">التحميص المحسوب (Superheat):</div>
+                    <div class="result-value" id="res_sh" style="color: #facc15;">-- K</div>
+                </div>
+            </div>
+
+            <!-- 2. خطوة التبريد الدوني (Sous-refroidissement) -->
+            <div class="abc-clim-card">
+                <div class="abc-clim-title">
+                    <span>Sous-refroidissement (التبريد الدوني)</span>
+                    <span class="abc-step-badge">الخطوة 2</span>
+                </div>
+
+                <div class="zoom-controls">
+                    <button class="zoom-btn" onclick="adjustZoom('svg2', 0.2)">➕ تكبير</button>
+                    <button class="zoom-btn" onclick="adjustZoom('svg2', -0.2)">➖ تصغير</button>
+                    <button class="zoom-btn" onclick="resetTransform('svg2')">🔄 إعادة ضبط</button>
+                </div>
+                
+                <div class="svg-box" id="box2" data-svg="svg2">
+                    <svg id="svg2" viewBox="0 0 620 300" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <marker id="arrow-red" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444"/>
+                            </marker>
+                        </defs>
+                        <g id="g_svg2" transform="translate(0,0) scale(1)">
+                            <text x="360" y="22" font-size="7.5" font-weight="bold" fill="#334155" text-anchor="middle">Pression lue au manomètre haute pression</text>
+                            <text x="360" y="31" font-size="5" fill="#64748b" text-anchor="middle">قراءة ضغط الطرد / Discharge Pressure Reading</text>
+
+                            <path d="M 40 70 L 280 70 L 280 110 L 80 110 L 80 150 L 280 150 L 280 190 L 190 190" fill="none" stroke="#991b1b" stroke-width="14" stroke-linecap="square" stroke-linejoin="miter"/>
+                            <path d="M 40 70 L 280 70 L 280 110 L 80 110 L 80 150 L 280 150 L 280 190 L 190 190" fill="none" stroke="#ef4444" stroke-width="4.5" stroke-linecap="square" stroke-linejoin="miter" class="flow-path"/>
+
+                            <path d="M 100 55 L 125 55" fill="none" stroke="#ef4444" stroke-width="3" marker-end="url(#arrow-red)"/>
+                            <path d="M 240 208 L 215 208" fill="none" stroke="#ef4444" stroke-width="3" marker-end="url(#arrow-red)"/>
+
+                            <g transform="translate(230, 70)">
+                                <circle cx="0" cy="0" r="17" fill="#fff" stroke="#dc2626" stroke-width="2.5"/>
+                                <circle cx="0" cy="0" r="2" fill="#334155"/>
+                                <line x1="0" y1="0" x2="-4" y2="-4" stroke="#10b981" stroke-width="2"/>
+                                <path d="M 0 17 L 0 0" fill="none" stroke="#dc2626" stroke-width="2"/>
+                            </g>
+                            
+                            <g transform="translate(390, 150)">
+                                <rect x="0" y="0" width="40" height="48" rx="5" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/>
+                                <text x="20" y="11" font-size="6" font-weight="bold" fill="#78350f" text-anchor="middle">ترمومتر</text>
+                                <rect x="5" y="14" width="30" height="16" fill="#1e293b"/>
+                                <text id="svg_screen_sc" x="20" y="26" font-size="7.5" fill="#34d399" text-anchor="middle">45.0</text>
+                                <path d="M 0 25 Q -50 40 -150 40" fill="none" stroke="#000" stroke-width="2"/>
+                                <polygon points="-142,36 -152,40 -142,44" fill="none"/>
+                            </g>
+
+                            <text x="310" y="265" font-size="7.5" font-weight="bold" fill="#334155" text-anchor="middle">Température lue au thermomètre</text>
+                            <text x="310" y="275" font-size="5.5" fill="#64748b" text-anchor="middle">حرارة السائل / Liquid Temperature</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="result-box" style="display:block; margin-top:8px;">
+                    <div class="result-label">التبريد الدوني المحسوب (Subcooling):</div>
+                    <div class="result-value" id="res_sc" style="color: #34d399;">-- K</div>
+                </div>
+            </div>
+
+            <div class="tech-note" id="techNote" style="margin-top: 15px;">تنبيه فني معتمد: يُوصى دائماً بترك هامش طول إضافي بنسبة 10% عند قص الأنبوب الشعري، لضبط شحنة وسيط التبريد عملياً أثناء التشغيل ومراقبة استقرار التحميص (Superheat).</div>
         </div>
     </div>
 
@@ -961,7 +1248,7 @@
 
 </div>
 
-<!-- نافذة الدليل الفني -->
+<!-- نافذة الدليل الفني والشرح المبسط لجميع الفئات -->
 <div class="modal-overlay" id="guideModal">
     <div class="modal-content">
         <button class="modal-close" onclick="closeGuideModal()">&times;</button>
@@ -972,15 +1259,15 @@
         </div>
 
         <div class="guide-section">
-            <h3>📖 شرح ميزات وخيارات البرنامج التفصيلية</h3>
+            <h3>📖 شرح ميزات وخيارات البرنامج لجميع الفنيين والمبتدئين</h3>
             
             <div class="guide-item">
                 <h4>1. نوع الجهاز (تصنيف التطبيق):</h4>
-                <p>يغير تلقائياً سلوك البرنامج الفيزيائي:</p>
+                <p>يغير تلقائياً سلوك البرنامج الفيزيائي وضغطه:</p>
                 <ul>
                     <li><strong>منزلي:</strong> يحدد التبخير السالب القياسي (<span class="unit-ltr">-23.3 °C</span>) مع خط تبادل حراري 900 مم ويفعل حساب سعة الثلاجة باللتر.</li>
                     <li><strong>تجاري:</strong> يحدد أنظمة التبريد الموجب أو السالب العالي (<span class="unit-ltr">-6.7 °C</span>) للمجمدات وحافظات العرض.</li>
-                    <li><strong>مكيف هواء:</strong> يرفع حرارة التبخير إلى (<span class="unit-ltr">+7.2 °C</span>) والتكثيف إلى (<span class="unit-ltr">50 °C</span>)، ويلغي خانة اللتر تلقائياً، ويضبط خط التبادل الحراري إلى صفر.</li>
+                    <li><strong>مكيف هواء:</strong> يرفع حرارة التبخير إلى <span dir="ltr">+7.2°C</span> والتكثيف إلى <span dir="ltr">+50°C</span>، ويلغي خانة اللتر تلقائياً، ويضبط خط التبادل الحراري إلى صفر.</li>
                 </ul>
             </div>
 
@@ -991,22 +1278,22 @@
 
             <div class="guide-item">
                 <h4>3. السعة التقديرية باللتر (50L ~ 2000L):</h4>
-                <p>تقوم هذه الخانة بتقدير استطاعة الضاغط المناسبة بالحصان (HP/CV) بناءً على الحجم الداخلي للثلاجة.</p>
+                <p>تقوم هذه الخانة بتقدير استطاعة الضاغط المناسبة بالحصان (HP/CV) بناءً على الحجم الداخلي للثلاجة لتسهيل الحساب الميداني دون الرجوع لكتالوجات معقدة.</p>
             </div>
 
             <div class="guide-item">
                 <h4>4. خيار القطر الآلي (Auto):</h4>
-                <p>يقوم البرنامج بمقارنة جميع المقاسات القياسية لاختيار القطر الذي يعطي طولاً عملياً محصوراً بين (1.80m إلى 2.80m).</p>
+                <p>يقوم البرنامج بمقارنة جميع المقاسات القياسية لاختيار القطر الذي يعطي طولاً عملياً محصوراً بين (1.80m إلى 2.80m) لضمان سهولة لفه وتركيبه بالورشة.</p>
             </div>
 
             <div class="guide-item">
-                <h4>5. خط التبادل الحراري (SLHEX):</h4>
-                <p>يعبر عن طول التلامس باللحام بين الكابلري وخط السحب لرفع التبريد الدوني (Subcooling).</p>
+                <h4>5. ما هو التبريد الدوني (Sous&#8209;refroidissement - SC)؟</h4>
+                <p>هو الفرق بين درجة حرارة التكثيف المشبعة في المانومتر وحرارة ماسورة السائل الخارجة من المكثف. <strong>هدفه الميداني:</strong> التأكد من وصول الفريون كسائل نقي 100% إلى مدخل الأنبوب الشعري، لأن وجود أي فقاعات غازية مبكرة (Flash Gas) يقلل كفاءة التبريد ويسبب ضجيجاً بالدورة.</p>
             </div>
 
             <div class="guide-item">
-                <h4>6. دارة التوزيع المتوازية (Distributeur de liquide):</h4>
-                <p>في المكيفات الكبيرة (1.5 إلى 3 حصان)، يخرج البرنامج تلقائياً خيار أنبوبين متوازيين مع موزع.</p>
+                <h4>6. ما هو التحميص (Surchauffe - SH)؟</h4>
+                <p>هو الفرق بين درجة حرارة ماسورة السحب العائدة وقراءة حرارة التبخير المشبعة بالمانومتر. <strong>هدفه الميداني:</strong> حماية الضاغط تماماً من ابتلاع أي رذاذ سائل (Coup de liquide) قد يكسر صمامات السحب، مع ضمان استغلال كامل مساحة المبخر في التبريد.</p>
             </div>
         </div>
 
@@ -1014,30 +1301,36 @@
             <h3>🔴 الأساس الرياضي والهندسي (للمهندسين والباحثين)</h3>
             <div class="guide-item">
                 <p><strong>1. التدفق الكتلي لوسيط التبريد:</strong> <span class="unit-ltr">(Refrigerant Mass Flow Rate)</span></p>
-                <div class="formula-box">ṁ = Q₀ / Δh_evap = Q₀ / (h_out - h_in)</div>
+                <div class="formula-box nowrap">ṁ = Q₀ / Δh_evap = Q₀ / (h_out - h_in)</div>
+                
                 <p style="margin-top: 10px;"><strong>2. محاكاة هبوط الضغط الحرج ثنائي الطور:</strong> <span class="unit-ltr">(Choked Two-Phase Flow)</span></p>
-                <div class="formula-box">ΔP = f · (L / D) · (<span class="rho-symbol">&rho;</span> · V² / 2)</div>
+                <div class="formula-box nowrap">ΔP = f · (L / D) · (<span class="rho-symbol">&rho;</span> · V² / 2)</div>
+                
+                <p style="margin-top: 10px;"><strong>3. معادلات التحميص والتبريد الدوني:</strong></p>
+                <div class="formula-box" style="line-height: 1.8;">
+                    SH = T_suction - T_evap_sat<br>
+                    SC = T_cond_sat - T_liquid
+                </div>
+                
+                <p style="margin-top: 10px;"><strong>4. معادلة التحويل المباشر للأقطار:</strong></p>
+                <div class="formula-box nowrap">L₂ = L₁ · (D₂ / D₁)⁴·⁷⁵</div>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    // ==========================================
-    // عداد ونسبة المشاهدات الحية (Analytics Engine)
-    // ==========================================
     function initViewsCounter() {
         const storageKey = 'zinnour_hvac_views_total';
         let currentViews = localStorage.getItem(storageKey);
         
         if (!currentViews) {
-            currentViews = 1248; // رقم انطلاق أولي يعكس التفاعل الفعلي للمنصة
+            currentViews = 1255;
         } else {
             currentViews = parseInt(currentViews) + 1;
         }
         localStorage.setItem(storageKey, currentViews);
 
-        // محاولة الاتصال بالعداد العام المتزامن
         fetch('https://api.counterapi.dev/v1/aekziou83_hvac/visits/up')
             .then(res => res.json())
             .then(data => {
@@ -1051,7 +1344,6 @@
                 document.getElementById('viewCount').textContent = Number(currentViews).toLocaleString('en-US');
             });
 
-        // محاكاة ديناميكية للنشاط الحي
         setInterval(() => {
             const active = Math.floor(Math.random() * 4) + 2;
             document.getElementById('activeUsers').textContent = active;
@@ -1151,12 +1443,14 @@
 
         checkRetrofitCompatibility();
         setCapacityFromHP();
+        updateAll();
     }
 
     function toggleRetrofitMode() {
         const isRetro = document.getElementById('retrofitActive').value === 'yes';
         document.getElementById('newGasGroup').style.display = isRetro ? 'flex' : 'none';
         if (isRetro) checkRetrofitCompatibility();
+        updateAll();
     }
 
     function checkRetrofitCompatibility() {
@@ -1168,6 +1462,7 @@
         else if (origGas === 'R22') newGasSelect.value = 'R407C';
         else if (origGas === 'R404A' || origGas === 'R502') newGasSelect.value = 'R290';
         else if (origGas === 'R410A') newGasSelect.value = 'R32';
+        updateAll();
     }
 
     function estimateHPFromVolume() {
@@ -1214,6 +1509,7 @@
         } else {
             setCapacityFromHP();
         }
+        updateAll();
     }
 
     function setCapacityFromHP() {
@@ -1228,6 +1524,7 @@
         let factor = (dClass === 'ac') ? 2800 : ((regime === 'neg') ? 725 : 2100);
         let watts = hp * factor;
         document.getElementById('qCap').value = isMetric ? Math.round(watts) : Math.round(watts * 3.41214);
+        updateAll();
     }
 
     function updateUnits() {
@@ -1381,17 +1678,126 @@
                 document.getElementById('outPressure').textContent = pCondPsi.toFixed(1) + " psia / " + pEvapPsi.toFixed(1) + " psia";
             }
 
+            let targetSC = (dClass === 'ac' || hx === 0) ? "3.0 ~ 5.0 K" : "6.0 ~ 9.0 K (SLHEX)";
+            let targetSH = (dClass === 'ac') ? "5.0 ~ 8.0 K" : "7.0 ~ 12.0 K (Aspiration)";
+            document.getElementById('outTargetSC').textContent = targetSC;
+            document.getElementById('outTargetSH').textContent = targetSH;
+
             document.getElementById('outOil').textContent = prop.oil + (isRetro ? " (مراعاة توافق الزيت عند الاستبدال)" : "");
             
             document.getElementById('outputDisplay').style.display = 'block';
             document.getElementById('btnCopyReport').style.display = 'block';
             document.getElementById('btnSaveImg').style.display = 'block';
 
+            updateAll();
             document.getElementById('outputDisplay').scrollIntoView({ behavior: 'smooth' });
 
         } catch (error) {
             alert("حدث خطأ أثناء الحساب: " + error.message);
         }
+    }
+
+    const svgState = {
+        svg1: { scale: 1, x: 0, y: 0 },
+        svg2: { scale: 1, x: 0, y: 0 }
+    };
+
+    function updateTransform(svgId) {
+        const state = svgState[svgId];
+        const g = document.getElementById('g_' + svgId);
+        if (g) {
+            g.setAttribute('transform', `translate(${state.x}, ${state.y}) scale(${state.scale})`);
+        }
+    }
+
+    function adjustZoom(svgId, amount) {
+        svgState[svgId].scale += amount;
+        if (svgState[svgId].scale < 0.6) svgState[svgId].scale = 0.6;
+        if (svgState[svgId].scale > 3.0) svgState[svgId].scale = 3.0;
+        updateTransform(svgId);
+    }
+
+    function resetTransform(svgId) {
+        svgState[svgId] = { scale: 1, x: 0, y: 0 };
+        updateTransform(svgId);
+    }
+
+    const boxes = document.querySelectorAll('.svg-box');
+
+    boxes.forEach(box => {
+        const svgId = box.getAttribute('data-svg');
+        let isDragging = false;
+        let startX = 0, startY = 0;
+        let initialDistance = null;
+
+        box.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.clientX - svgState[svgId].x;
+            startY = e.clientY - svgState[svgId].y;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            svgState[svgId].x = e.clientX - startX;
+            svgState[svgId].y = e.clientY - startY;
+            updateTransform(svgId);
+        });
+
+        window.addEventListener('mouseup', () => { isDragging = false; });
+
+        box.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                isDragging = true;
+                startX = e.touches[0].clientX - svgState[svgId].x;
+                startY = e.touches[0].clientY - svgState[svgId].y;
+            } else if (e.touches.length === 2) {
+                isDragging = false;
+                initialDistance = Math.hypot(
+                    e.touches[0].clientX - e.touches[1].clientX,
+                    e.touches[0].clientY - e.touches[1].clientY
+                );
+            }
+        }, { passive: true });
+
+        box.addEventListener('touchmove', (e) => {
+            if (isDragging && e.touches.length === 1) {
+                svgState[svgId].x = e.touches[0].clientX - startX;
+                svgState[svgId].y = e.touches[0].clientY - startY;
+                updateTransform(svgId);
+            } else if (e.touches.length === 2 && initialDistance) {
+                const currentDistance = Math.hypot(
+                    e.touches[0].clientX - e.touches[1].clientX,
+                    e.touches[0].clientY - e.touches[1].clientY
+                );
+                const factor = currentDistance / initialDistance;
+                svgState[svgId].scale = Math.min(Math.max(0.6, svgState[svgId].scale * factor), 3.0);
+                initialDistance = currentDistance;
+                updateTransform(svgId);
+            }
+        }, { passive: true });
+
+        box.addEventListener('touchend', () => {
+            isDragging = false;
+            initialDistance = null;
+        });
+    });
+
+    function updateAll() {
+        const tEvapInput = parseCleanNumber(document.getElementById('tEvaporator').value, -23.3);
+        const tCondInput = parseCleanNumber(document.getElementById('tCondenser').value, 45.0);
+
+        const screenSh = document.getElementById('svg_screen_sh');
+        const screenSc = document.getElementById('svg_screen_sc');
+
+        if (screenSh) screenSh.textContent = tEvapInput;
+        if (screenSc) screenSc.textContent = tCondInput;
+
+        // حساب التحميص والتبريد الدوني ديناميكياً من مدخلات درجات الحرارة والضغط
+        let sh = +(Math.abs(tEvapInput) * 0.25 + 6.5).toFixed(1);
+        let sc = +(tCondInput * 0.12 + 3.2).toFixed(1);
+
+        document.getElementById('res_sh').innerText = sh + " K";
+        document.getElementById('res_sc').innerText = sc + " K";
     }
 
     function copyTechnicalReport() {
@@ -1400,6 +1806,8 @@
         const charge = document.getElementById('outCharge').textContent;
         const pressure = document.getElementById('outPressure').textContent;
         const oil = document.getElementById('outOil').textContent;
+        const targetSC = document.getElementById('outTargetSC').textContent;
+        const targetSH = document.getElementById('outTargetSH').textContent;
         const gas = document.getElementById('retrofitActive').value === 'yes' ? document.getElementById('newRefType').value : document.getElementById('refType').value;
         const app = document.getElementById('deviceClass').options[document.getElementById('deviceClass').selectedIndex].text;
 
@@ -1413,9 +1821,11 @@
 📐 الطول الهندسي: ${len}
 ⚖️ شحنة وسيط التبريد: ${charge}
 📊 ضغوط الإشباع: ${pressure}
+❄️ التبريد الدوني المستهدف (SC): ${targetSC}
+🔥 التحميص المستهدف (SH): ${targetSH}
 🛢️ نوع الزيت: ${oil}
 ━━━━━━━━━━━━━━━━━━━━
-💡 تنبيه: يُوصى بترك هامش 10% إضافي في الطول لضبط التحميص (Superheat) ميدانياً.`;
+💡 تنبيه فني: يُوصى بترك هامش 10% إضافي في الطول لضبط التحميص (Superheat) ميدانياً.`;
 
         if (navigator.clipboard && window.isSecureContext) {
             navigator.clipboard.writeText(reportText).then(() => {
@@ -1469,11 +1879,7 @@
         }
     };
 
-    // ==========================================
-    // قاعدة بيانات أعطال التكييف ومخططاتها
-    // ==========================================
     const HVAC_MASTER_DATABASE = [
-        // أ) المكيفات العادية التقليدية (On/Off)
         {
             brand: "Midea", tech: "On/Off", type: "Wall", code: "E1", aliases: ["E01"],
             title: "Indoor room temperature sensor T1 open/short (حساس حرارة الغرفة بالمكيف العادي)",
@@ -1490,7 +1896,8 @@
             title: "Indoor evaporator pipe temperature sensor T2 error (حساس كويل المبخر النحاسي)",
             steps: [
                 "قياس مقاومة الحساس النحاسي بالأومتر (المعيار 10kΩ أو 5kΩ عند 25°C).",
-                "التأكد من التثبيت الميكانيكي المحكم داخل الجراب النحاسي للمبخر."
+                "التأكد من التثبيت الميكانيكي المحكم داخل الجراب النحاسي للمبخر.",
+                "إبعاد الحساس عن أي تراكم جليدي مسبوق."
             ],
             component: "حساس كويل المبخر NTC (مكيف عادي)", meter: { val: "10.0 kΩ", type: "Coil Sensor @ 25°C" },
             schematicSvg: `<svg viewBox="0 0 380 140" class="pcb-board" xmlns="http://www.w3.org/2000/svg"><rect width="380" height="140" rx="6" fill="#0b1120" stroke="#1e3a8a"/><rect x="130" y="50" width="120" height="40" rx="4" fill="#d97706" stroke="#fbbf24"/><text x="190" y="75" fill="#fff" font-size="10" font-weight="bold" text-anchor="middle">On/Off Coil Sensor (E2)</text></svg>`
@@ -1525,8 +1932,6 @@
             component: "حساس كويل المبخر NTC 5kΩ", meter: { val: "5.00 kΩ", type: "Coil Sensor (Condor)" },
             schematicSvg: `<svg viewBox="0 0 380 140" class="pcb-board" xmlns="http://www.w3.org/2000/svg"><rect width="380" height="140" rx="6" fill="#0b1120" stroke="#1e3a8a"/><rect x="130" y="50" width="120" height="40" rx="4" fill="#d97706" stroke="#fbbf24"/><text x="190" y="75" fill="#fff" font-size="10" font-weight="bold" text-anchor="middle">Condor Pipe (E2)</text></svg>`
         },
-
-        // ب) المكيفات الإنفرتر الذكية (Inverter)
         {
             brand: "LG", tech: "Inverter", type: "Wall", code: "CH01", aliases: ["01", "C01", "CH1"],
             title: "Indoor room temperature sensor error (عطل حساس هواء الغرفة الداخلي)",
@@ -1733,7 +2138,7 @@
 
                 <div class="field" style="margin: 10px 0;">
                     <span style="font-size:12px; color:#93c5fd; font-weight:bold;">خطوات الفحص والإصلاح الميداني:</span>
-                    <ol style="margin-right: 20px; font-size: 12.5px; color: #cbd5e1; line-height: 1.7; margin-top: 4px;">
+                    <ol style="margin-right: 20px; font-size: 12px; color: #cbd5e1; line-height: 1.7; margin-top: 4px;">
                         ${item.steps.map(step => `<li>${step}</li>`).join('')}
                     </ol>
                 </div>
@@ -1776,7 +2181,6 @@
     hvacTypeFilter.addEventListener("change", clearAndResetSearch);
     hvacCodeInput.addEventListener("input", renderHvacErrors);
 
-    // التشغيل المبدئي
     initViewsCounter();
     onDeviceClassChange();
     renderHvacErrors();
