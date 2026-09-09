@@ -517,6 +517,25 @@
             line-height: 1.5;
         }
 
+        /* صندوق شرح المصطلحات للمبتدئين */
+        .glossary-box {
+            background: linear-gradient(135deg, #09122c 0%, #0f1c3f 100%);
+            border: 1px dashed var(--secondary);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 15px;
+            font-size: 12px;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        .glossary-title {
+            color: #facc15;
+            font-weight: bold;
+            margin-bottom: 6px;
+            font-size: 12.5px;
+        }
+
         .tech-note {
             padding: 10px 12px;
             font-size: 11.5px;
@@ -1167,7 +1186,7 @@
 
                 <div class="result-box" style="display:block; margin-top:8px;">
                     <div class="result-label">التحميص المحسوب (Superheat):</div>
-                    <div class="result-value" id="res_sh" style="color: #facc15;">-- K</div>
+                    <div class="result-value" id="res_sh" style="color: #facc15;">-- K (فارق درجات الحرارة)</div>
                 </div>
             </div>
 
@@ -1225,11 +1244,11 @@
 
                 <div class="result-box" style="display:block; margin-top:8px;">
                     <div class="result-label">التبريد الدوني المحسوب (Subcooling):</div>
-                    <div class="result-value" id="res_sc" style="color: #34d399;">-- K</div>
+                    <div class="result-value" id="res_sc" style="color: #34d399;">-- K (فارق درجات الحرارة)</div>
                 </div>
             </div>
 
-            <!-- 3. تقرير الفحص وتشخيص الأعطال (Diagnostics) المضاف بناءً على طلبك -->
+            <!-- 3. تقرير الفحص وتشخيص الأعطال (Diagnostics) -->
             <div class="abc-clim-card">
                 <div class="abc-clim-title">
                     <span>🔍 تقرير الفحص وتشخيص الأعطال / Diagnostics</span>
@@ -1248,11 +1267,19 @@
                     <div class="diag-item">
                         <div class="diag-title">المعدلات القياسية / Standard Rates:</div>
                         <div class="diag-desc">
-                            • التحميص المثالي / Ideal SH: <b>5K إلى 8K</b><br>
-                            • التبريد الدوني المثالي / Ideal SC: <b>3K إلى 6K</b>
+                            • التحميص المثالي / Ideal SH: <b>5K إلى 8K (فارق درجات الحرارة)</b><br>
+                            • التبريد الدوني المثالي / Ideal SC: <b>3K إلى 6K (فارق درجات الحرارة)</b>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- صندوق دليل المصطلحات للمبتدئين -->
+            <div class="glossary-box">
+                <div class="glossary-title">💡 دليل مبسط للمبتدئين في الورشة:</div>
+                • <strong>معنى حرف (K):</strong> يرمز إلى وحدة <strong>الكلفن (Kelvin)</strong> أو <strong>فارق درجات الحرارة</strong> بين نقطتين.<br>
+                • <strong>التحميص (SH):</strong> يبين ما إذا كان الغاز وصل لحالة التبخر الكاملة لحماية الضاغط.<br>
+                • <strong>التبريد الدوني (SC):</strong> يبين ما إذا كان الفريون وصل كـ "سائل نقي 100%" لمدخل الأنبوب الشعري.
             </div>
 
             <div class="tech-note" id="techNote">تنبيه فني معتمد: يُوصى دائماً بترك هامش طول إضافي بنسبة 10% عند قص الأنبوب الشعري، لضبط شحنة وسيط التبريد عملياً أثناء التشغيل ومراقبة استقرار التحميص (Superheat).</div>
@@ -1851,8 +1878,8 @@
         let sh = +(Math.abs(tEvapInput) * 0.25 + 6.5).toFixed(1);
         let sc = +(tCondInput * 0.12 + 3.2).toFixed(1);
 
-        document.getElementById('res_sh').innerText = sh + " K";
-        document.getElementById('res_sc').innerText = sc + " K";
+        document.getElementById('res_sh').innerHTML = `${sh} K <span style="font-size: 0.75rem; color: #94a3b8; font-weight: normal;">(فارق درجات الحرارة)</span>`;
+        document.getElementById('res_sc').innerHTML = `${sc} K <span style="font-size: 0.75rem; color: #94a3b8; font-weight: normal;">(فارق درجات الحرارة)</span>`;
 
         let shText = "";
         if (sh < 5) shText = "⚠️ تحميص منخفض جداً (Low SH): خطر دخول سائل للضاغط (Liquid Slug)! تحقق من الشحنة.";
