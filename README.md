@@ -1,2 +1,2 @@
-# havc-zinnour-pro
+# hvac-zinnour-pro
 ⁠HVAC diagnostic and capillary tools
