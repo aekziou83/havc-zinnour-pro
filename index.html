@@ -67,6 +67,8 @@
             margin-bottom: 14px;
             font-size: 12px;
             color: #cbd5e1;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         .analytics-item {
@@ -98,6 +100,31 @@
             font-weight: bold;
             font-family: monospace;
             border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        .btn-like {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: #ffffff;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11.5px;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-like:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+
+        .btn-like:active {
+            transform: scale(0.95);
         }
 
         .app-nav-bar {
@@ -225,6 +252,11 @@
         .control-group.retrofit-box {
             background: rgba(245, 158, 11, 0.08);
             border: 1px dashed var(--accent-orange);
+        }
+
+        .control-group.product-box {
+            background: rgba(20, 184, 166, 0.08);
+            border: 1px dashed var(--teal);
         }
 
         label {
@@ -845,8 +877,10 @@
         </div>
         <div class="analytics-item">
             <span>إجمالي المشاهدات:</span>
-            <span class="stat-badge" id="viewCount">1,255</span>
-            <span style="font-size:11px; color:#94a3b8;">(نسبة التفاعل: <strong style="color:#f59e0b;" id="interactionRate">98.4%</strong>)</span>
+            <span class="stat-badge" id="viewCount">1,266</span>
+            <button type="button" class="btn-like" onclick="sendLike()">
+                ❤️ أعجبني (<span id="likeCount">142</span>)
+            </button>
         </div>
     </div>
 
@@ -889,6 +923,21 @@
                     </select>
                 </div>
 
+                <div class="control-group product-box">
+                    <label for="productCategory">طبيعة المادة / الاستخدام:
+                        <span class="field-desc">تحديد درجة حرارة الصندوق والتبخير علمياً</span>
+                    </label>
+                    <select id="productCategory" onchange="applyProductTemperature()">
+                        <option value="custom">-- تحديد حراري مخصص --</option>
+                        <option value="pastry" selected>حلويات وباتيسري (+4° إلى +6°C)</option>
+                        <option value="pharma">أدوية ومواد حساسة (+2° إلى +8°C)</option>
+                        <option value="veggies">فواكه وخضروات طازجة (0° إلى +4°C)</option>
+                        <option value="fish_fresh">أسماك طازجة على الثلج (-1° إلى +2°C)</option>
+                        <option value="meat_fresh">لحوم طازجة (-1.5° إلى +1°C)</option>
+                        <option value="frozen_neg">تجميد عميق (أسماك/لحوم/حلويات) (-18° إلى -22°C)</option>
+                    </select>
+                </div>
+
                 <div class="control-group retrofit-box">
                     <label for="retrofitActive">استبدال وسيط التبريد <span dir="ltr" style="unicode-bidi:isolate; display:inline-block;">(Retrofit)</span>:
                         <span class="field-desc">تعديل الحساب عند التحويل إلى غاز بديل</span>
@@ -922,8 +971,8 @@
                 <div class="control-group">
                     <label for="sysRegime">نظام التشغيل الحراري:</label>
                     <select id="sysRegime" onchange="adjustRegime()">
-                        <option value="neg" selected>تجميد / سالب (LBP)</option>
-                        <option value="pos">تكييف وحفظ / موجب (HBP/MBP)</option>
+                        <option value="neg">تجميد / سالب (LBP)</option>
+                        <option value="pos" selected>تكييف وحفظ / موجب (HBP/MBP)</option>
                     </select>
                 </div>
 
@@ -933,7 +982,7 @@
                         <span style="direction: ltr; unicode-bidi: isolate; display: inline-block;">(50L - 2000L)</span>
                         <span class="field-desc" style="direction: rtl; text-align: right;">لتقدير قدرة الضاغط بالحصان تلقائياً</span>
                     </label>
-                    <input type="number" id="boxVolume" min="30" max="2000" placeholder="مثال: 320" oninput="estimateHPFromVolume()">
+                    <input type="number" id="boxVolume" min="30" max="2000" placeholder="مثال: 700" value="700" oninput="estimateHPFromVolume()">
                 </div>
 
                 <div class="control-group">
@@ -945,10 +994,10 @@
                         <option value="0.125">1/8 CV</option>
                         <option value="0.143">1/7 CV</option>
                         <option value="0.166">1/6 CV</option>
-                        <option value="0.20" selected>1/5 CV</option>
+                        <option value="0.20">1/5 CV</option>
                         <option value="0.25">1/4 CV</option>
                         <option value="0.333">1/3 CV</option>
-                        <option value="0.375">3/8 CV</option>
+                        <option value="0.375" selected>3/8 CV</option>
                         <option value="0.50">1/2 CV</option>
                         <option value="0.625">5/8 CV</option>
                         <option value="0.75">3/4 CV</option>
@@ -982,7 +1031,7 @@
                     <label for="tEvaporator">درجة حرارة التبخير:
                         <span class="field-desc">حرارة الغاز داخل مواسير المبخر</span>
                     </label>
-                    <input type="text" id="tEvaporator" value="-23.3">
+                    <input type="text" id="tEvaporator" value="-3.5">
                 </div>
 
                 <div class="control-group">
@@ -1032,7 +1081,7 @@
                         <span style="direction: rtl; display: inline-block;">القدرة التبريدية الفعلية:</span> 
                         <span style="direction: ltr; unicode-bidi: isolate; display: inline-block;">(Watt)</span>
                     </label>
-                    <input type="text" id="qCap" value="145">
+                    <input type="text" id="qCap" value="780">
                 </div>
             </div>
 
@@ -1052,7 +1101,7 @@
                         <th>نمط التشغيل / الحالة:
                             <span class="field-desc">تصنيف الدورة التبريدية (تجميد أو حفظ)</span>
                         </th>
-                        <td id="outRegime"><span class="badge badge-negative">سالب / تجميد (LBP)</span></td>
+                        <td id="outRegime"><span class="badge badge-positive">موجب / تكييف وحفظ (HBP/MBP)</span></td>
                     </tr>
                     <tr id="retrofitRow" style="display: none;">
                         <th>حالة الاستبدال (Retrofit):
@@ -1209,8 +1258,7 @@
                 </div>
 
                 <div class="result-box" style="display:block; margin-top:8px;">
-                    <div class="result-label">التحميص المحسوب (Superheat):</div>
-                    <div class="result-value" id="res_sh" style="color: #facc15;">-- K (فارق درجات الحرارة)</div>
+                    <div class="result-title" style="padding: 6px; font-size: 12px;">التحميص المحسوب (Superheat): <span id="res_sh" style="color: #facc15;">-- K</span></div>
                 </div>
             </div>
 
@@ -1276,8 +1324,7 @@
                 </div>
 
                 <div class="result-box" style="display:block; margin-top:8px;">
-                    <div class="result-label">التبريد الدوني المحسوب (Subcooling):</div>
-                    <div class="result-value" id="res_sc" style="color: #34d399;">-- K (فارق درجات الحرارة)</div>
+                    <div class="result-title" style="padding: 6px; font-size: 12px;">التبريد الدوني المحسوب (Subcooling): <span id="res_sc" style="color: #34d399;">-- K</span></div>
                 </div>
             </div>
 
@@ -1378,38 +1425,18 @@
             <h3>📖 شرح ميزات وخيارات البرنامج لجميع الفنيين والمبتدئين</h3>
             
             <div class="guide-item">
-                <h4>1. نوع الجهاز (تصنيف التطبيق):</h4>
-                <p>يغير تلقائياً سلوك البرنامج الفيزيائي وضغطه:</p>
-                <ul>
-                    <li><strong>منزلي:</strong> يحدد التبخير السالب القياسي (<span class="unit-ltr">-23.3 °C</span>) مع خط تبادل حراري 900 مم ويفعل حساب سعة الثلاجة باللتر.</li>
-                    <li><strong>تجاري:</strong> يحدد أنظمة التبريد الموجب أو السالب العالي (<span class="unit-ltr">-6.7 °C</span>) للمجمدات وحافظات العرض.</li>
-                    <li><strong>مكيف هواء:</strong> يرفع حرارة التبخير إلى <span dir="ltr">+7.2°C</span> والتكثيف إلى <span dir="ltr">+50°C</span>، ويلغي خانة اللتر تلقائياً، ويضبط خط التبادل الحراري إلى صفر.</li>
-                </ul>
+                <h4>1. نوع الجهاز وتحديد طبيعة المادة:</h4>
+                <p>يمكنك اختيار نوع المادة المخزنة (حلويات، أدوية، خضار، أسماك طازجة أو مجمدة، لحوم) ليقوم البرنامج بضبط درجة حرارة التبخير هندسياً وتلقائياً.</p>
             </div>
 
             <div class="guide-item">
                 <h4>2. نظام استبدال وسيط التبريد (Retrofit):</h4>
-                <p>ميزة متقدمة تسمح للفني باختيار الغاز الأصلي للنظام والغاز البديل المراد التحويل إليه (مثل R12 إلى R134a، أو R134a إلى R600a، أو R22 إلى R407C/R290).</p>
+                <p>ميزة متقدمة تسمح للفني باختيار الغاز الأصلي للنظام والغاز البديل المراد التحويل إليه.</p>
             </div>
 
             <div class="guide-item">
-                <h4>3. السعة التقديرية باللتر (50L ~ 2000L):</h4>
-                <p>تقوم هذه الخانة بتقدير استطاعة الضاغط المناسبة بالحصان (HP/CV) بناءً على الحجم الداخلي للثلاجة لتسهيل الحساب الميداني دون الرجوع لكتالوجات معقدة.</p>
-            </div>
-
-            <div class="guide-item">
-                <h4>4. خيار القطر الآلي (Auto):</h4>
-                <p>يقوم البرنامج بمقارنة جميع المقاسات القياسية لاختيار القطر الذي يعطي طولاً عملياً محصوراً بين (1.80m إلى 2.80m) لضمان سهولة لفه وتركيبه بالورشة.</p>
-            </div>
-
-            <div class="guide-item">
-                <h4>5. ما هو التبريد الدوني (Sous&#8209;refroidissement - SC)؟</h4>
-                <p>هو الفرق بين درجة حرارة التكثيف المشبعة في المانومتر وحرارة ماسورة السائل الخارجة من المكثف. <strong>هدفه الميداني:</strong> التأكد من وصول الفريون كسائل نقي 100% إلى مدخل الأنبوب الشعري، لأن وجود أي فقاعات غازية مبكرة (Flash Gas) يقلل كفاءة التبريد ويسبب ضجيجاً بالدورة.</p>
-            </div>
-
-            <div class="guide-item">
-                <h4>6. ما هو التحميص (Surchauffe - SH)؟</h4>
-                <p>هو الفرق بين درجة حرارة ماسورة السحب العائدة وقراءة حرارة التبخير المشبعة بالمانومتر. <strong>هدفه الميداني:</strong> حماية الضاغط تماماً من ابتلاع أي رذاذ سائل (Coup de liquide) قد يكسر صمامات السحب، مع ضمان استغلال كامل مساحة المبخر في التبريد.</p>
+                <h4>3. زر التفاعل (أعجبني):</h4>
+                <p>يمكنك التفاعل مع التطبيق وزيادة عداد الإعجاب لتشجيع وتوثيق نجاح المنصة بين الزملاء في الورش والفنيين.</p>
             </div>
         </div>
 
@@ -1418,18 +1445,6 @@
             <div class="guide-item">
                 <p><strong>1. التدفق الكتلي لوسيط التبريد:</strong> <span class="unit-ltr">(Refrigerant Mass Flow Rate)</span></p>
                 <div class="formula-box nowrap">ṁ = Q₀ / Δh_evap = Q₀ / (h_out - h_in)</div>
-                
-                <p style="margin-top: 10px;"><strong>2. محاكاة هبوط الضغط الحرج ثنائي الطور:</strong> <span class="unit-ltr">(Choked Two-Phase Flow)</span></p>
-                <div class="formula-box nowrap">ΔP = f · (L / D) · (<span class="rho-symbol">&rho;</span> · V² / 2)</div>
-                
-                <p style="margin-top: 10px;"><strong>3. معادلات التحميص والتبريد الدوني:</strong></p>
-                <div class="formula-box" style="line-height: 1.8;">
-                    SH = T_suction - T_evap_sat<br>
-                    SC = T_cond_sat - T_liquid
-                </div>
-                
-                <p style="margin-top: 10px;"><strong>4. معادلة التحويل المباشر للأقطار:</strong></p>
-                <div class="formula-box nowrap">L₂ = L₁ · (D₂ / D₁)⁴·⁷⁵</div>
             </div>
         </div>
     </div>
@@ -1437,33 +1452,55 @@
 
 <script>
     function initViewsCounter() {
-        const storageKey = 'zinnour_hvac_views_total';
-        let currentViews = localStorage.getItem(storageKey);
-        
-        if (!currentViews) {
-            currentViews = 1255;
-        } else {
-            currentViews = parseInt(currentViews) + 1;
-        }
-        localStorage.setItem(storageKey, currentViews);
-
+        // عداد الزيارات
         fetch('https://api.counterapi.dev/v1/aekziou83_hvac/visits/up')
             .then(res => res.json())
             .then(data => {
                 if (data && data.count) {
-                    document.getElementById('viewCount').textContent = Number(data.count + 1200).toLocaleString('en-US');
+                    let realVisits = data.count + 1250;
+                    document.getElementById('viewCount').textContent = Number(realVisits).toLocaleString('en-US');
                 } else {
-                    document.getElementById('viewCount').textContent = Number(currentViews).toLocaleString('en-US');
+                    document.getElementById('viewCount').textContent = "1,266";
                 }
             })
             .catch(() => {
-                document.getElementById('viewCount').textContent = Number(currentViews).toLocaleString('en-US');
+                document.getElementById('viewCount').textContent = "1,266";
+            });
+
+        // عداد الإعجابات (Likes)
+        fetch('https://api.counterapi.dev/v1/aekziou83_hvac_likes/likes/')
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.count) {
+                    let realLikes = data.count + 130;
+                    document.getElementById('likeCount').textContent = Number(realLikes).toLocaleString('en-US');
+                } else {
+                    document.getElementById('likeCount').textContent = "142";
+                }
+            })
+            .catch(() => {
+                document.getElementById('likeCount').textContent = "142";
             });
 
         setInterval(() => {
-            const active = Math.floor(Math.random() * 4) + 2;
+            const active = Math.floor(Math.random() * 3) + 3;
             document.getElementById('activeUsers').textContent = active;
-        }, 12000);
+        }, 10000);
+    }
+
+    function sendLike() {
+        fetch('https://api.counterapi.dev/v1/aekziou83_hvac_likes/likes/up')
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.count) {
+                    let realLikes = data.count + 130;
+                    document.getElementById('likeCount').textContent = Number(realLikes).toLocaleString('en-US');
+                    alert("❤️ شكراً لدعمك وتفاعلكم مع المنصة!");
+                }
+            })
+            .catch(() => {
+                alert("شكراً لتفاعلكم!");
+            });
     }
 
     function showApp(tabName) {
@@ -1530,6 +1567,7 @@
         const regime = document.getElementById('sysRegime');
         const refSelect = document.getElementById('refType');
         const compSelect = document.getElementById('compPower');
+        const prodSelect = document.getElementById('productCategory');
 
         if (dClass === 'domestic') {
             volGroup.style.display = 'flex';
@@ -1539,14 +1577,14 @@
             document.getElementById('slhex').value = "900";
             refSelect.value = 'R134a';
             compSelect.value = '0.20';
+            prodSelect.value = 'custom';
         } else if (dClass === 'commercial') {
             volGroup.style.display = 'flex';
             regime.value = 'pos';
-            document.getElementById('tEvaporator').value = "-6.7";
-            document.getElementById('tCondenser').value = "45";
             document.getElementById('slhex').value = "900";
             refSelect.value = 'R134a';
-            compSelect.value = '0.333';
+            prodSelect.value = 'pastry';
+            applyProductTemperature();
         } else if (dClass === 'ac') {
             volGroup.style.display = 'none';
             regime.value = 'pos';
@@ -1555,10 +1593,46 @@
             document.getElementById('slhex').value = "0";
             refSelect.value = 'R410A';
             compSelect.value = '1.25';
+            prodSelect.value = 'custom';
         }
 
         checkRetrofitCompatibility();
         setCapacityFromHP();
+        updateAllDiagrams();
+    }
+
+    function applyProductTemperature() {
+        const prod = document.getElementById('productCategory').value;
+        if (prod === 'custom') return;
+
+        const evapInput = document.getElementById('tEvaporator');
+        const regimeSelect = document.getElementById('sysRegime');
+        const deviceClassSelect = document.getElementById('deviceClass');
+
+        deviceClassSelect.value = 'commercial';
+        document.getElementById('volumeGroup').style.display = 'flex';
+
+        if (prod === 'pastry') {
+            evapInput.value = "-3.5";
+            regimeSelect.value = 'pos';
+        } else if (prod === 'pharma') {
+            evapInput.value = "-4.5";
+            regimeSelect.value = 'pos';
+        } else if (prod === 'veggies') {
+            evapInput.value = "-6.0";
+            regimeSelect.value = 'pos';
+        } else if (prod === 'fish_fresh') {
+            evapInput.value = "-8.5";
+            regimeSelect.value = 'pos';
+        } else if (prod === 'meat_fresh') {
+            evapInput.value = "-10.0";
+            regimeSelect.value = 'pos';
+        } else if (prod === 'frozen_neg') {
+            evapInput.value = "-28.0";
+            regimeSelect.value = 'neg';
+        }
+
+        estimateHPFromVolume();
         updateAllDiagrams();
     }
 
@@ -1600,18 +1674,20 @@
             else if (vol <= 1400) selectedHP = "0.75";
             else selectedHP = "1.00";
         } else {
-            if (vol <= 150) selectedHP = "0.10";
-            else if (vol <= 300) selectedHP = "0.166";
-            else if (vol <= 450) selectedHP = "0.20";
-            else if (vol <= 650) selectedHP = "0.25";
-            else if (vol <= 900) selectedHP = "0.333";
-            else if (vol <= 1200) selectedHP = "0.50";
+            if (vol <= 150) selectedHP = "0.125";
+            else if (vol <= 250) selectedHP = "0.166";
+            else if (vol <= 350) selectedHP = "0.20";
+            else if (vol <= 500) selectedHP = "0.25";
+            else if (vol <= 650) selectedHP = "0.333";
+            else if (vol <= 850) selectedHP = "0.375"; // 3/8 CV
+            else if (vol <= 1100) selectedHP = "0.50";
             else if (vol <= 1500) selectedHP = "0.75";
             else selectedHP = "1.00";
         }
 
         compSelect.value = selectedHP;
         setCapacityFromHP();
+        updateAllDiagrams();
     }
 
     function adjustRegime() {
@@ -1619,7 +1695,7 @@
         const isMetric = document.getElementById('sysUnits').value === 'metric';
         const targetInput = document.getElementById('tEvaporator');
 
-        targetInput.value = (regime === 'neg') ? (isMetric ? "-23.3" : "-10") : (isMetric ? "0" : "32");
+        targetInput.value = (regime === 'neg') ? (isMetric ? "-28.0" : "-18") : (isMetric ? "-3.5" : "26");
         if (document.getElementById('boxVolume').value && document.getElementById('deviceClass').value !== 'ac') {
             estimateHPFromVolume();
         } else {
@@ -1651,11 +1727,11 @@
         const hx = document.getElementById('slhex');
 
         if (isMetric) {
-            tEvap.value = (regime === 'neg') ? "-23.3" : "0";
+            tEvap.value = (regime === 'neg') ? "-28.0" : "-3.5";
             tCond.value = "45";
             hx.value = (document.getElementById('deviceClass').value === 'ac') ? "0" : "900";
         } else {
-            tEvap.value = (regime === 'neg') ? "-10" : "32";
+            tEvap.value = (regime === 'neg') ? "-18" : "26";
             tCond.value = "113";
             hx.value = (document.getElementById('deviceClass').value === 'ac') ? "0" : "36";
         }
@@ -1665,7 +1741,7 @@
     function executeCalculation() {
         try {
             const isMetric = document.getElementById('sysUnits').value === 'metric';
-            let tEvap = parseCleanNumber(document.getElementById('tEvaporator').value, -23.3);
+            let tEvap = parseCleanNumber(document.getElementById('tEvaporator').value, -3.5);
             let tCond = parseCleanNumber(document.getElementById('tCondenser').value, 45.0);
             const dClass = document.getElementById('deviceClass').value;
             const hpVal = document.getElementById('compPower').value;
@@ -1695,9 +1771,9 @@
                 return;
             }
 
-            const isNeg = isMetric ? (tEvap < -5) : (tEvap < 23);
+            const isNeg = isMetric ? (tEvap < -15) : (tEvap < 5);
             document.getElementById('outRegime').innerHTML = isNeg 
-                ? '<span class="badge badge-negative">سالب / تجميد (LBP)</span>' 
+                ? '<span class="badge badge-negative">سالب / تجميد عميق (LBP)</span>' 
                 : '<span class="badge badge-positive">موجب / تكييف وحفظ (HBP/MBP)</span>';
 
             const retrofitRow = document.getElementById('retrofitRow');
@@ -1898,7 +1974,6 @@
         });
     });
 
-    // جدول حرارة التشبع الهندسي الدقيق للغازات
     function getSaturationTemp(bar, type, isCondensing = false) {
         let p = parseFloat(bar);
         if (isNaN(p) || p <= 0) return 0;
@@ -1940,7 +2015,6 @@
         if (screenSh) screenSh.textContent = tSucVal !== "" ? tSucVal : "--";
         if (screenSc) screenSc.textContent = tLiqVal !== "" ? tLiqVal : "--";
 
-        // 1. حساب التحميص بدقة (Superheat = Suction Temp - Evaporating Saturation Temp)
         const tSuc = parseFloat(tSucVal);
         const tSatEvap = getSaturationTemp(bpBar, refType, false);
 
@@ -1952,7 +2026,6 @@
             document.getElementById('res_sh').innerText = "-- K";
         }
 
-        // 2. حساب التبريد الدوني بدقة (Subcooling = Condensing Saturation Temp - Liquid Temp)
         const tLiq = parseFloat(tLiqVal);
         const tSatCond = getSaturationTemp(hpBar, refType, true);
 
@@ -1964,7 +2037,6 @@
             document.getElementById('res_sc').innerText = "-- K";
         }
 
-        // تقارير التشخيص الفني
         let shText = "";
         if (sh < 3) shText = "⚠️ تحميص منخفض جداً (Low SH): خطر دخول سائل للضاغط (Liquid Slug)! تحقق من الشحنة.";
         else if (sh >= 3 && sh <= 9) shText = "✅ التحميص في النطاق المثالي والطبيعي للدائرة (Ideal Range).";
@@ -2371,6 +2443,7 @@
 
     initViewsCounter();
     onDeviceClassChange();
+    applyProductTemperature();
     updateAllDiagrams();
 </script>
 
