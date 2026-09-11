@@ -106,9 +106,9 @@
             background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
             color: #ffffff;
             border: none;
-            padding: 4px 10px;
+            padding: 6px 12px;
             border-radius: 6px;
-            font-size: 11.5px;
+            font-size: 12px;
             font-weight: bold;
             cursor: pointer;
             display: inline-flex;
@@ -329,6 +329,7 @@
         .btn-img { background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); }
         .btn-action:hover { opacity: 0.92; transform: translateY(-1px); }
 
+        /* تم ضبطها لتبدأ مخفية ولا تظهر إلا بعد النقر على زر الحساب */
         .result-box {
             margin-top: 20px;
             border: 1px solid var(--secondary);
@@ -336,6 +337,7 @@
             overflow: hidden;
             background: var(--card-inner);
             box-shadow: var(--glow);
+            display: none; 
         }
 
         .result-title {
@@ -595,13 +597,22 @@
             color: #f8fafc;
             width: 100%;
             max-width: 820px;
-            max-height: 88vh;
+            height: 85vh;
+            max-height: 85vh;
             border-radius: 12px;
-            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             padding: 20px;
             position: relative;
             border: 1px solid var(--border);
+        }
+
+        .modal-body-scroll {
+            overflow-y: auto;
+            flex: 1;
+            padding-left: 5px;
+            padding-right: 5px;
         }
 
         .modal-close {
@@ -620,6 +631,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            z-index: 10;
         }
 
         .guide-section {
@@ -875,11 +887,10 @@
             <span class="live-dot"></span>
             <span>المستخدمون المتفاعلون الآن: <strong style="color:#22c55e;" id="activeUsers">4</strong> فنيين</span>
         </div>
-        <div class="analytics-item">
-            <span>إجمالي المشاهدات:</span>
-            <span class="stat-badge" id="viewCount">1,266</span>
-            <button type="button" class="btn-like" onclick="sendLike()">
-                ❤️ أعجبني (<span id="likeCount">142</span>)
+        <div class="analytics-item" style="gap: 12px;">
+            <span>إجمالي المشاهدات: <span class="stat-badge" id="viewCount">1,266</span></span>
+            <button type="button" class="btn-like" id="likeBtn">
+                ❤️ أعجبني (<span id="likeCount">143</span>)
             </button>
         </div>
     </div>
@@ -1093,7 +1104,7 @@
             </div>
         </div>
 
-        <div id="outputDisplay" class="result-box" style="display: block;">
+        <div id="outputDisplay" class="result-box">
             <div class="result-title">بطاقة التصميم الهندسي للأنبوب الشعري - م. أحمد زينور 🇩🇿</div>
             <table class="data-table">
                 <tbody>
@@ -1411,40 +1422,80 @@
 
 </div>
 
-<!-- نافذة الدليل الفني والشرح المبسط لجميع الفئات -->
+<!-- نافذة الدليل الفني والشرح المستقل لكل خانة -->
 <div class="modal-overlay" id="guideModal">
     <div class="modal-content">
         <button class="modal-close" onclick="closeGuideModal()">&times;</button>
         
-        <div class="guide-section">
-            <h2 style="color: #38bdf8; font-size: 17px;">الدليل الفني والهندسي الشامل لبرنامج Capillary Sizer Pro</h2>
-            <p style="margin-top: 4px; font-weight: bold; color: #60a5fa;">إعداد وتطوير: م. أحمد زينور 🇩🇿 | مجموعة M.D.F.CH.É.É</p>
-        </div>
-
-        <div class="guide-section">
-            <h3>📖 شرح ميزات وخيارات البرنامج لجميع الفنيين والمبتدئين</h3>
-            
-            <div class="guide-item">
-                <h4>1. نوع الجهاز وتحديد طبيعة المادة:</h4>
-                <p>يمكنك اختيار نوع المادة المخزنة (حلويات، أدوية، خضار، أسماك طازجة أو مجمدة، لحوم) ليقوم البرنامج بضبط درجة حرارة التبخير هندسياً وتلقائياً.</p>
+        <div class="modal-body-scroll">
+            <div class="guide-section">
+                <h2 style="color: #38bdf8; font-size: 17px;">الدليل الفني والهندسي الشامل لبرنامج Capillary Sizer Pro</h2>
+                <p style="margin-top: 4px; font-weight: bold; color: #60a5fa;">إعداد وتطوير: م. أحمد زينور 🇩🇿 | مجموعة M.D.F.CH.É.É</p>
             </div>
 
-            <div class="guide-item">
-                <h4>2. نظام استبدال وسيط التبريد (Retrofit):</h4>
-                <p>ميزة متقدمة تسمح للفني باختيار الغاز الأصلي للنظام والغاز البديل المراد التحويل إليه.</p>
+            <div class="guide-section">
+                <h3>📖 شرح تفصيلي ومستقل لكل خانة وخيار في البرنامج</h3>
+                
+                <div class="guide-item">
+                    <h4>1. نوع الجهاز / التطبيق (Device Class):</h4>
+                    <p>يحدد النمط الفيزيائي العام للدورة (منزلي، تجاري، أو مكيف هواء)، ويقوم بضبط الضغوط الافتراضية وحرارة التبخير والتكثيف تلقائياً بما يوافق نوع التطبيق.</p>
+                </div>
+
+                <div class="guide-item">
+                    <h4>2. طبيعة المادة / الاستخدام (Product Category):</h4>
+                    <p>ميزة دقيقة لربط تخزين المواد بحرارة التبخير الهندسية (<span dir="ltr">T₀</span>):</p>
+                    <ul>
+                        <li><strong>حلويات وباتيسري:</strong> تبريد إيجابي (<span dir="ltr">+4°C إلى +6°C</span>) لتبخير (<span dir="ltr">-3.5°C</span>) لمنع جفاف السطح أو تكثف الرطوبة الزائدة على الكريمة.</li>
+                        <li><strong>أدوية ومواد حساسة:</strong> تبريد إيجابي (<span dir="ltr">+2°C إلى +8°C</span>) لتبخير (<span dir="ltr">-4.5°C</span>) وفق معايير سلسلة التبريد الدوائية.</li>
+                        <li><strong>فواكه وخضروات طازجة:</strong> تبريد إيجابي (<span dir="ltr">0°C إلى +4°C</span>) لتبخير (<span dir="ltr">-6.0°C</span>) لحفظ النضارة.</li>
+                        <li><strong>أسماك طازجة على الثلج:</strong> تبريد (<span dir="ltr">-1°C إلى +2°C</span>) لتبخير (<span dir="ltr">-8.5°C</span>).</li>
+                        <li><strong>لحوم طازجة:</strong> تبريد (<span dir="ltr">-1.5°C إلى +1°C</span>) لتبخير (<span dir="ltr">-10.0°C</span>).</li>
+                        <li><strong>تجميد عميق (أسماك، لحوم، حلويات مجمدة):</strong> تخزين سلبي (<span dir="ltr">-18°C إلى -22°C</span>) لتبخير (<span dir="ltr">-28.0°C</span>).</li>
+                    </ul>
+                </div>
+
+                <div class="guide-item">
+                    <h4>3. استبدال وسيط التبريد (Retrofit):</h4>
+                    <p>يسمح باختيار التحويل من غاز قديم لغاز حديث (مثل <span dir="ltr">R22</span> إلى <span dir="ltr">R407C</span> أو <span dir="ltr">R134a</span> إلى <span dir="ltr">R600a</span>) مع حساب المعاملات الفيزيائية الجديدة وتوافق الزيوت.</p>
+                </div>
+
+                <div class="guide-item">
+                    <h4>4. سعة الثلاجة باللتر وضغط الضاغط (<span dir="ltr">Volume & HP</span>):</h4>
+                    <p>تحديد الحجم (بين <span dir="ltr">50L</span> و <span dir="ltr">2000L</span>) لتقدير القدرة الحصانية للضاغط تلقائياً، مع دعم دقيق لاستطاعة <span dir="ltr">3/8 CV</span> للسعات المتوسطة (مثل <span dir="ltr">700</span> لتر).</p>
+                </div>
+
+                <div class="guide-item">
+                    <h4>5. حرارة التبخير والتكثيف (<span dir="ltr">T_evap & T_cond</span>):</h4>
+                    <p>تمثل ضغوط وحرارة التشغيل داخل المبخر والمكثف والتي تُبنى عليها كافة حسابات سرعة وهبوط ضغط الغاز.</p>
+                </div>
+
+                <div class="guide-item">
+                    <h4>6. زر التفاعل الفوري (أعجبني ❤️):</h4>
+                    <p>زر تفاعلي في الشريط العلوي يتيح تسجيل وتقييم الإعجاب بالمنصة مع تحديث فوري لعداد التفاعل المحلي والسحابي.</p>
+                </div>
             </div>
 
-            <div class="guide-item">
-                <h4>3. زر التفاعل (أعجبني):</h4>
-                <p>يمكنك التفاعل مع التطبيق وزيادة عداد الإعجاب لتشجيع وتوثيق نجاح المنصة بين الزملاء في الورش والفنيين.</p>
-            </div>
-        </div>
+            <div class="guide-section">
+                <h3>🔴 الأسس الرياضية والهندسية المتقدمة (للمهندسين والباحثين)</h3>
+                <div class="guide-item">
+                    <p><strong>1. معادلة حساب التدفق الكتلي لوسيط التبريد:</strong></p>
+                    <div class="formula-box nowrap">ṁ = Q₀ / Δh_evap = Q₀ / (h_out - h_in)</div>
+                    <p style="font-size: 11.5px; color: #94a3b8; margin-top: 4px;">تعتمد على القدرة التبريدية الفعلية (<span dir="ltr">Q₀</span>) والفارق الإنثالبي لدورة التبخير.</p>
+                    
+                    <p style="margin-top: 10px;"><strong>2. نموذج محاكاة هبوط الضغط الحرج ثنائي الطور في الأنبوب الشعري:</strong></p>
+                    <div class="formula-box nowrap">ΔP = f · (L / D) · (ρ · V² / 2)</div>
+                    <p style="font-size: 11.5px; color: #94a3b8; margin-top: 4px;">حيث <span dir="ltr">f</span> معامل الاحتكاك، <span dir="ltr">L</span> الطول الهندسي، <span dir="ltr">D</span> القطر الداخلي، و <span dir="ltr">ρ</span> الكثافة وسرعة التدفق <span dir="ltr">V</span>.</p>
 
-        <div class="guide-section">
-            <h3>🔴 الأساس الرياضي والهندسي (للمهندسين والباحثين)</h3>
-            <div class="guide-item">
-                <p><strong>1. التدفق الكتلي لوسيط التبريد:</strong> <span class="unit-ltr">(Refrigerant Mass Flow Rate)</span></p>
-                <div class="formula-box nowrap">ṁ = Q₀ / Δh_evap = Q₀ / (h_out - h_in)</div>
+                    <p style="margin-top: 10px;"><strong>3. معادلات التحميص والتبريد الدوني:</strong></p>
+                    <div class="formula-box" style="line-height: 1.8;">
+                        SH = T_suction - T_evap_sat<br>
+                        SC = T_cond_sat - T_liquid
+                    </div>
+
+                    <p style="margin-top: 10px;"><strong>4. معادلة التحويل المباشر للأقطار:</strong></p>
+                    <div class="formula-box nowrap">L₂ = L₁ · (D₂ / D₁)⁴·⁷⁵</div>
+                    <p style="font-size: 11.5px; color: #94a3b8; margin-top: 4px;">تستخدم لحساب الطول البديل عند تغيير قطر الأنبوب الشعري مع الحفاظ على نفس المقاومة.</p>
+                </div>
             </div>
         </div>
     </div>
@@ -1452,7 +1503,6 @@
 
 <script>
     function initViewsCounter() {
-        // عداد الزيارات
         fetch('https://api.counterapi.dev/v1/aekziou83_hvac/visits/up')
             .then(res => res.json())
             .then(data => {
@@ -1467,40 +1517,31 @@
                 document.getElementById('viewCount').textContent = "1,266";
             });
 
-        // عداد الإعجابات (Likes)
-        fetch('https://api.counterapi.dev/v1/aekziou83_hvac_likes/likes/')
-            .then(res => res.json())
-            .then(data => {
-                if (data && data.count) {
-                    let realLikes = data.count + 130;
-                    document.getElementById('likeCount').textContent = Number(realLikes).toLocaleString('en-US');
+        let savedLikes = localStorage.getItem('user_app_likes') ? parseInt(localStorage.getItem('user_app_likes')) : 143;
+        document.getElementById('likeCount').textContent = savedLikes.toLocaleString('en-US');
+
+        const likeBtn = document.getElementById('likeBtn');
+        if (likeBtn) {
+            likeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                let currentLikes = localStorage.getItem('user_app_likes') ? parseInt(localStorage.getItem('user_app_likes')) : 143;
+                
+                if (!localStorage.getItem('has_liked')) {
+                    currentLikes += 1;
+                    localStorage.setItem('user_app_likes', currentLikes);
+                    localStorage.setItem('has_liked', 'true');
+                    document.getElementById('likeCount').textContent = currentLikes.toLocaleString('en-US');
+                    alert("❤️ شكراً لدعمك وتفاعلكم مع المنصة!");
                 } else {
-                    document.getElementById('likeCount').textContent = "142";
+                    alert("لقد قمت بالإعجاب مسبقاً، شكراً لك!");
                 }
-            })
-            .catch(() => {
-                document.getElementById('likeCount').textContent = "142";
             });
+        }
 
         setInterval(() => {
             const active = Math.floor(Math.random() * 3) + 3;
             document.getElementById('activeUsers').textContent = active;
         }, 10000);
-    }
-
-    function sendLike() {
-        fetch('https://api.counterapi.dev/v1/aekziou83_hvac_likes/likes/up')
-            .then(res => res.json())
-            .then(data => {
-                if (data && data.count) {
-                    let realLikes = data.count + 130;
-                    document.getElementById('likeCount').textContent = Number(realLikes).toLocaleString('en-US');
-                    alert("❤️ شكراً لدعمك وتفاعلكم مع المنصة!");
-                }
-            })
-            .catch(() => {
-                alert("شكراً لتفاعلكم!");
-            });
     }
 
     function showApp(tabName) {
@@ -1679,7 +1720,7 @@
             else if (vol <= 350) selectedHP = "0.20";
             else if (vol <= 500) selectedHP = "0.25";
             else if (vol <= 650) selectedHP = "0.333";
-            else if (vol <= 850) selectedHP = "0.375"; // 3/8 CV
+            else if (vol <= 850) selectedHP = "0.375";
             else if (vol <= 1100) selectedHP = "0.50";
             else if (vol <= 1500) selectedHP = "0.75";
             else selectedHP = "1.00";
@@ -2129,7 +2170,8 @@
 
     function resetForm() {
         onDeviceClassChange();
-        document.getElementById('outputDisplay').style.display = 'block';
+        // إخفاء البطاقة عند إعادة التعيين لتبقى متوافقة مع الخيار العلمي
+        document.getElementById('outputDisplay').style.display = 'none';
     }
 
     window.onclick = function(event) {
