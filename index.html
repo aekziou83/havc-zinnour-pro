@@ -329,7 +329,7 @@
         .btn-img { background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); }
         .btn-action:hover { opacity: 0.92; transform: translateY(-1px); }
 
-        /* تم ضبطها لتبدأ مخفية ولا تظهر إلا بعد النقر على زر الحساب */
+        /* مخفية افتراضياً حتى يضغط الفني على زر الحساب */
         .result-box {
             margin-top: 20px;
             border: 1px solid var(--secondary);
@@ -940,12 +940,12 @@
                     </label>
                     <select id="productCategory" onchange="applyProductTemperature()">
                         <option value="custom">-- تحديد حراري مخصص --</option>
-                        <option value="pastry" selected>حلويات وباتيسري (+4° إلى +6°C)</option>
-                        <option value="pharma">أدوية ومواد حساسة (+2° إلى +8°C)</option>
-                        <option value="veggies">فواكه وخضروات طازجة (0° إلى +4°C)</option>
-                        <option value="fish_fresh">أسماك طازجة على الثلج (-1° إلى +2°C)</option>
-                        <option value="meat_fresh">لحوم طازجة (-1.5° إلى +1°C)</option>
-                        <option value="frozen_neg">تجميد عميق (أسماك/لحوم/حلويات) (-18° إلى -22°C)</option>
+                        <option value="pastry" selected>حلويات وباتيسري (من +4 إلى +6 مئوية)</option>
+                        <option value="pharma">أدوية ومواد حساسة (من +2 إلى +8 مئوية)</option>
+                        <option value="veggies">فواكه وخضروات طازجة (من 0 إلى +4 مئوية)</option>
+                        <option value="fish_fresh">أسماك طازجة على الثلج (من -1 إلى +2 مئوية)</option>
+                        <option value="meat_fresh">لحوم طازجة (من -1.5 إلى +1 مئوية)</option>
+                        <option value="frozen_neg">تجميد عميق (أسماك/لحوم/حلويات) (من -18 إلى -22 مئوية)</option>
                     </select>
                 </div>
 
@@ -2170,7 +2170,6 @@
 
     function resetForm() {
         onDeviceClassChange();
-        // إخفاء البطاقة عند إعادة التعيين لتبقى متوافقة مع الخيار العلمي
         document.getElementById('outputDisplay').style.display = 'none';
     }
 
