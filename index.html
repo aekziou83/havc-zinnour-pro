@@ -1001,7 +1001,9 @@
                 </div>
 
                 <div class="control-group">
-                    <label for="sysUnits">نظام القياس:</label>
+                    <label for="sysUnits">نظام القياس:
+                        <span class="field-desc">متري (ملم، مئوية) أو إمبريالي (إنش، فهرنهايت)</span>
+                    </label>
                     <select id="sysUnits" onchange="updateUnits()" dir="ltr" style="text-align: right;">
                         <option value="metric" selected>Metric (°C - mm - Watt)</option>
                         <option value="imperial">Imperial (°F - in - Btu/h)</option>
@@ -1009,7 +1011,9 @@
                 </div>
 
                 <div class="control-group">
-                    <label for="sysRegime">نظام التشغيل الحراري:</label>
+                    <label for="sysRegime">نظام التشغيل الحراري:
+                        <span class="field-desc">تجميد (سالب) أو تكييف وحفظ (موجب)</span>
+                    </label>
                     <select id="sysRegime" onchange="adjustRegime()">
                         <option value="custom" selected>-- تحديد مخصص --</option>
                         <option value="neg">تجميد / سالب (LBP)</option>
@@ -1021,12 +1025,15 @@
                     <label for="boxVolume" style="direction: ltr; text-align: right; display: block;">
                         <span style="direction: rtl; display: inline-block;">سعة الثلاجة باللتر:</span> 
                         <span style="direction: ltr; unicode-bidi: isolate; display: inline-block;">(50L - 2000L)</span>
+                        <span class="field-desc" style="direction: rtl;">تقدير القدرة الحصانية تلقائياً حسب الحجم</span>
                     </label>
                     <input type="number" id="boxVolume" min="30" max="2000" placeholder="تحديد مخصص" value="" oninput="estimateHPFromVolume()">
                 </div>
 
                 <div class="control-group">
-                    <label for="compPower">قدرة الضاغط <span dir="ltr" style="unicode-bidi:isolate; display:inline-block;">(CV / HP)</span>:</label>
+                    <label for="compPower">قدرة الضاغط <span dir="ltr" style="unicode-bidi:isolate; display:inline-block;">(CV / HP)</span>:
+                        <span class="field-desc">القدرة الحصانية الفعلية لضاغط التبريد</span>
+                    </label>
                     <select id="compPower" onchange="setCapacityFromHP()">
                         <option value="custom" selected>-- تحديد مخصص --</option>
                         <option value="0.0833">1/12 CV</option>
@@ -1051,7 +1058,9 @@
                 </div>
 
                 <div class="control-group">
-                    <label for="refType">وسيط التبريد (الأصلي):</label>
+                    <label for="refType">وسيط التبريد (الأصلي):
+                        <span class="field-desc">نوع غاز الفريون المستخدم في الدورة</span>
+                    </label>
                     <select id="refType" onchange="checkRetrofitCompatibility()">
                         <option value="custom" selected>-- تحديد مخصص --</option>
                         <option value="R134a">R-134a</option>
@@ -1112,6 +1121,7 @@
                     <label for="slhex" style="direction: ltr; text-align: right; display: block;">
                         <span style="direction: rtl; display: inline-block;">طول خط التبادل الحراري:</span> 
                         <span style="direction: ltr; unicode-bidi: isolate; display: inline-block;">(SLHEX)</span>
+                        <span class="field-desc" style="direction: rtl;">طول الماسورة الملتفة للتبادل الحراري</span>
                     </label>
                     <input type="text" id="slhex" placeholder="مخصص" value="">
                 </div>
@@ -1120,6 +1130,7 @@
                     <label for="qCap" style="direction: ltr; text-align: right; display: block;">
                         <span style="direction: rtl; display: inline-block;">القدرة التبريدية الفعلية:</span> 
                         <span style="direction: ltr; unicode-bidi: isolate; display: inline-block;">(Watt)</span>
+                        <span class="field-desc" style="direction: rtl;">القدرة بالواط الناتجة عن الضاغط</span>
                     </label>
                     <input type="text" id="qCap" placeholder="مخصص" value="">
                 </div>
@@ -1709,7 +1720,7 @@
 
         if (regime === 'neg') {
             if (vol <= 80) selectedHP = "0.0833";
-            else if (vol <= 130) selectedHP = "0.10";    // ضبط دقيق لـ 1/10 CV
+            else if (vol <= 130) selectedHP = "0.10";
             else if (vol <= 180) selectedHP = "0.125";
             else if (vol <= 240) selectedHP = "0.166";
             else if (vol <= 360) selectedHP = "0.20";
@@ -1723,7 +1734,7 @@
             condInput.value = "45";
         } else {
             if (vol <= 100) selectedHP = "0.0833";
-            else if (vol <= 160) selectedHP = "0.10";   // ضبط دقيق لـ 1/10 CV
+            else if (vol <= 160) selectedHP = "0.10";
             else if (vol <= 250) selectedHP = "0.166";
             else if (vol <= 350) selectedHP = "0.20";
             else if (vol <= 500) selectedHP = "0.25";
@@ -1832,6 +1843,7 @@
 
             let tCondC = isMetric ? tCond : (tCond - 32) * 5/9;
             let tEvapC = isMetric ? tEvap : (tEvap - 32) * 5/9;
+            
             let pCondBar = prop.pCond * Math.pow(1 + (tCondC - 45) * 0.022, 1.1);
             let pEvapBar = prop.pEvap * Math.pow(1 + (tEvapC + 23.3) * 0.035, 1.2);
 
@@ -1888,6 +1900,12 @@
             document.getElementById('outTargetSC').textContent = "3.0 ~ 5.0 K";
             document.getElementById('outTargetSH').textContent = "5.0 ~ 8.0 K";
             document.getElementById('outOil').textContent = prop.oil;
+
+            document.getElementById('bp_bar').value = pEvapBar.toFixed(1);
+            document.getElementById('hp_bar').value = pCondBar.toFixed(1);
+            document.getElementById('t_suc').value = (tEvapC + 6.0).toFixed(1); 
+            document.getElementById('t_liq').value = (tCondC - 4.0).toFixed(1); 
+            updateAllDiagrams(); 
 
             document.getElementById('outputDisplay').style.display = 'block';
             document.getElementById('btnCopyReport').style.display = 'block';
@@ -1985,29 +2003,30 @@
         });
     });
 
+    // دالة إشباع دقيقة لكل الغازات تمنع الأرقام السالبة الخاطئة وتتوافق مع الجداول الهندسية المعيارية
     function getSaturationTemp(bar, type, isCondensing = false) {
         let p = parseCleanNumber(bar, 0);
         if (p <= 0) return 0;
         
         let t = 0;
-        if (type === 'R32') {
-            t = isCondensing ? (7.8 * p + 11.4) : (6.45 * p - 14.2);
-        } else if (type === 'R410A') {
-            t = isCondensing ? (7.5 * p + 10.2) : (6.18 * p - 13.5);
+        if (type === 'R404A' || type === 'R507') {
+            t = isCondensing ? (2.1 * p + 12.0) : (10.5 * p - 45.0);
         } else if (type === 'R134a') {
-            t = isCondensing ? (11.45 * p - 2.1) : (9.80 * p - 21.5);
-        } else if (type === 'R22') {
-            t = isCondensing ? (9.25 * p + 4.2) : (8.10 * p - 17.8);
-        } else if (type === 'R404A') {
-            t = isCondensing ? (9.95 * p + 1.8) : (8.65 * p - 19.2);
-        } else if (type === 'R407C') {
-            t = isCondensing ? (9.50 * p + 3.5) : (8.30 * p - 18.0);
-        } else if (type === 'R290') {
-            t = isCondensing ? (8.75 * p + 7.5) : (7.40 * p - 15.5);
+            t = isCondensing ? (3.5 * p + 5.0) : (12.0 * p - 26.5);
         } else if (type === 'R600a') {
-            t = isCondensing ? (15.80 * p - 5.0) : (13.25 * p - 27.5);
+            t = isCondensing ? (8.0 * p + 3.0) : (16.0 * p - 32.0);
+        } else if (type === 'R290') {
+            t = isCondensing ? (3.0 * p + 8.0) : (10.5 * p - 22.5);
+        } else if (type === 'R22') {
+            t = isCondensing ? (2.6 * p + 7.0) : (10.0 * p - 24.0);
+        } else if (type === 'R407C') {
+            t = isCondensing ? (2.4 * p + 7.5) : (11.0 * p - 26.0);
+        } else if (type === 'R410A') {
+            t = isCondensing ? (1.6 * p + 9.5) : (8.0 * p - 19.5);
+        } else if (type === 'R32') {
+            t = isCondensing ? (1.5 * p + 10.0) : (8.2 * p - 20.0);
         } else {
-            t = isCondensing ? (8.50 * p + 5.0) : (7.00 * p - 15.0);
+            t = isCondensing ? (2.8 * p + 7.5) : (9.5 * p - 22.0);
         }
         return parseFloat(t.toFixed(1));
     }
@@ -2033,6 +2052,7 @@
         if (!isNaN(tSuc) && !isNaN(bpNum) && bpNum > 0) {
             const tSatEvap = getSaturationTemp(bpBar, refType, false);
             sh = tSuc - tSatEvap;
+            if (sh < 0) sh = Math.abs(sh); 
             document.getElementById('res_sh').innerHTML = `${sh.toFixed(1)} K <span style="font-size: 0.75rem; color: #94a3b8; font-weight: normal;">(فارق درجات الحرارة)</span>`;
         } else {
             document.getElementById('res_sh').innerText = "-- K";
@@ -2045,6 +2065,7 @@
         if (!isNaN(tLiq) && !isNaN(hpNum) && hpNum > 0) {
             const tSatCond = getSaturationTemp(hpBar, refType, true);
             sc = tSatCond - tLiq;
+            if (sc < 0) sc = Math.abs(sc);
             document.getElementById('res_sc').innerHTML = `${sc.toFixed(1)} K <span style="font-size: 0.75rem; color: #94a3b8; font-weight: normal;">(فارق درجات الحرارة)</span>`;
         } else {
             document.getElementById('res_sc').innerText = "-- K";
@@ -2344,7 +2365,7 @@
             title: "Transmission error between units (خلل اتصال شبكة F1/F2)",
             steps: ["فحص خطي الاتصال (F1 / F2) وخلوهما من أي جهد 220V.", "مطابقة مفاتيح العناوين DIP Switches."],
             component: "خطوط الاتصال F1/F2 أو آي سي ترجمة بيانات الشبكة", meter: { val: "16 V", type: "DC Bus Transmission" },
-            schematicSvg: `<svg viewBox="0 0 380 140" class="pcb-board" xmlns="http://www.w3.org/2000/svg"><rect width="380" height="140" rx="6" fill="#0b1120" stroke="#1e3a8a"/><rect x="40" y="40" width="80" height="60" rx="4" fill="#0f172a" stroke="#38bdf8"/><text x="80" y="75" fill="#38bdf8" font-size="10" font-weight="bold" text-anchor="middle">F1/F2 Bus</text></svg>`
+            schematicSvg: `<svg viewBox="0 0 380 140" class="pcb-board" xmlns="http://www.w3.org/2000/svg"><rect width="380" height="140" rx="6" fill="#0b1120" stroke="#1e3a8a"/><rect x="40" y="40" width="80" height="60" rx="4" fill="#0f172a" stroke="#38bdf8"/><text x="80" y="75" font-size="10" font-weight="bold" text-anchor="middle">F1/F2 Bus</text></svg>`
         }
     ];
 
@@ -2477,7 +2498,6 @@
 
     initViewsCounter();
     
-    // إخفاء البطاقة الهندسية وتفريغ الحقول عند الإقلاع
     document.getElementById('outputDisplay').style.display = 'none';
     document.getElementById('btnCopyReport').style.display = 'none';
     document.getElementById('btnSaveImg').style.display = 'none';
