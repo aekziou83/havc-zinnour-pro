@@ -2506,8 +2506,68 @@
     document.getElementById('t_suc').value = "";
     document.getElementById('hp_bar').value = "";
     document.getElementById('t_liq').value = "";
+function estimateHPFromVolume() {
+    const vol = parseCleanNumber(document.getElementById('boxVolume').value, 0);
+    if (vol <= 0) return;
 
+    const regime = document.getElementById('sysRegime').value;
+    const compSelect = document.getElementById('compPower');
+    const evapInput = document.getElementById('tEvaporator');
+    const condInput = document.getElementById('tCondenser');
+    let selectedHP = "0.20";
+
+    // التمييز الهندسي الدقيق بين النظام السالب (تجميد LBP) والنظام الموجب (حفظ M/HBP)
+    // لجميع السعات والضواغط (المنزلية والتجارية) لتعويض انخفاض كثافة غاز التبريد تحت الصفر
+    if (regime === 'neg') {
+        if (vol <= 80) selectedHP = "0.10";       // منزلية صغيرة مجمدة
+        else if (vol <= 130) selectedHP = "0.125";
+        else if (vol <= 180) selectedHP = "0.166";
+        else if (vol <= 240) selectedHP = "0.20";
+        else if (vol <= 360) selectedHP = "0.25";
+        else if (vol <= 500) selectedHP = "0.333";
+        else if (vol <= 750) selectedHP = "0.50";   // سعة 750/700 لتر تجميد تتطلب استطاعة أكبر
+        else if (vol <= 1000) selectedHP = "0.75";
+        else selectedHP = "1.00";
+        
+        evapInput.value = "-28.0";
+        condInput.value = "45";
+    } else {
+        if (vol <= 100) selectedHP = "0.0833";    // منزلية حفظ
+        else if (vol <= 160) selectedHP = "0.10";
+        else if (vol <= 250) selectedHP = "0.143";
+        else if (vol <= 350) selectedHP = "0.20";
+        else if (vol <= 500) selectedHP = "0.25";
+        else if (vol <= 650) selectedHP = "0.333";
+        else if (vol <= 850) selectedHP = "0.375";  // سعة 700 لتر في الوضع الموجب تكفيها 3/8 CV
+        else if (vol <= 1100) selectedHP = "0.50";
+        else if (vol <= 1500) selectedHP = "0.75";
+        else selectedHP = "1.00";
+        
+        evapInput.value = "-3.5";
+        condInput.value = "45";
+    }
+
+    compSelect.value = selectedHP;
+    setCapacityFromHP();
     updateAllDiagrams();
+}
+
+  function adjustRegime() {
+    const regime = document.getElementById('sysRegime').value;
+    const evapInput = document.getElementById('tEvaporator');
+    const condInput = document.getElementById('tCondenser');
+    
+    if (regime === 'neg') {
+        evapInput.value = "-28.0";
+        condInput.value = "45";
+    } else if (regime === 'pos') {
+        evapInput.value = "-3.5";
+        condInput.value = "45";
+    }
+    
+    estimateHPFromVolume();
+}
+  updateAllDiagrams();
 </script>
 
 </body>
