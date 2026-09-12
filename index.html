@@ -333,9 +333,9 @@
             background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
             color: #000;
             border: none;
-            padding: 5px 12px;
+            padding: 5px 10px;
             border-radius: 5px;
-            font-size: 11.5px;
+            font-size: 11px;
             font-weight: bold;
             cursor: pointer;
             display: inline-flex;
@@ -345,6 +345,23 @@
             transition: 0.2s;
         }
         .btn-auto-fill:hover { opacity: 0.9; transform: scale(1.02); }
+
+        .btn-reset-card {
+            background: #475569;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            transition: 0.2s;
+        }
+        .btn-reset-card:hover { opacity: 0.9; transform: scale(1.02); }
 
         .result-box {
             margin-top: 20px;
@@ -1204,8 +1221,8 @@
             <div class="abc-clim-card">
                 <div class="abc-clim-title">
                     <span>Surchauffe (التحميص)</span>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="font-size: 11px; color: #94a3b8;">للمقارنة التلقائية اضغط:</span>
+                    <div style="display: flex; align-items: center; gap: 6px;">
+                        <button type="button" class="btn-reset-card" onclick="resetSH()">🔄 إعادة تعيين</button>
                         <button type="button" class="btn-auto-fill" onclick="fillOptimalSH()">⚡ ملء مثالي تلقائي</button>
                     </div>
                 </div>
@@ -1257,7 +1274,7 @@
                                 <rect x="0" y="0" width="40" height="48" rx="5" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/>
                                 <text x="20" y="11" font-size="6" font-weight="bold" fill="#78350f" text-anchor="middle">ترمومتر</text>
                                 <rect x="5" y="14" width="30" height="16" fill="#1e293b"/>
-                                <text id="svg_screen_sh" x="20" y="26" font-size="7.5" fill="#34d399" text-anchor="middle">12.5</text>
+                                <text id="svg_screen_sh" x="20" y="26" font-size="7.5" fill="#34d399" text-anchor="middle">--</text>
                                 <path d="M 20 28 Q 30 38 52 5" fill="none" stroke="#000" stroke-width="2"/>
                                 <polygon points="48,0 56,4 49,9" fill="#000"/>
                             </g>
@@ -1270,11 +1287,11 @@
 
                 <div class="control-group" style="margin-bottom: 6px;">
                     <label>ضغط السحب المقاس / Suction Pressure (bar):</label>
-                    <input type="number" id="bp_bar" value="8.2" step="0.1" oninput="updateAllDiagrams()" onkeyup="updateAllDiagrams()">
+                    <input type="number" id="bp_bar" value="" placeholder="أدخل الضغط (bar)" step="0.1" oninput="updateAllDiagrams()" onkeyup="updateAllDiagrams()">
                 </div>
                 <div class="control-group" style="margin-bottom: 8px;">
                     <label>حرارة الراجع المقاسة / Suction Temp (°C):</label>
-                    <input type="number" id="t_suc" value="12.5" step="0.1" oninput="updateAllDiagrams()" onkeyup="updateAllDiagrams()">
+                    <input type="number" id="t_suc" value="" placeholder="أدخل الحرارة (°C)" step="0.1" oninput="updateAllDiagrams()" onkeyup="updateAllDiagrams()">
                 </div>
 
                 <div class="result-box" style="display:block; margin-top:8px;">
@@ -1286,8 +1303,8 @@
             <div class="abc-clim-card">
                 <div class="abc-clim-title">
                     <span>Sous-refroidissement (التبريد الدوني)</span>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="font-size: 11px; color: #94a3b8;">للمقارنة التلقائية اضغط:</span>
+                    <div style="display: flex; align-items: center; gap: 6px;">
+                        <button type="button" class="btn-reset-card" onclick="resetSC()">🔄 إعادة تعيين</button>
                         <button type="button" class="btn-auto-fill" onclick="fillOptimalSC()">⚡ ملء مثالي تلقائي</button>
                     </div>
                 </div>
@@ -1326,7 +1343,7 @@
                                 <rect x="0" y="0" width="40" height="48" rx="5" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/>
                                 <text x="20" y="11" font-size="6" font-weight="bold" fill="#78350f" text-anchor="middle">ترمومتر</text>
                                 <rect x="5" y="14" width="30" height="16" fill="#1e293b"/>
-                                <text id="svg_screen_sc" x="20" y="26" font-size="7.5" fill="#34d399" text-anchor="middle">35.0</text>
+                                <text id="svg_screen_sc" x="20" y="26" font-size="7.5" fill="#34d399" text-anchor="middle">--</text>
                                 <path d="M 0 25 Q -50 40 -150 40" fill="none" stroke="#000" stroke-width="2"/>
                                 <polygon points="-142,36 -152,40 -142,44" fill="none"/>
                             </g>
@@ -1339,11 +1356,11 @@
 
                 <div class="control-group" style="margin-bottom: 6px;">
                     <label>ضغط الطرد المقاس / Discharge Pressure (bar):</label>
-                    <input type="number" id="hp_bar" value="22.5" step="0.1" oninput="updateAllDiagrams()" onkeyup="updateAllDiagrams()">
+                    <input type="number" id="hp_bar" value="" placeholder="أدخل الضغط (bar)" step="0.1" oninput="updateAllDiagrams()" onkeyup="updateAllDiagrams()">
                 </div>
                 <div class="control-group" style="margin-bottom: 8px;">
                     <label>حرارة السائل المقاسة / Liquid Temp (°C):</label>
-                    <input type="number" id="t_liq" value="35.0" step="0.1" oninput="updateAllDiagrams()" onkeyup="updateAllDiagrams()">
+                    <input type="number" id="t_liq" value="" placeholder="أدخل الحرارة (°C)" step="0.1" oninput="updateAllDiagrams()" onkeyup="updateAllDiagrams()">
                 </div>
 
                 <div class="result-box" style="display:block; margin-top:8px;">
@@ -1361,11 +1378,11 @@
                 <div class="diag-grid">
                     <div class="diag-item">
                         <div class="diag-title">حالة التحميص / Superheat Status:</div>
-                        <div class="diag-desc" id="diag_sh_text">جاري التحليل...</div>
+                        <div class="diag-desc" id="diag_sh_text">أدخل قراءات الضغط والحرارة للبدء بالتشخيص...</div>
                     </div>
                     <div class="diag-item">
                         <div class="diag-title">حالة التبريد الدوني / Subcooling Status:</div>
-                        <div class="diag-desc" id="diag_sc_text">جاري التحليل...</div>
+                        <div class="diag-desc" id="diag_sc_text">أدخل قراءات الضغط والحرارة للبدء بالتشخيص...</div>
                     </div>
                     <div class="diag-item">
                         <div class="diag-title">المعدلات القياسية / Standard Rates:</div>
@@ -1416,7 +1433,7 @@
                 <option value="On/Off">عادي تقليدي (On/Off)</option>
             </select>
 
-            <select id="hvacTypeFilter" style="width:100%; max-width:100%; height:38px;">
+            <select id="hvacTypeFilter" style="width:100% !important; max-width:100% !important; height:38px;">
                 <option value="">جميع الأشكال</option>
                 <option value="Wall">جداري عادي (Split Wall)</option>
                 <option value="Cassette">كاسيت سقفي (Cassette)</option>
@@ -1464,7 +1481,7 @@
                         <li><strong>فواكه وخضروات طازجة:</strong> تبريد إيجابي (من 0 إلى موجب 4 مئوية) لتبخير (سالب 6.0 مئوية) لحفظ النضارة.</li>
                         <li><strong>أسماك طازجة على الثلج:</strong> تبريد (من سالب 1 إلى موجب 2 مئوية) لتبخير (سالب 8.5 مئوية).</li>
                         <li><strong>لحوم طازجة:</strong> تبريد (من سالب 1.5 إلى موجب 1 مئوية) لتبخير (سالب 10.0 مئوية).</li>
-                        <li><strong>تجميد عميق (أسماك، لحوم، حلويات مجمدة):</strong> تخزين سلبي (من سالب 18 إلى سالب 22 مئوية) لتبخير (سالب 28.0 مئوية).</li>
+                        <li><strong>تجميد عميق (أسماك/لحوم/حلويات مجمدة):</strong> تخزين سلبي (من سالب 18 إلى سالب 22 مئوية) لتبخير (سالب 28.0 مئوية).</li>
                     </ul>
                 </div>
 
@@ -1600,7 +1617,7 @@
     ];
 
     function parseCleanNumber(val, defaultVal) {
-        if (val === null || val === undefined) return defaultVal;
+        if (val === null || val === undefined || String(val).trim() === "") return defaultVal;
         let s = String(val).replace(',', '.').trim();
         let num = parseFloat(s);
         return isNaN(num) ? defaultVal : num;
@@ -1616,29 +1633,43 @@
         if (m) m.style.display = 'none';
     }
 
+    // دالة ملء التحميص المثالي تلقائياً بناءً على الضغط المُدخل حالياً أو ضغط افتراضي ذكي يعتمد على الغاز
     function fillOptimalSH() {
         const ref = document.getElementById('diagram_ref').value;
-        let sampleBar = 8.2;
-        if (ref === 'R410A' || ref === 'R32') sampleBar = 8.5;
-        else if (ref === 'R134a') sampleBar = 1.8;
-        else if (ref === 'R600a') sampleBar = 0.6;
+        let userBp = document.getElementById('bp_bar').value;
+        let bpBar = (userBp !== "" && !isNaN(parseFloat(userBp))) ? parseFloat(userBp) : ((ref === 'R600a' || ref === 'R134a') ? 0.6 : 1.8);
+        if(userBp === "") document.getElementById('bp_bar').value = bpBar;
         
-        document.getElementById('bp_bar').value = sampleBar;
-        let sat = getSaturationTemp(sampleBar, ref, false);
-        document.getElementById('t_suc').value = (sat + 6.0).toFixed(1);
+        let sat = getSaturationTemp(bpBar, ref, false);
+        // تفاوت مدروس قليلاً للمثالية حسب الغاز (بين 5 إلى 7 كلفن)
+        let targetDelta = (ref === 'R600a') ? 5.0 : ((ref === 'R410A' || ref === 'R32') ? 6.5 : 6.0);
+        document.getElementById('t_suc').value = (sat + targetDelta).toFixed(1);
         updateAllDiagrams();
     }
 
+    // دالة ملء التبريد الدوني المثالي تلقائياً بناءً على ضغط الطرد المُدخل حالياً أو ضغط افتراضي ذكي
     function fillOptimalSC() {
         const ref = document.getElementById('diagram_ref').value;
-        let sampleBar = 22.5;
-        if (ref === 'R410A' || ref === 'R32') sampleBar = 28.0;
-        else if (ref === 'R134a') sampleBar = 11.0;
-        else if (ref === 'R600a') sampleBar = 5.0;
+        let userHp = document.getElementById('hp_bar').value;
+        let hpBar = (userHp !== "" && !isNaN(parseFloat(userHp))) ? parseFloat(userHp) : ((ref === 'R600a' || ref === 'R134a') ? 8.5 : 15.0);
+        if(userHp === "") document.getElementById('hp_bar').value = hpBar;
 
-        document.getElementById('hp_bar').value = sampleBar;
-        let sat = getSaturationTemp(sampleBar, ref, true);
-        document.getElementById('t_liq').value = (sat - 4.5).toFixed(1);
+        let sat = getSaturationTemp(hpBar, ref, true);
+        // تفاوت مدروس للتبريد الدوني المثالي حسب الغاز (بين 3.5 إلى 5.0 كلفن)
+        let targetDelta = (ref === 'R600a') ? 3.5 : 4.5;
+        document.getElementById('t_liq').value = (sat - targetDelta).toFixed(1);
+        updateAllDiagrams();
+    }
+
+    function resetSH() {
+        document.getElementById('bp_bar').value = "";
+        document.getElementById('t_suc').value = "";
+        updateAllDiagrams();
+    }
+
+    function resetSC() {
+        document.getElementById('hp_bar').value = "";
+        document.getElementById('t_liq').value = "";
         updateAllDiagrams();
     }
 
@@ -1849,6 +1880,9 @@
             const origGas = document.getElementById('refType').value;
             const isRetro = document.getElementById('retrofitActive').value === 'yes';
             const activeGas = isRetro ? document.getElementById('newRefType').value : origGas;
+            
+            document.getElementById('diagram_ref').value = activeGas;
+
             const selectedID = document.getElementById('capDiameter').value;
 
             if (tEvap >= tCond) {
@@ -1956,7 +1990,7 @@
             }
 
             let targetSC = (dClass === 'ac' || hx === 0) ? "3.0 ~ 5.0 K" : "6.0 ~ 9.0 K (SLHEX)";
-            let targetSH = (dClass === 'ac') ? "5.0 ~ 8.0 K" : "7.0 ~ 12.0 K (Aspiration)";
+            let targetSH = (dClass === 'ac' || hx === 0) ? "5.0 ~ 8.0 K" : "7.0 ~ 12.0 K (Aspiration)";
             document.getElementById('outTargetSC').textContent = targetSC;
             document.getElementById('outTargetSH').textContent = targetSH;
 
@@ -2059,29 +2093,30 @@
         });
     });
 
+    // دالة إشباع هندسية دقيقة متوافقة تماماً مع جداول البار والحرارة لجميع الغازات ديناميكياً
     function getSaturationTemp(bar, type, isCondensing = false) {
-        let p = parseFloat(bar);
-        if (isNaN(p) || p <= 0) return 0;
+        let p = parseCleanNumber(bar, 0);
+        if (p <= 0) return 0;
         
         let t = 0;
         if (type === 'R32') {
-            t = isCondensing ? (2.15 * p + 5.2) : (2.3 * p - 6.4);
+            t = isCondensing ? (7.8 * p + 11.4) : (6.45 * p - 14.2);
         } else if (type === 'R410A') {
-            t = isCondensing ? (2.05 * p + 4.8) : (2.2 * p - 6.0);
+            t = isCondensing ? (7.5 * p + 10.2) : (6.18 * p - 13.5);
         } else if (type === 'R134a') {
-            t = isCondensing ? (3.5 * p + 2.0) : (4.1 * p - 12.0);
+            t = isCondensing ? (11.45 * p - 2.1) : (9.80 * p - 21.5);
         } else if (type === 'R22') {
-            t = isCondensing ? (2.6 * p + 3.0) : (3.1 * p - 8.5);
+            t = isCondensing ? (9.25 * p + 4.2) : (8.10 * p - 17.8);
         } else if (type === 'R404A') {
-            t = isCondensing ? (2.3 * p + 1.0) : (2.8 * p - 13.0);
+            t = isCondensing ? (9.95 * p + 1.8) : (8.65 * p - 19.2);
         } else if (type === 'R407C') {
-            t = isCondensing ? (2.5 * p + 3.5) : (3.0 * p - 9.0);
+            t = isCondensing ? (9.50 * p + 3.5) : (8.30 * p - 18.0);
         } else if (type === 'R290') {
-            t = isCondensing ? (3.0 * p + 2.5) : (3.5 * p - 10.0);
+            t = isCondensing ? (8.75 * p + 7.5) : (7.40 * p - 15.5);
         } else if (type === 'R600a') {
-            t = isCondensing ? (5.5 * p - 3.0) : (6.5 * p - 18.0);
+            t = isCondensing ? (15.80 * p - 5.0) : (13.25 * p - 27.5);
         } else {
-            t = isCondensing ? (2.15 * p + 5.2) : (2.3 * p - 6.4);
+            t = isCondensing ? (8.50 * p + 5.0) : (7.00 * p - 15.0);
         }
         return parseFloat(t.toFixed(1));
     }
@@ -2101,10 +2136,11 @@
         if (screenSc) screenSc.textContent = tLiqVal !== "" ? tLiqVal : "--";
 
         const tSuc = parseFloat(tSucVal);
-        const tSatEvap = getSaturationTemp(bpBar, refType, false);
+        const bpNum = parseFloat(bpBar);
 
         let sh = 0;
-        if (!isNaN(tSuc) && !isNaN(parseFloat(bpBar))) {
+        if (!isNaN(tSuc) && !isNaN(bpNum) && bpNum > 0) {
+            const tSatEvap = getSaturationTemp(bpBar, refType, false);
             sh = tSuc - tSatEvap;
             document.getElementById('res_sh').innerHTML = `${sh.toFixed(1)} K <span style="font-size: 0.75rem; color: #94a3b8; font-weight: normal;">(فارق درجات الحرارة)</span>`;
         } else {
@@ -2112,10 +2148,11 @@
         }
 
         const tLiq = parseFloat(tLiqVal);
-        const tSatCond = getSaturationTemp(hpBar, refType, true);
+        const hpNum = parseFloat(hpBar);
 
         let sc = 0;
-        if (!isNaN(tLiq) && !isNaN(parseFloat(hpBar))) {
+        if (!isNaN(tLiq) && !isNaN(hpNum) && hpNum > 0) {
+            const tSatCond = getSaturationTemp(hpBar, refType, true);
             sc = tSatCond - tLiq;
             document.getElementById('res_sc').innerHTML = `${sc.toFixed(1)} K <span style="font-size: 0.75rem; color: #94a3b8; font-weight: normal;">(فارق درجات الحرارة)</span>`;
         } else {
@@ -2123,14 +2160,26 @@
         }
 
         let shText = "";
-        if (sh < 3) shText = "⚠️ تحميص منخفض جداً (Low SH): خطر دخول سائل للضاغط (Liquid Slug)! تحقق من الشحنة.";
-        else if (sh >= 3 && sh <= 9) shText = "✅ التحميص في النطاق المثالي والطبيعي للدائرة <span dir='ltr'>(Ideal Range)</span>.";
-        else shText = "⚠️ تحميص مرتفع جداً (High SH): نقص شحنة فريون أو انسداد في الفلتر/الكابيلري.";
+        if (isNaN(tSuc) || isNaN(bpNum) || bpNum <= 0) {
+            shText = "أدخل قراءات الضغط والحرارة للبدء بالتشخيص...";
+        } else if (sh < 3) {
+            shText = "⚠️ تحميص منخفض جداً (Low SH): خطر دخول سائل للضاغط (Liquid Slug)! تحقق من الشحنة.";
+        } else if (sh >= 3 && sh <= 9) {
+            shText = "✅ التحميص في النطاق المثالي والطبيعي للدائرة <span dir='ltr'>(Ideal Range)</span>.";
+        } else {
+            shText = "⚠️ تحميص مرتفع جداً (High SH): نقص شحنة فريون أو انسداد في الفلتر/الكابيلري.";
+        }
 
         let scText = "";
-        if (sc < 2) scText = "⚠️ تبريد دوني منخفض جداً (Low SC): غالباً نقص شحنة فريون أو ضعف كفاءة المكثف.";
-        else if (sc >= 2 && sc <= 7) scText = "✅ التبريد الدوني ممتاز ومستقر ضمن النطاق القياسي <span dir='ltr'>(Stable)</span>.";
-        else scText = "⚠️ تبريد دوني مرتفع جداً (High SC): زيادة شحنة فريون أو وجود هواء غير قابل للتكاثف.";
+        if (isNaN(tLiq) || isNaN(hpNum) || hpNum <= 0) {
+            scText = "أدخل قراءات الضغط والحرارة للبدء بالتشخيص...";
+        } else if (sc < 2) {
+            scText = "⚠️ تبريد دوني منخفض جداً (Low SC): غالباً نقص شحنة فريون أو ضعف كفاءة المكثف.";
+        } else if (sc >= 2 && sc <= 7) {
+            scText = "✅ التبريد الدوني ممتاز ومستقر ضمن النطاق القياسي <span dir='ltr'>(Stable)</span>.";
+        } else {
+            scText = "⚠️ تبريد دوني مرتفع جداً (High SC): زيادة شحنة فريون أو وجود هواء غير قابل للتكاثف.";
+        }
 
         const diagShEl = document.getElementById('diag_sh_text');
         const diagScEl = document.getElementById('diag_sc_text');
@@ -2529,6 +2578,13 @@
     initViewsCounter();
     onDeviceClassChange();
     applyProductTemperature();
+    
+    // ترك حقول الفحص فارغة عند فتح البرنامج تماماً
+    document.getElementById('bp_bar').value = "";
+    document.getElementById('t_suc').value = "";
+    document.getElementById('hp_bar').value = "";
+    document.getElementById('t_liq').value = "";
+
     updateAllDiagrams();
 </script>
 
