@@ -53,7 +53,8 @@
         .btn-profile { background: linear-gradient(135deg, #1877f2 0%, #0d5bbd 100%); } .btn-guide { background: linear-gradient(135deg, var(--teal) 0%, #0f766e 100%); }
         .form-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 18px; }
         @media (min-width: 640px) { .form-grid { grid-template-columns: 1fr 1fr; gap: 12px 18px; } }
-        .control-group { display: flex; justify-content: space-between; align-items: center; background: var(--card-inner); padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); gap: 8px; }
+        .control-group { display: flex; justify-content: space-between; align-items: center; background: var(--card-inner); padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); gap: 8px; transition: border-color 0.2s; }
+        .control-group:hover { border-color: var(--secondary); }
         .control-group.retrofit-box { background: rgba(245, 158, 11, 0.08); border: 1px dashed var(--accent-orange); }
         .control-group.product-box { background: rgba(20, 184, 166, 0.08); border: 1px dashed var(--teal); }
         label { font-size: 12px; font-weight: 600; color: #bfdbfe; flex: 1.1; line-height: 1.35; }
@@ -64,8 +65,11 @@
         .action-row { display: flex; gap: 10px; border-top: 1px solid var(--border); padding-top: 16px; flex-wrap: wrap; }
         .btn-action { flex: 1; min-width: 140px; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: #ffffff; border: none; padding: 12px 8px; font-size: 13.5px; font-weight: 700; cursor: pointer; border-radius: 6px; transition: all 0.2s ease; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
         .btn-reset { background: #475569; } .btn-copy { background: linear-gradient(135deg, #10b981 0%, #059669 100%); } .btn-img { background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); }
+        .btn-action:hover { opacity: 0.92; transform: translateY(-1px); }
         .btn-auto-fill { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #000; border: none; padding: 5px 10px; border-radius: 5px; font-size: 11px; font-weight: bold; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.3); transition: 0.2s; }
+        .btn-auto-fill:hover { opacity: 0.9; transform: scale(1.02); }
         .btn-reset-card { background: #475569; color: #fff; border: none; padding: 5px 10px; border-radius: 5px; font-size: 11px; font-weight: bold; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.3); transition: 0.2s; }
+        .btn-reset-card:hover { opacity: 0.9; transform: scale(1.02); }
         .result-box { margin-top: 20px; border: 1px solid var(--secondary); border-radius: 8px; overflow: hidden; background: var(--card-inner); box-shadow: var(--glow); display: none; }
         .result-title { background: linear-gradient(135deg, #0f2b5c 0%, #1d4ed8 100%); color: #ffffff; padding: 10px 14px; font-size: 13.5px; font-weight: 700; text-align: center; border-bottom: 1px solid #1e3a8a; }
         .data-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
@@ -171,15 +175,15 @@
                 <div class="control-group product-box">
                     <label>طبيعة المادة / الاستخدام:</label>
                     <select id="productCategory" onchange="applyProductTemperature()">
-                        <option value="custom" selected>-- تحديد مخصص --</option>
-                        <option value="pastry">حلويات وباتيسري (من 4 إلى 6 مئوية)</option>
-                        <option value="cheese_dairy">أجبان وحليب ومشتقاته (من 2 إلى 4 مئوية)</option>
-                        <option value="food_general">أطعمة ومواد غذائية (من 0 إلى 5 مئوية)</option>
-                        <option value="pharma">أدوية ومواد حساسة (من 2 إلى 8 مئوية)</option>
-                        <option value="veggies">فواكه وخضروات طازجة (من 0 إلى 4 مئوية)</option>
-                        <option value="fish_fresh">أسماك طازجة (من -1 إلى 2 مئوية)</option>
-                        <option value="meat_fresh">لحوم طازجة (من -1.5 إلى 1 مئوية)</option>
-                        <option value="frozen_neg">تجميد عميق (من -18 إلى -22 مئوية)</option>
+                        <option value="custom" selected>-- تحديد حراري مخصص --</option>
+                        <option value="pastry">حلويات وباتيسري (من موجب 4 إلى موجب 6 مئوية)</option>
+                        <option value="cheese_dairy">أجبان، حليب ومشتقاته (من موجب 2 إلى موجب 4 مئوية)</option>
+                        <option value="food_general">أطعمة ومواد غذائية عامة (من 0 إلى موجب 5 مئوية)</option>
+                        <option value="pharma">أدوية ومواد حساسة (من موجب 2 إلى موجب 8 مئوية)</option>
+                        <option value="veggies">فواكه وخضروات طازجة (من 0 إلى موجب 4 مئوية)</option>
+                        <option value="fish_fresh">أسماك طازجة على الثلج (من سالب 1 إلى موجب 2 مئوية)</option>
+                        <option value="meat_fresh">لحوم طازجة (من سالب 1.5 إلى موجب 1 مئوية)</option>
+                        <option value="frozen_neg">تجميد عميق (أسماك/لحوم/حلويات) (من سالب 18 إلى سالب 22 مئوية)</option>
                     </select>
                 </div>
                 <div class="control-group retrofit-box">
@@ -442,7 +446,6 @@
                 • <strong>التبريد الدوني (SC):</strong> يبين وصول الفريون كسائل نقي 100% لمدخل الكابيلري.
             </div>
 
-            <!-- التنبيه الفني الذي تمت إعادته -->
             <div class="tech-note" id="techNote">تنبيه فني معتمد: يُوصى دائماً بترك هامش طول إضافي بنسبة 10% عند قص الأنبوب الشعري، لضبط شحنة وسيط التبريد عملياً أثناء التشغيل ومراقبة استقرار التحميص (Superheat).</div>
         </div>
     </div>
@@ -873,7 +876,6 @@
 
             const prop = GAS_DATABASE[activeGas] || GAS_DATABASE['R134a'];
             
-            // --- ميزة توزيع المكيفات (Distributeur) ---
             let circuits = 1;
             if (isAC) {
                 if (capBtu >= 22000) circuits = 3;
@@ -881,7 +883,7 @@
             }
             
             const totalMassFlow = capBtu / (prop.hfg || 86.5);
-            const adjustedMassFlow = totalMassFlow / circuits; // حساب التدفق لكل أنبوب
+            const adjustedMassFlow = totalMassFlow / circuits;
 
             function computeLength(dia) {
                 const pCondPsi = pCondBar * 14.5038;
