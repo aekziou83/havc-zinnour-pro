@@ -33,8 +33,10 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
         body { background-color: var(--bg); color: var(--text-main); padding: 12px; display: flex; justify-content: center; min-height: 100vh; }
         .main-container { background: var(--card-bg); width: 100%; max-width: 860px; border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4); padding: 18px; }
-        .analytics-bar { display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border: 1px solid #334155; border-radius: 8px; padding: 8px 14px; margin-bottom: 14px; font-size: 12px; color: #cbd5e1; flex-wrap: wrap; gap: 8px; }
-        .analytics-item { display: flex; align-items: center; gap: 6px; }
+        
+        .analytics-bar { display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border: 1px solid #334155; border-radius: 8px; padding: 10px 14px; margin-bottom: 14px; font-size: 12.5px; color: #cbd5e1; flex-wrap: wrap; gap: 12px; }
+        .analytics-item { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center; }
+        
         .live-dot { width: 8px; height: 8px; border-radius: 50%; background-color: #22c55e; box-shadow: 0 0 8px #22c55e; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
         .stat-badge { background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-family: monospace; border: 1px solid rgba(56, 189, 248, 0.3); }
@@ -125,7 +127,8 @@
 
         @media (max-width: 600px) {
             .hvac-filter-grid { grid-template-columns: 1fr; }
-            .analytics-bar { flex-direction: column; gap: 6px; text-align: center; }
+            .analytics-bar { flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center; }
+            .analytics-item { width: 100%; justify-content: center; }
             .data-table th, .data-table td { width: 50%; font-size: 11.5px; }
         }
     </style>
@@ -139,9 +142,9 @@
             <span class="live-dot"></span>
             <span>المستخدمون المتفاعلون الآن: <strong style="color:#22c55e;" id="activeUsers">4</strong> فنيين</span>
         </div>
-        <div class="analytics-item" style="gap: 12px;">
-            <span>إجمالي المشاهدات: <span class="stat-badge" id="viewCount">1,266</span></span>
-            <button type="button" class="btn-like" id="likeBtn">❤️ أعجبني (<span id="likeCount">143</span>)</button>
+        <div class="analytics-item">
+            <span>إجمالي المشاهدات: <span class="stat-badge" id="viewCount">2,450</span></span>
+            <button type="button" class="btn-like" id="likeBtn">❤️ أعجبني (<span id="likeCount">214</span>)</button>
         </div>
     </div>
 
@@ -150,6 +153,7 @@
         <button type="button" class="nav-tab-btn" id="tabBtnHvac" onclick="showApp('hvac')">⚡ دليل أعطال ومخططات التكييف</button>
     </div>
 
+    <!-- 1. برنامج حساب الأنبوب الشعري -->
     <div id="sectionCapillary" class="app-section active">
         <div class="header">
             <h1>برنامج حساب الأنبوب الشعري (Capillary Tube Sizer)</h1>
@@ -488,7 +492,7 @@
         </div>
 
         <input type="text" id="hvacCodeInput" class="hvac-search-input" placeholder="اكتب رمز الخطأ مباشرة هنا (مثال: CH01, E1, EC)..." oninput="renderHvacErrors()">
-        <div id="hvacResultsContainer"><div class="hvac-no-results">أدخل كود الخطأ (مثال: CH05, E1) أو حدد نوع المكيف للتشخيص...</div></div>
+        <div id="hvacResultsContainer"><div class="hvac-no-results">أدخل كود الخطأ في الخانة السفلية (مثال: CH05, E1) لظهور نتائج التشخيص...</div></div>
     </div>
 
 </div>
@@ -545,6 +549,21 @@
                     <h4>6. زر التفاعل الفوري (أعجبني ❤️):</h4>
                     <p>زر تفاعلي في الشريط العلوي يتيح تسجيل وتقييم الإعجاب بالمنصة مع تحديث فوري لعداد التفاعل المحلي والسحابي.</p>
                 </div>
+
+                <div class="guide-item">
+                    <h4>7. أداة فحص التحميص والتبريد الدوني (SH & SC Diagnostics):</h4>
+                    <p>أداة تفاعلية لتشخيص حالة الدورة بدقة بعد تركيب الأنبوب الشعري أو شحن الغاز:</p>
+                    <ul>
+                        <li><strong>الرسوم التفاعلية (SVG):</strong> توضح نقاط قياس الضغط والحرارة (الضغط المنخفض والعالي)، وتدعم التكبير والتصغير باللمس بإصبعين (Pinch-to-Zoom).</li>
+                        <li><strong>زر (مثالي تلقائي):</strong> يقوم بحساب وتعبئة القيم المثالية للتحميص (6K) والتبريد الدوني (4.5K) كمرجع هندسي للفني.</li>
+                        <li><strong>التشخيص الآلي:</strong> يحلل القيم المدخلة ويعطيك تقريراً مباشراً (تحذير من خطر رجوع سائل للضاغط، نقص شحنة، أو أداء مثالي).</li>
+                    </ul>
+                </div>
+
+                <div class="guide-item">
+                    <h4>8. دليل أعطال التكييف (HVAC Error Codes):</h4>
+                    <p>قاعدة بيانات مدمجة للبحث عن رموز الأعطال لمختلف الماركات (Midea, LG, Gree...). قم باختيار الفلاتر (الماركة، النوع، الشكل) <strong>ثم اكتب رمز الخطأ في خانة البحث السفلية</strong> لتظهر لك خطوات الفحص والصيانة مباشرة.</p>
+                </div>
             </div>
 
             <div class="guide-section">
@@ -555,8 +574,8 @@
                     <p style="font-size: 11.5px; color: #94a3b8; margin-top: 4px;">تعتمد على القدرة التبريدية الفعلية (<span dir="ltr">Q₀</span>) والفارق الإنثالبي لدورة التبخير.</p>
                     
                     <p style="margin-top: 10px;"><strong>2. نموذج محاكاة هبوط الضغط الحرج ثنائي الطور في الأنبوب الشعري:</strong></p>
-                    <div class="formula-box nowrap">ΔP = f · (L / D) · (ρ · V² / 2)</div>
-                    <p style="font-size: 11.5px; color: #94a3b8; margin-top: 4px;">حيث <span dir="ltr">f</span> معامل الاحتكاك، <span dir="ltr">L</span> الطول الهندسي، <span dir="ltr">D</span> القطر الداخلي، و <span dir="ltr">ρ</span> الكثافة وسرعة التدفق <span dir="ltr">V</span>.</p>
+                    <div class="formula-box nowrap">ΔP = f · (L / D) · (<span style="font-family: 'Times New Roman', serif; font-style: italic; font-size: 15px;">ρ</span> · V² / 2)</div>
+                    <p style="font-size: 11.5px; color: #94a3b8; margin-top: 4px;">حيث <span dir="ltr">f</span> معامل الاحتكاك، <span dir="ltr">L</span> الطول الهندسي، <span dir="ltr">D</span> القطر الداخلي، و <span dir="ltr" style="font-family: 'Times New Roman', serif; font-style: italic; font-size: 13px;">ρ</span> الكثافة وسرعة التدفق <span dir="ltr">V</span>.</p>
 
                     <p style="margin-top: 10px;"><strong>3. معادلات التحميص والتبريد الدوني:</strong></p>
                     <div class="formula-box" style="line-height: 1.8;">
@@ -616,26 +635,35 @@
     ];
 
     function initViewsCounter() {
-        fetch('https://api.counterapi.dev/v1/aekziou83_hvac/visits/up')
+        let savedViews = localStorage.getItem('user_app_views') ? parseInt(localStorage.getItem('user_app_views')) : 2450;
+        savedViews += Math.floor(Math.random() * 3) + 1;
+        localStorage.setItem('user_app_views', savedViews);
+        document.getElementById('viewCount').textContent = savedViews.toLocaleString('en-US');
+
+        const timestamp = new Date().getTime();
+        const apiURL = `https://api.counterapi.dev/v1/zinnour_hvac_pro/visits/up?_=${timestamp}`;
+        
+        fetch(apiURL)
             .then(res => res.json())
             .then(data => {
-                if (data && data.count) {
-                    let realVisits = data.count + 1250;
-                    document.getElementById('viewCount').textContent = Number(realVisits).toLocaleString('en-US');
-                } else {
-                    document.getElementById('viewCount').textContent = "1,266";
+                if (data && typeof data.count === 'number') {
+                    let realVisits = data.count + 2450;
+                    document.getElementById('viewCount').textContent = realVisits.toLocaleString('en-US');
+                    localStorage.setItem('user_app_views', realVisits);
                 }
             })
-            .catch(() => { document.getElementById('viewCount').textContent = "1,266"; });
+            .catch(() => { 
+                // Ignore errors (Adblockers), local storage view count is already displayed
+            });
 
-        let savedLikes = localStorage.getItem('user_app_likes') ? parseInt(localStorage.getItem('user_app_likes')) : 143;
+        let savedLikes = localStorage.getItem('user_app_likes') ? parseInt(localStorage.getItem('user_app_likes')) : 214;
         document.getElementById('likeCount').textContent = savedLikes.toLocaleString('en-US');
 
         const likeBtn = document.getElementById('likeBtn');
         if (likeBtn) {
             likeBtn.addEventListener('click', function(e) {
                 e.preventDefault();
-                let currentLikes = localStorage.getItem('user_app_likes') ? parseInt(localStorage.getItem('user_app_likes')) : 143;
+                let currentLikes = localStorage.getItem('user_app_likes') ? parseInt(localStorage.getItem('user_app_likes')) : 214;
                 if (!localStorage.getItem('has_liked')) {
                     currentLikes += 1;
                     localStorage.setItem('user_app_likes', currentLikes);
@@ -648,10 +676,18 @@
             });
         }
 
-        setInterval(() => {
-            const active = Math.floor(Math.random() * 3) + 3;
-            document.getElementById('activeUsers').textContent = active;
-        }, 10000);
+        function updateActiveUsers() {
+            const baseActive = Math.floor(Math.random() * 9) + 4;
+            const hour = new Date().getHours();
+            let multiplier = (hour >= 18 || hour <= 2) ? 1.5 : 1.0; 
+            const finalActive = Math.floor(baseActive * multiplier);
+            document.getElementById('activeUsers').textContent = finalActive;
+            
+            const nextUpdate = Math.floor(Math.random() * 7000) + 8000;
+            setTimeout(updateActiveUsers, nextUpdate);
+        }
+        
+        updateActiveUsers();
     }
 
     function showApp(tabName) {
@@ -894,8 +930,8 @@
                 return 83 * lBase * factorHX;
             }
 
-            let minL = isAC ? 15 : 60; // inches
-            let maxL = isAC ? 55 : 140; // inches
+            let minL = isAC ? 15 : 60; 
+            let maxL = isAC ? 55 : 140; 
             let finalID = 0.031;
             let finalLen = 100;
 
@@ -1033,8 +1069,8 @@
         const type = document.getElementById("hvacTypeFilter").value;
         const query = document.getElementById("hvacCodeInput").value.trim().toLowerCase();
 
-        if (!brand && !tech && !type && !query) {
-            container.innerHTML = '<div class="hvac-no-results">أدخل كود الخطأ (مثال: CH05, E1) أو حدد نوع المكيف للتشخيص...</div>';
+        if (!query) {
+            container.innerHTML = '<div class="hvac-no-results">أدخل كود الخطأ في الخانة السفلية (مثال: CH05, E1) لظهور نتائج التشخيص...</div>';
             return;
         }
 
@@ -1042,7 +1078,7 @@
             let matchBrand = !brand || item.brand === brand;
             let matchTech = !tech || item.tech === tech;
             let matchType = !type || item.type === type;
-            let matchQuery = !query || item.code.toLowerCase().includes(query) || item.title.toLowerCase().includes(query);
+            let matchQuery = item.code.toLowerCase().includes(query) || item.title.toLowerCase().includes(query);
             return matchBrand && matchTech && matchType && matchQuery;
         });
 
