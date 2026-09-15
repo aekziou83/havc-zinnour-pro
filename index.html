@@ -630,7 +630,7 @@
     const HVAC_MASTER_DATABASE = [
         { code: "CH01", brand: "LG", tech: "Inverter", type: "Wall", title: "خطأ في حساسة حرارة الهواء الداخلي (Room Temp Sensor)", check: "فحص توصيل الحساس أو تغييره بقيمة 10 كيلو أوم." },
         { code: "CH02", brand: "LG", tech: "Inverter", type: "Wall", title: "خطأ في حساسة مبخر الوحدة الداخلية (Indoor Pipe Sensor)", check: "فحص الحساس وتوصيل الكارت الإلكتروني." },
-        { code: "CH05", brand: "LG", tech: "Inverter", type: "Wall", title: "خطأ في الاتصال بين الوحدة الداخلية والخارجية (Communication Error)", check: "فحص أسلاك الإشارة ونقاط الربط أو optocouplers على لوحة الباور." },
+        { code: "CH05", brand: "LG", tech: "Inverter", type: "Wall", title: "خطأ في الاتصال بين الوحدة الداخلية والخارجية (Communication Error)", check: "فحص أسلاك الإشارة ونقاط الربط أو optocouplers على لوحة الباور.", img: "" },
         { code: "EC", brand: "Midea", tech: "Inverter", type: "Wall", title: "نقص شحنة الفريون أو مشكلة تبريد بالدائرة", check: "فحص الضغوط والتسريب واختبار التحميص والتبريد الدوني." },
         { code: "E1", brand: "Gree", tech: "Inverter", type: "Wall", title: "خطأ ضغط مرتفع أو حماية الضاغط (High Pressure Protection)", check: "فحص نظافة المكثف، مروحة الطرد، وضغوط الشحنة." },
         { code: "P4", brand: "Midea", tech: "Inverter", type: "Wall", title: "حماية حرارة الضاغط العالية أو وحدة الـ IPM", check: "فحص تبريد وحدة الانفرتر ومعجون التبريد وضغط الغاز." },
@@ -675,6 +675,20 @@
         savedViews += Math.floor(Math.random() * 3) + 1;
         localStorage.setItem('user_app_views', savedViews);
         document.getElementById('viewCount').textContent = savedViews.toLocaleString('en-US');
+
+        const timestamp = new Date().getTime();
+        const apiURL = `https://api.counterapi.dev/v1/zinnour_hvac_pro/visits/up?_=${timestamp}`;
+        
+        fetch(apiURL)
+            .then(res => res.json())
+            .then(data => {
+                if (data && typeof data.count === 'number') {
+                    let realVisits = data.count + 2450;
+                    document.getElementById('viewCount').textContent = realVisits.toLocaleString('en-US');
+                    localStorage.setItem('user_app_views', realVisits);
+                }
+            })
+            .catch(() => {});
 
         let savedLikes = localStorage.getItem('user_app_likes') ? parseInt(localStorage.getItem('user_app_likes')) : 214;
         document.getElementById('likeCount').textContent = savedLikes.toLocaleString('en-US');
@@ -841,13 +855,27 @@
         const acTech = document.getElementById('acTech')?.value || 'none';
         let btuVal = parseInt(document.getElementById('btuCapacity')?.value || '0', 10);
         const refType = document.getElementById('refType')?.value || 'R134a';
+        const deviceClass = document.getElementById('deviceClass')?.value || 'custom';
 
-        const refFactors = { 'R12': 1.05, 'R134a': 1.0, 'R600': 0.45, 'R600a': 0.45, 'R290': 0.45, 'R404A': 1.20, 'R22': 1.05, 'R410A': 1.15, 'R407C': 1.02, 'R32': 0.75 };
+        const refFactors = { 
+            'R134a': 1.00, 
+            'R12': 1.05, 
+            'R600a': 0.42, 
+            'R600': 0.42, 
+            'R290': 0.43, 
+            'R404A': 1.18, 
+            'R507': 1.18, 
+            'R502': 1.15,
+            'R22': 1.05, 
+            'R410A': 1.10, 
+            'R407C': 1.02, 
+            'R32': 0.75 
+        };
         
         let baseGrams = 500;
         let typeDesc = "تأسيسي";
 
-        if (acTech !== 'none' || btuVal > 0) {
+        if (acTech !== 'none' || btuVal > 0 || deviceClass === 'ac') {
             if (btuVal === 0) btuVal = 9000;
             const acTable = {
                 standard: { 9000: 850, 12000: 1150, 18000: 1450, 24000: 1850 },
@@ -855,26 +883,28 @@
             };
             const tierMap = acTable[acTech] || acTable.standard;
             const baseAC = tierMap[btuVal] || 850;
-            const acGasFactor = (refType === 'R32') ? 0.72 : ((refType === 'R22') ? 0.95 : 1.0);
+            const acGasFactor = (refType === 'R32') ? 0.72 : ((refType === 'R22') ? 0.95 : ((refType === 'R410A') ? 1.0 : 1.0));
             baseGrams = Math.round(baseAC * acGasFactor);
             const techLabel = acTech === 'inverter' ? 'إنفرتر Inverter' : 'عادي On/Off';
-            typeDesc = `مكيف ${btuVal} BTU [${techLabel}] (${refType})`;
+            typeDesc = `مكيف ${btuVal} BTU [${techLabel}]`;
+        
         } else {
             const refFactor = refFactors[refType] || 1.0;
-            if (vol <= 350) {
-                const isHC = (refType.includes('600') || refType === 'R290');
-                baseGrams = isHC ? Math.round(vol * 0.22 + 45) : Math.round((vol * 0.42 + 90) * refFactor);
-                typeDesc = `منزلية (${vol}L - ${refType})`;
-            } else if (vol <= 800) {
-                baseGrams = Math.round((vol * 0.75 + 250) * refFactor);
-                typeDesc = `تجارية متوسطة (${vol}L - ${refType})`;
-            } else if (vol <= 1400) {
-                baseGrams = Math.round((vol * 0.85 + 400) * refFactor);
-                typeDesc = `تجارية كبيرة (${vol}L - ${refType})`;
+            let isCommercial = (deviceClass === 'commercial') || (deviceClass === 'custom' && vol > 600);
+            
+            if (!isCommercial) {
+                baseGrams = Math.round((4.5 * Math.pow(vol, 0.58)) * refFactor);
+                typeDesc = `منزلية (${vol}L)`;
             } else {
-                baseGrams = Math.round((vol * 0.95 + 600) * refFactor);
-                typeDesc = `تجارية ضخمة (${vol}L - ${refType})`;
+                if (vol <= 1000) {
+                    baseGrams = Math.round((1.5 * Math.pow(vol, 0.85)) * refFactor);
+                    typeDesc = `تجارية متوسطة (${vol}L)`;
+                } else {
+                    baseGrams = Math.round((1.8 * Math.pow(vol, 0.82)) * refFactor);
+                    typeDesc = `تجارية ضخمة (${vol}L)`;
+                }
             }
+            if (baseGrams < 20) baseGrams = 20; 
         }
         return { grams: baseGrams, typeDesc };
     }
@@ -900,11 +930,11 @@
 
             if (tEvap >= tCond) { alert("خطأ: يجب أن تكون درجة حرارة التبخير أقل من حرارة التكثيف!"); return; }
 
-            document.getElementById('outRegime').innerHTML = '<span class="badge badge-positive">محدد يدوياً</span>';
+            document.getElementById('outRegime').innerHTML = '<span class="badge badge-positive">تم التحليل بنجاح</span>';
             const retrofitRow = document.getElementById('retrofitRow');
             if (isRetro) {
                 retrofitRow.style.display = 'table-row';
-                document.getElementById('outRetrofit').innerHTML = `<span class="badge badge-retrofit">تم التحويل من ${refTypeSelect} إلى ${activeGas}</span>`;
+                document.getElementById('outRetrofit').innerHTML = `<span class="badge badge-retrofit">تحويل من ${refTypeSelect} إلى ${activeGas}</span>`;
             } else {
                 retrofitRow.style.display = 'none';
             }
@@ -930,55 +960,77 @@
             }
             
             const totalMassFlow = capBtu / (prop.hfg || 86.5);
-            const adjustedMassFlow = totalMassFlow / circuits;
+            const adjustedMassFlow = Math.max(0.5, totalMassFlow / circuits);
 
-            function computeLength(dia) {
+            function computeLength(diaInches) {
                 const pCondPsi = pCondBar * 14.5038;
                 const pEvapPsi = pEvapBar * 14.5038;
-                const dp = Math.max(15, pCondPsi - pEvapPsi);
-                const factorHX = 1 / (1 + (0.0032 * hxInches));
-                let lBase = (Math.pow(dia / 0.026, 4.3) * (dp / 140)) / Math.pow(adjustedMassFlow / 2.6, 1.4);
-                return 83 * lBase * factorHX;
+                const dp = Math.max(15, pCondPsi - pEvapPsi); 
+                const factorHX = 1 / (1 + (0.0045 * hxInches));
+                const gasFactor = prop.wf || 1.0;
+                
+                let diameterRatio = Math.pow(diaInches / 0.031, 4.7); 
+                let flowRatio = Math.pow(adjustedMassFlow / 7.8, 1.7);
+                let pressureRatio = dp / 160.0;
+
+                let calculatedLengthInches = (120 * diameterRatio * pressureRatio) / (flowRatio * gasFactor);
+                return calculatedLengthInches * factorHX;
             }
 
-            let minL = isAC ? 15 : 60; 
-            let maxL = isAC ? 55 : 140; 
+            let minL = isAC ? 15 : 45;   
+            let maxL = isAC ? 60 : 160;  
+            
             let finalID = 0.031;
             let finalLen = 100;
 
             if (selectedID === 'auto') {
+                let found = false;
                 for (let d of STANDARD_SIZES) {
                     let l = computeLength(d);
-                    if (l >= minL && l <= maxL) {
+                    if (l >= (minL + 15) && l <= (maxL - 20)) {
                         finalID = d;
                         finalLen = l;
+                        found = true;
                         break;
+                    }
+                }
+                if (!found) {
+                    for (let d of STANDARD_SIZES) {
+                        let l = computeLength(d);
+                        if (l >= minL && l <= maxL) {
+                            finalID = d;
+                            finalLen = l;
+                            break;
+                        }
                     }
                 }
             } else {
                 finalID = parseCleanNumber(selectedID, 0.031);
                 finalLen = computeLength(finalID);
             }
-            finalLen = Math.max(minL, Math.min(maxL + 50, finalLen));
-
-            let nominalGrams = Math.pow(capWatt, 0.84) * 1.45 * prop.kCharge;
-            let chargeMin = Math.round(nominalGrams * 0.92);
-            let chargeMax = Math.round(nominalGrams * 1.08);
+            
+            finalLen = Math.max(minL, Math.min(maxL + 80, finalLen));
 
             const fullChargeData = getFullFieldCharge();
-            const displayChargeVal = (fullChargeData.typeDesc !== "تأسيسي") ? fullChargeData.grams : `${chargeMin} ~ ${chargeMax}`;
+            const displayChargeVal = (fullChargeData.typeDesc !== "تأسيسي") ? fullChargeData.grams : `غير محدد`;
 
             if (isMetric) {
-                document.getElementById('outID').textContent = (finalID * 25.4).toFixed(2) + " mm (" + finalID + " in)";
-                document.getElementById('outLength').textContent = (finalLen * 0.0254).toFixed(2) + " m (" + finalLen.toFixed(1) + " in)";
+                let idMm = (finalID * 25.4).toFixed(2);
+                let lenMeters = (finalLen * 0.0254).toFixed(2);
+                
+                document.getElementById('outID').innerHTML = `${idMm} mm <span style="color:#94a3b8; font-size:11px;">(${finalID}")</span>`;
+                document.getElementById('outLength').innerHTML = `<strong style="font-size:14px; color:#10b981;">${lenMeters} m</strong> <span style="color:#94a3b8; font-size:11px;">(${finalLen.toFixed(1)} in)</span>`;
                 document.getElementById('outCharge').textContent = displayChargeVal + " g (جرام) [" + fullChargeData.typeDesc + "]";
                 document.getElementById('outMass').textContent = (totalMassFlow * 0.453592).toFixed(2) + " kg/h";
                 document.getElementById('outPressure').textContent = pCondBar.toFixed(2) + " bar / " + pEvapBar.toFixed(2) + " bar";
             } else {
+                let idMm = (finalID * 25.4).toFixed(2);
+                let lenMeters = (finalLen * 0.0254).toFixed(2);
+                
                 const pCondPsi = pCondBar * 14.5038;
                 const pEvapPsi = pEvapBar * 14.5038;
-                document.getElementById('outID').textContent = finalID + " in (" + (finalID * 25.4).toFixed(2) + " mm)";
-                document.getElementById('outLength').textContent = finalLen.toFixed(1) + " in (" + (finalLen * 0.0254).toFixed(2) + " m)";
+                document.getElementById('outID').innerHTML = `${finalID}" <span style="color:#94a3b8; font-size:11px;">(${idMm} mm)</span>`;
+                document.getElementById('outLength').innerHTML = `<strong style="font-size:14px; color:#10b981;">${finalLen.toFixed(1)} in</strong> <span style="color:#94a3b8; font-size:11px;">(${lenMeters} m)</span>`;
                 document.getElementById('outCharge').textContent = displayChargeVal + " g [" + fullChargeData.typeDesc + "]";
                 document.getElementById('outMass').textContent = totalMassFlow.toFixed(2) + " lb/h";
                 document.getElementById('outPressure').textContent = pCondPsi.toFixed(1) + " psia / " + pEvapPsi.toFixed(1) + " psia";
@@ -987,7 +1039,7 @@
             const distRow = document.getElementById('distributorRow');
             if (circuits > 1) {
                 distRow.style.display = 'table-row';
-                document.getElementById('outDistributor').innerHTML = `يُفضل استخدام موزع بـ <span style="color:#facc15; font-weight:bold;">${circuits} خطوط متوازية</span>.<br><span style="font-size:10.5px; color:#94a3b8;">(الأبعاد أدناه تطبق على كل خط بمفرده)</span>`;
+                document.getElementById('outDistributor').innerHTML = `يُفضل استخدام موزع بـ <span style="color:#facc15; font-weight:bold;">${circuits} خطوط متوازية</span>.<br><span style="font-size:10.5px; color:#94a3b8;">(الأبعاد أعلاه تطبق على كل خط بمفرده)</span>`;
             } else {
                 distRow.style.display = 'none';
             }
@@ -1098,7 +1150,10 @@
             return;
         }
 
-        container.innerHTML = filtered.map(err => `
+        container.innerHTML = filtered.map(err => {
+            let imgHtml = err.img ? `<div style="margin-top: 12px; text-align: center;"><img src="${err.img}" alt="مخطط ${err.code}" style="max-width: 100%; border-radius: 6px; border: 1px solid #1e3a8a; box-shadow: 0 4px 8px rgba(0,0,0,0.4);"></div>` : '';
+
+            return `
             <div class="hvac-card">
                 <div class="hvac-card-top">
                     <span class="hvac-code-title">${err.code}</span>
@@ -1111,8 +1166,9 @@
                 <div style="font-size:12px; color:#cbd5e1; background:#020617; padding:8px; border-radius:6px;">
                     <strong>طريقة الفحص والصيانة:</strong> ${err.check}
                 </div>
+                ${imgHtml}
             </div>
-        `).join('');
+        `}).join('');
     }
 
     const svgState = {
@@ -1387,7 +1443,7 @@
     updateAllDiagrams();
 </script>
 
-<!-- كود Firebase للعداد الحي الحقيقي (تم إلغاء العداد الوهمي تماماً) -->
+<!-- كود Firebase للعداد الحي الحقيقي -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
     import { getDatabase, ref, onValue, onDisconnect, runTransaction } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
