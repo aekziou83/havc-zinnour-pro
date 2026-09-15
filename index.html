@@ -338,7 +338,7 @@
             <div class="result-title">بطاقة التصميم الهندسي للأنبوب الشعري - م. أحمد زينور 🇩🇿</div>
             <table class="data-table">
                 <tbody>
-                    <tr><th>نمط التشغيل / الحالة:</th><td id="outRegime"><span class="badge badge-positive">محدد يدوياً</span></td></tr>
+                    <tr><th>نمط التشغيل / الحالة:</th><td id="outRegime"><span class="badge badge-positive">تم التحليل بنجاح</span></td></tr>
                     <tr id="retrofitRow" style="display: none;"><th>حالة الاستبدال:</th><td id="outRetrofit" class="retrofit-highlight">--</td></tr>
                     <tr><th>القطر الداخلي المناسب:</th><td id="outID">--</td></tr>
                     <tr><th>الطول الهندسي للكابلري:</th><td id="outLength">--</td></tr>
@@ -673,6 +673,7 @@
     function initViewsCounter() {
         let savedViews = localStorage.getItem('user_app_views') ? parseInt(localStorage.getItem('user_app_views')) : 2450;
         savedViews += Math.floor(Math.random() * 3) + 1;
+        savedViews = Math.max(2450, savedViews);
         localStorage.setItem('user_app_views', savedViews);
         document.getElementById('viewCount').textContent = savedViews.toLocaleString('en-US');
 
@@ -691,6 +692,8 @@
             .catch(() => {});
 
         let savedLikes = localStorage.getItem('user_app_likes') ? parseInt(localStorage.getItem('user_app_likes')) : 214;
+        savedLikes = Math.max(214, savedLikes);
+        localStorage.setItem('user_app_likes', savedLikes);
         document.getElementById('likeCount').textContent = savedLikes.toLocaleString('en-US');
 
         const likeBtn = document.getElementById('likeBtn');
@@ -698,6 +701,8 @@
             likeBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 let currentLikes = localStorage.getItem('user_app_likes') ? parseInt(localStorage.getItem('user_app_likes')) : 214;
+                currentLikes = Math.max(214, currentLikes);
+                
                 if (!localStorage.getItem('has_liked')) {
                     currentLikes += 1;
                     localStorage.setItem('user_app_likes', currentLikes);
