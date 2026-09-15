@@ -124,6 +124,8 @@
         .badge-brand { background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%); color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 11px; }
         .badge-tech { background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%); color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 11px; }
         .hvac-no-results { text-align: center; color: var(--text-muted); padding: 26px; background-color: #09122c; border-radius: 6px; border: 1px dashed var(--border); font-size: 12.5px; }
+        .schema-viewer-card { background: #070d1e; border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-bottom: 16px; }
+        .schema-title { color: #facc15; font-size: 13px; font-weight: bold; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; }
 
         @media (max-width: 600px) {
             .hvac-filter-grid { grid-template-columns: 1fr; }
@@ -290,12 +292,28 @@
                     <label>القطر الداخلي للأنبوب الشعري:</label>
                     <select id="capDiameter">
                         <option value="auto" selected>اختيار آلي للقطر المثالي (Auto)</option>
-                        <option value="0.026">0.66 mm</option><option value="0.028">0.71 mm</option>
-                        <option value="0.031">0.78 mm</option><option value="0.036">0.91 mm</option>
-                        <option value="0.040">1.00 mm</option><option value="0.042">1.07 mm</option>
-                        <option value="0.044">1.12 mm</option><option value="0.049">1.24 mm</option>
-                        <option value="0.054">1.37 mm</option><option value="0.059">1.50 mm</option>
-                        <option value="0.064">1.63 mm</option><option value="0.070">1.78 mm</option>
+                        <option value="0.026">0.66 mm (0.026 in)</option>
+                        <option value="0.028">0.70 / 0.71 mm (0.028 in)</option>
+                        <option value="0.031">0.78 mm (0.031 in)</option>
+                        <option value="0.033">0.84 mm (0.033 in)</option>
+                        <option value="0.036">0.91 mm (0.036 in)</option>
+                        <option value="0.040">1.00 mm (0.040 in)</option>
+                        <option value="0.042">1.07 mm (0.042 in)</option>
+                        <option value="0.044">1.12 mm (0.044 in)</option>
+                        <option value="0.046">1.17 mm (0.046 in)</option>
+                        <option value="0.049">1.24 mm (0.049 in)</option>
+                        <option value="0.050">1.27 mm (0.050 in)</option>
+                        <option value="0.052">1.32 mm (0.052 in)</option>
+                        <option value="0.054">1.37 mm (0.054 in)</option>
+                        <option value="0.055">1.40 mm (0.055 in)</option>
+                        <option value="0.059">1.50 mm (0.059 in)</option>
+                        <option value="0.064">1.63 mm (0.064 in)</option>
+                        <option value="0.070">1.78 mm (0.070 in)</option>
+                        <option value="0.075">1.91 mm (0.075 in)</option>
+                        <option value="0.080">2.03 mm (0.080 in)</option>
+                        <option value="0.085">2.16 mm (0.085 in)</option>
+                        <option value="0.090">2.29 mm (0.090 in)</option>
+                        <option value="0.100">2.54 mm (0.100 in)</option>
                     </select>
                 </div>
                 <div class="control-group">
@@ -462,6 +480,14 @@
             <div class="community-info">تشخيص معتمد لمكيفات (Midea, LG, Gree, Condor, Samsung, Daikin...)</div>
         </div>
 
+        <div class="schema-viewer-card" style="background: #070d1e; border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-bottom: 16px;">
+            <div class="schema-title" style="color: #facc15; font-size: 13px; font-weight: bold; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;"><span>⚡ مرجع ربط ومخططات الإشارة (Communication & Power Schematics)</span></div>
+            <div style="font-size: 11.5px; color: #94a3b8; line-height: 1.6;">
+                • <strong>نظام الإنفرتر (Inverter SL/N/COM أو L/N/S):</strong> خط الإشارة S أو COM يرسل نبضات PWM (غالباً 12V~24V DC متذبذبة بين الوحدة الداخلية والخارجية). عند خطأ CH05 / F3، تحقق من وجود فولطية مرجعية على طرف S وسلامة العزل والمقاومات البديلة (PTC).<br>
+                • <strong>دائرة الباور (IPM / Pre-charge):</strong> تأكد من عدم وجود شورط (Short) على مكثفات الإلغاء (300VDC) وفحص مقاومة الـ PTC قبل التشغيل.
+            </div>
+        </div>
+
         <div class="hvac-filter-grid">
             <select id="hvacBrandFilter" onchange="renderHvacErrors()" style="width:100%; height:38px;">
                 <option value="">جميع الماركات</option>
@@ -491,8 +517,8 @@
             </select>
         </div>
 
-        <input type="text" id="hvacCodeInput" class="hvac-search-input" placeholder="اكتب رمز الخطأ مباشرة هنا (مثال: CH01, E1, EC)..." oninput="renderHvacErrors()">
-        <div id="hvacResultsContainer"><div class="hvac-no-results">أدخل كود الخطأ في الخانة السفلية (مثال: CH05, E1) لظهور نتائج التشخيص...</div></div>
+        <input type="text" id="hvacCodeInput" class="hvac-search-input" placeholder="اكتب رمز الخطأ مباشرة هنا (مثال: CH01, E1, EC, 04, F3)..." oninput="renderHvacErrors()">
+        <div id="hvacResultsContainer"><div class="hvac-no-results">أدخل كود الخطأ في الخانة السفلية (مثال: CH05, E1) لظهور نتائج التشخيص والمخطط المقابل...</div></div>
     </div>
 
 </div>
@@ -505,6 +531,14 @@
             <div class="guide-section">
                 <h2 style="color: #38bdf8; font-size: 17px;">الدليل الفني والهندسي الشامل لبرنامج Capillary Sizer Pro</h2>
                 <p style="margin-top: 4px; font-weight: bold; color: #60a5fa;">إعداد وتطوير: م. أحمد زينور 🇩🇿 | مجموعة M.D.F.CH.É.É</p>
+            </div>
+
+            <div class="guide-section">
+                <h3>📖 شرح الميزات والقطر الهندسي</h3>
+                <div class="guide-item">
+                    <h4>تغطية الأقطار القياسية:</h4>
+                    <p>يدعم الاختيار الآلي واليدوي لكافة الأقطار القياسية للأنبوب الشعري (من 0.026 إنش / 0.66 مم وحتى 0.100 إنش / 2.54 مم).</p>
+                </div>
             </div>
 
             <div class="guide-section">
@@ -596,10 +630,12 @@
     const HVAC_MASTER_DATABASE = [
         { code: "CH01", brand: "LG", tech: "Inverter", type: "Wall", title: "خطأ في حساسة حرارة الهواء الداخلي (Room Temp Sensor)", check: "فحص توصيل الحساس أو تغييره بقيمة 10 كيلو أوم." },
         { code: "CH02", brand: "LG", tech: "Inverter", type: "Wall", title: "خطأ في حساسة مبخر الوحدة الداخلية (Indoor Pipe Sensor)", check: "فحص الحساس وتوصيل الكارت الإلكتروني." },
-        { code: "CH05", brand: "LG", tech: "Inverter", type: "Wall", title: "خطأ في الاتصال بين الوحدة الداخلية والخارجية (Communication Error)", check: "فحص أسلاك الإشارة ونقاط الربط بين الوحدتين." },
+        { code: "CH05", brand: "LG", tech: "Inverter", type: "Wall", title: "خطأ في الاتصال بين الوحدة الداخلية والخارجية (Communication Error)", check: "فحص أسلاك الإشارة ونقاط الربط أو optocouplers على لوحة الباور." },
         { code: "EC", brand: "Midea", tech: "Inverter", type: "Wall", title: "نقص شحنة الفريون أو مشكلة تبريد بالدائرة", check: "فحص الضغوط والتسريب واختبار التحميص والتبريد الدوني." },
         { code: "E1", brand: "Gree", tech: "Inverter", type: "Wall", title: "خطأ ضغط مرتفع أو حماية الضاغط (High Pressure Protection)", check: "فحص نظافة المكثف، مروحة الطرد، وضغوط الشحنة." },
-        { code: "P4", brand: "Midea", tech: "Inverter", type: "Wall", title: "حماية حرارة الضاغط العالية أو وحدة الـ IPM", check: "فحص تبريد وحدة الانفرتر ومعجون التبريد وضغط الغاز." }
+        { code: "P4", brand: "Midea", tech: "Inverter", type: "Wall", title: "حماية حرارة الضاغط العالية أو وحدة الـ IPM", check: "فحص تبريد وحدة الانفرتر ومعجون التبريد وضغط الغاز." },
+        { code: "04", brand: "Haier", tech: "Inverter", type: "Wall", title: "خطأ اتصال سيريالي ECU / Inverter Board", check: "فحص المقاومات التمهيدية PTC، مكثفات الترشيح، واختبار خط الإشارة." },
+        { code: "F3", brand: "Haier", tech: "Inverter", type: "Wall", title: "خطأ حساس حرارة طارد الضاغط (Discharge Temp Sensor)", check: "فحص قيمة الحساس (NTC) ومقارنتها حرارياً عند 25°C." }
     ];
 
     const THERMO_DB = {
@@ -628,10 +664,10 @@
     };
 
     const STANDARD_SIZES = [
-        0.026, 0.028, 0.031, 0.036, 0.040, 
-        0.042, 0.044, 0.049, 0.050, 0.054, 
-        0.059, 0.064, 0.070, 0.075, 0.080, 
-        0.085, 0.090
+        0.026, 0.028, 0.031, 0.033, 0.036, 0.040, 
+        0.042, 0.044, 0.046, 0.049, 0.050, 0.052, 0.054, 
+        0.055, 0.059, 0.064, 0.070, 0.075, 0.080, 
+        0.085, 0.090, 0.100
     ];
 
     function initViewsCounter() {
@@ -639,22 +675,6 @@
         savedViews += Math.floor(Math.random() * 3) + 1;
         localStorage.setItem('user_app_views', savedViews);
         document.getElementById('viewCount').textContent = savedViews.toLocaleString('en-US');
-
-        const timestamp = new Date().getTime();
-        const apiURL = `https://api.counterapi.dev/v1/zinnour_hvac_pro/visits/up?_=${timestamp}`;
-        
-        fetch(apiURL)
-            .then(res => res.json())
-            .then(data => {
-                if (data && typeof data.count === 'number') {
-                    let realVisits = data.count + 2450;
-                    document.getElementById('viewCount').textContent = realVisits.toLocaleString('en-US');
-                    localStorage.setItem('user_app_views', realVisits);
-                }
-            })
-            .catch(() => { 
-                // Ignore errors (Adblockers), local storage view count is already displayed
-            });
 
         let savedLikes = localStorage.getItem('user_app_likes') ? parseInt(localStorage.getItem('user_app_likes')) : 214;
         document.getElementById('likeCount').textContent = savedLikes.toLocaleString('en-US');
@@ -675,21 +695,6 @@
                 }
             });
         }
-
-        /* 
-           تم تعطيل العداد الوهمي العشوائي ليعمل العداد الحقيقي عبر Firebase
-        function updateActiveUsers() {
-            const baseActive = Math.floor(Math.random() * 9) + 4;
-            const hour = new Date().getHours();
-            let multiplier = (hour >= 18 || hour <= 2) ? 1.5 : 1.0; 
-            const finalActive = Math.floor(baseActive * multiplier);
-            document.getElementById('activeUsers').textContent = finalActive;
-            
-            const nextUpdate = Math.floor(Math.random() * 7000) + 8000;
-            setTimeout(updateActiveUsers, nextUpdate);
-        }
-        updateActiveUsers();
-        */
     }
 
     function showApp(tabName) {
@@ -699,11 +704,15 @@
         const secHvac = document.getElementById('sectionHvac');
 
         if (tabName === 'capillary') {
-            tabCap.classList.add('active'); tabHvac.classList.remove('active');
-            secCap.classList.add('active'); secHvac.classList.remove('active');
+            tabCap.classList.add('active'); 
+            tabHvac.classList.remove('active');
+            secCap.classList.add('active'); 
+            secHvac.classList.remove('active');
         } else {
-            tabHvac.classList.add('active'); tabCap.classList.remove('active');
-            secHvac.classList.add('active'); secCap.classList.remove('active');
+            tabHvac.classList.add('active'); 
+            tabCap.classList.remove('active');
+            secHvac.classList.add('active'); 
+            secCap.classList.remove('active');
             renderHvacErrors();
         }
     }
@@ -1378,7 +1387,7 @@
     updateAllDiagrams();
 </script>
 
-<!-- كود Firebase للعداد الحي الحقيقي -->
+<!-- كود Firebase للعداد الحي الحقيقي (تم إلغاء العداد الوهمي تماماً) -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
     import { getDatabase, ref, onValue, onDisconnect, runTransaction } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
@@ -1397,16 +1406,13 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    // مرجع المتصلين
     const activeUsersRef = ref(db, 'stats/activeUsers');
     const countEl = document.getElementById('activeUsers');
 
-    // قراءة الرقم لحظياً وعرضه في الشاشة
     onValue(activeUsersRef, (snapshot) => {
         if (countEl) countEl.textContent = snapshot.val() || 0;
     });
 
-    // زيادة العداد عند فتح التطبيق ونقصه عند الخروج
     const connectedRef = ref(db, '.info/connected');
     onValue(connectedRef, (snap) => {
         if (snap.val() === true) {
