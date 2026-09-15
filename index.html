@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes">
     <meta name="author" content="Ing. Ahmed Zinnour">
-    <meta name="description" content="منصة التبريد والتكييف الشاملة - حساب الأنبوب الشعري وتشخيص الأعطال والمخططات">
+    <meta name="description" content="منصة التبريد والتكييف الشاملة - حساب الأنبوب الشعري">
     <title>منصة التبريد والتكييف الشاملة | م. أحمد زينور</title>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -40,12 +40,12 @@
         .live-dot { width: 8px; height: 8px; border-radius: 50%; background-color: #22c55e; box-shadow: 0 0 8px #22c55e; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
         .stat-badge { background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-family: monospace; border: 1px solid rgba(56, 189, 248, 0.3); }
-        .btn-like { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: #ffffff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; transition: all 0.2s ease; box-shadow: 0 2px 6px rgba(239, 68, 68, 0.3); }
-        .btn-like:hover { opacity: 0.9; transform: scale(1.05); }
+        
         .app-nav-bar { display: flex; gap: 8px; background: #09122c; padding: 6px; border-radius: 8px; margin-bottom: 18px; border: 1px solid var(--border); }
         .nav-tab-btn { flex: 1; padding: 12px 8px; border: none; background: transparent; color: var(--text-muted); font-size: 13px; font-weight: 800; cursor: pointer; border-radius: 6px; transition: all 0.25s ease; text-align: center; }
         .nav-tab-btn.active { background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: #ffffff; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35); }
         .app-section { display: none; } .app-section.active { display: block; }
+        
         .header { border-bottom: 2px solid var(--border); padding-bottom: 14px; margin-bottom: 18px; }
         .header h1 { font-size: 20px; color: #60a5fa; font-weight: 800; margin-bottom: 6px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
         .author-info { font-size: 13.5px; font-weight: 700; color: #38bdf8; margin-bottom: 4px; }
@@ -53,14 +53,19 @@
         .header-actions { display: flex; gap: 10px; flex-wrap: wrap; }
         .btn-profile, .btn-guide { display: inline-flex; align-items: center; color: #ffffff !important; text-decoration: none; padding: 8px 16px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; border: none; transition: 0.2s ease; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
         .btn-profile { background: linear-gradient(135deg, #1877f2 0%, #0d5bbd 100%); } .btn-guide { background: linear-gradient(135deg, var(--teal) 0%, #0f766e 100%); }
+        
         .form-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 18px; }
         @media (min-width: 640px) { .form-grid { grid-template-columns: 1fr 1fr; gap: 12px 18px; } }
+        
         .control-group { display: flex; justify-content: space-between; align-items: center; background: var(--card-inner); padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); gap: 8px; transition: border-color 0.2s; }
         .control-group:hover { border-color: var(--secondary); }
         .control-group.retrofit-box { background: rgba(245, 158, 11, 0.08); border: 1px dashed var(--accent-orange); }
         .control-group.product-box { background: rgba(20, 184, 166, 0.08); border: 1px dashed var(--teal); }
-        label { font-size: 12px; font-weight: 600; color: #bfdbfe; flex: 1.1; line-height: 1.35; }
-        input[type="number"], input[type="text"], select { width: 50%; max-width: 175px; height: 36px; border: 1px solid #1e3a8a; border-radius: 5px; padding: 2px 6px; font-size: 11.5px; color: #ffffff; outline: none; background-color: #002b49; text-align: center; direction: rtl; transition: all 0.2s ease; -webkit-appearance: none; -moz-appearance: none; appearance: none; }
+        
+        label { font-size: 12.5px; font-weight: 600; color: #bfdbfe; flex: 1.1; line-height: 1.35; display: flex; flex-direction: column; justify-content: center; }
+        .field-desc { display: block; font-size: 10.5px; color: #94a3b8; font-weight: normal; margin-top: 4px; line-height: 1.4; }
+        
+        input[type="number"], input[type="text"], select { width: 50%; max-width: 175px; height: 38px; border: 1px solid #1e3a8a; border-radius: 5px; padding: 2px 6px; font-size: 11.5px; color: #ffffff; outline: none; background-color: #002b49; text-align: center; direction: rtl; transition: all 0.2s ease; -webkit-appearance: none; -moz-appearance: none; appearance: none; }
         select option { direction: rtl; text-align: right; font-size: 12px; background-color: #0b1329; color: #ffffff; }
         input[type="number"], input[type="text"] { direction: ltr; }
         input:focus, select:focus { border-color: #38bdf8; box-shadow: 0 0 8px rgba(56, 189, 248, 0.4); }
@@ -79,7 +84,6 @@
         .data-table tr:nth-child(even) { background-color: rgba(255, 255, 255, 0.02); }
         .data-table th { width: 55%; color: #93c5fd; font-weight: 600; text-align: right; line-height: 1.4; }
         .data-table td { width: 45%; font-weight: 700; color: #38bdf8; direction: ltr; text-align: left; word-break: break-word; }
-        .field-desc { display: block; font-size: 10.5px; color: #94a3b8; font-weight: normal; margin-top: 2px; line-height: 1.3; }
         .highlight-charge { color: var(--accent-orange) !important; font-size: 13px; }
         .retrofit-highlight { color: #fbbf24 !important; font-weight: bold; }
         .dist-highlight { color: #facc15 !important; font-weight: bold; }
@@ -116,19 +120,8 @@
         .guide-item ul { padding-right: 18px; margin-top: 4px; }
         .formula-box { direction: ltr !important; text-align: center; font-family: monospace; font-size: 12px; font-weight: bold; background: #070d1e; padding: 9px 12px; border: 1px solid #1e3a8a; border-left: 4px solid var(--accent-orange); border-radius: 5px; color: #fde047; margin: 6px 0; -webkit-overflow-scrolling: touch; }
         .formula-box.nowrap { white-space: nowrap; overflow-x: auto; }
-        .hvac-search-input { width: 100% !important; max-width: 100% !important; height: 44px !important; border: 2px solid var(--primary) !important; font-size: 14px !important; font-weight: bold; text-align: right !important; padding: 0 12px !important; border-radius: 6px !important; margin-bottom: 16px; background-color: #071329 !important; color: #38bdf8 !important; }
-        .hvac-filter-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 12px; }
-        .hvac-card { background-color: var(--dark-card); color: #f8fafc; border: 1px solid #334155; border-radius: 10px; padding: 16px; margin-bottom: 16px; text-align: right; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
-        .hvac-card-top { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 8px; margin-bottom: 10px; }
-        .hvac-code-title { font-size: 1.35rem; font-weight: bold; color: #f87171; direction: ltr; text-shadow: 0 0 8px rgba(239, 68, 68, 0.4); }
-        .badge-brand { background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%); color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 11px; }
-        .badge-tech { background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%); color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 11px; }
-        .hvac-no-results { text-align: center; color: var(--text-muted); padding: 26px; background-color: #09122c; border-radius: 6px; border: 1px dashed var(--border); font-size: 12.5px; }
-        .schema-viewer-card { background: #070d1e; border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-bottom: 16px; }
-        .schema-title { color: #facc15; font-size: 13px; font-weight: bold; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; }
 
         @media (max-width: 600px) {
-            .hvac-filter-grid { grid-template-columns: 1fr; }
             .analytics-bar { flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center; }
             .analytics-item { width: 100%; justify-content: center; }
             .data-table th, .data-table td { width: 50%; font-size: 11.5px; }
@@ -146,16 +139,14 @@
         </div>
         <div class="analytics-item">
             <span>إجمالي المشاهدات: <span class="stat-badge" id="viewCount">2,450</span></span>
-            <button type="button" class="btn-like" id="likeBtn">❤️ أعجبني (<span id="likeCount">214</span>)</button>
         </div>
     </div>
 
     <div class="app-nav-bar">
         <button type="button" class="nav-tab-btn active" id="tabBtnCap" onclick="showApp('capillary')">❄️ برنامج حساب الأنبوب الشعري</button>
-        <button type="button" class="nav-tab-btn" id="tabBtnHvac" onclick="showApp('hvac')">⚡ دليل أعطال ومخططات التكييف</button>
     </div>
 
-    <!-- 1. برنامج حساب الأنبوب الشعري -->
+    <!-- برنامج حساب الأنبوب الشعري المستقل -->
     <div id="sectionCapillary" class="app-section active">
         <div class="header">
             <h1>برنامج حساب الأنبوب الشعري (Capillary Tube Sizer)</h1>
@@ -167,10 +158,43 @@
             </div>
         </div>
 
+        <!-- 🌟 خانة تقييم البرنامج ودعم المطور 🌟 -->
+        <div style="background: linear-gradient(180deg, var(--card-inner) 0%, rgba(15, 28, 63, 0.5) 100%); border: 1px dashed var(--secondary); border-radius: 8px; padding: 15px; margin-bottom: 18px; display: flex; flex-direction: column; align-items: center; text-align: center; box-shadow: inset 0 0 10px rgba(59, 130, 246, 0.1);">
+            <div style="color: #facc15; font-size: 14px; font-weight: bold; margin-bottom: 5px;">⭐ تقييم البرنامج ودعم المطور ⭐</div>
+            <div style="font-size: 11.5px; color: #94a3b8; margin-bottom: 12px;">يسعدنا تقييمك للمنصة من 1 إلى 10 وترك رسالة تشجيعية للمهندس أحمد زينور.</div>
+            
+            <div style="width: 100%; max-width: 450px; display: flex; flex-direction: column; gap: 10px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; background: #0b1329; padding: 8px 12px; border-radius: 6px; border: 1px solid #1e3a8a;">
+                    <label style="color: #bfdbfe; font-size: 12px; margin: 0; flex-direction: row; gap: 8px;">التقييم: <span id="ratingVal" style="color: #10b981; font-weight: bold; font-size: 14px;">10</span> / 10</label>
+                    <input type="range" id="ratingInput" min="1" max="10" value="10" style="width: 60%; cursor: pointer;" oninput="document.getElementById('ratingVal').innerText = this.value">
+                </div>
+                
+                <textarea id="feedbackMsg" placeholder="اكتب رسالة دعم أو ملاحظة للمطور هنا..." style="width: 100%; height: 55px; background: #0b1329; border: 1px solid #1e3a8a; border-radius: 6px; color: #f8fafc; padding: 8px; font-size: 11.5px; resize: none; outline: none;"></textarea>
+                
+                <div style="display: flex; gap: 10px; width: 100%;">
+                    <button type="button" onclick="
+                        var rating = document.getElementById('ratingVal').innerText;
+                        var msg = document.getElementById('feedbackMsg').value;
+                        var phone = '213770227904';
+                        var fullText = encodeURIComponent('مرحباً مهندس أحمد،\n⭐ تقييمي للبرنامج هو: ' + rating + '/10\n\n💬 رسالتي:\n' + (msg ? msg : 'لا توجد رسالة، أردت فقط دعمك!'));
+                        window.open('https://wa.me/' + phone + '?text=' + fullText, '_blank');
+                    " style="flex: 2; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff; border: none; padding: 10px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4); transition: 0.2s;">إرسال عبر واتساب 🚀</button>
+                    
+                    <button type="button" onclick="
+                        document.getElementById('ratingInput').value = 10;
+                        document.getElementById('ratingVal').innerText = '10';
+                        document.getElementById('feedbackMsg').value = '';
+                    " style="flex: 1; background: #475569; color: #fff; border: none; padding: 10px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; transition: 0.2s;">تراجع 🔄</button>
+                </div>
+            </div>
+        </div>
+        <!-- 🌟 نهاية خانة تقييم البرنامج 🌟 -->
+
         <div class="form-wrapper">
             <div class="form-grid">
+                
                 <div class="control-group">
-                    <label>نوع الجهاز / التطبيق:</label>
+                    <label>نوع الجهاز / التطبيق:<span class="field-desc">تحديد النمط الفيزيائي العام للدورة</span></label>
                     <select id="deviceClass" onchange="onDeviceClassChange()">
                         <option value="custom" selected>-- تحديد مخصص --</option>
                         <option value="domestic">تبريد منزلي (Domestic)</option>
@@ -178,8 +202,9 @@
                         <option value="ac">مكيف هواء (Air Conditioner)</option>
                     </select>
                 </div>
+                
                 <div class="control-group product-box">
-                    <label>طبيعة المادة / الاستخدام:</label>
+                    <label>طبيعة المادة / الاستخدام:<span class="field-desc">يحدد حرارة التبخير والتخزين بدقة</span></label>
                     <select id="productCategory" onchange="applyProductTemperature()">
                         <option value="custom" selected>-- تحديد حراري مخصص --</option>
                         <option value="pastry">حلويات وباتيسري (من موجب 4 إلى موجب 6 مئوية)</option>
@@ -192,15 +217,17 @@
                         <option value="frozen_neg">تجميد عميق (أسماك/لحوم/حلويات) (من سالب 18 إلى سالب 22 مئوية)</option>
                     </select>
                 </div>
+                
                 <div class="control-group retrofit-box">
-                    <label>استبدال وسيط التبريد (Retrofit):</label>
+                    <label>استبدال وسيط التبريد (Retrofit):<span class="field-desc">التحويل لغاز بديل حديث</span></label>
                     <select id="retrofitActive" onchange="toggleRetrofitMode()">
                         <option value="no" selected>لا (نفس الغاز الأصلي)</option>
                         <option value="yes">نعم (تحويل إلى غاز بديل)</option>
                     </select>
                 </div>
+                
                 <div class="control-group retrofit-box" id="newGasGroup" style="display: none;">
-                    <label>الغاز البديل المستهدف:</label>
+                    <label>الغاز البديل المستهدف:<span class="field-desc">الغاز الجديد المراد استخدامه</span></label>
                     <select id="newRefType">
                         <option value="custom" selected>-- تحديد مخصص --</option>
                         <option value="R600a">R-600a</option><option value="R134a">R-134a</option>
@@ -208,27 +235,35 @@
                         <option value="R404A">R-404A</option><option value="R32">R-32</option>
                     </select>
                 </div>
+                
                 <div class="control-group">
-                    <label>نظام القياس:</label>
+                    <label>نظام القياس:<span class="field-desc">متري (ملم، مئوية) أو إمبريالي (إنش، فهرنهايت)</span></label>
                     <select id="sysUnits" onchange="updateUnits()" dir="ltr">
                         <option value="metric" selected>Metric (°C - mm - Watt)</option>
                         <option value="imperial">Imperial (°F - in - Btu/h)</option>
                     </select>
                 </div>
+                
                 <div class="control-group">
-                    <label>نظام التشغيل الحراري:</label>
+                    <label>نظام التشغيل الحراري:<span class="field-desc">تجميد (سالب) أو تكييف وحفظ (موجب)</span></label>
                     <select id="sysRegime" onchange="adjustRegime()">
                         <option value="custom" selected>-- تحديد مخصص --</option>
                         <option value="neg">تجميد / سالب (LBP)</option>
                         <option value="pos">تكييف وحفظ / موجب (HBP/MBP)</option>
                     </select>
                 </div>
+                
                 <div class="control-group" id="volumeGroup">
-                    <label>سعة الثلاجة باللتر (50L - 2000L):</label>
-                    <input type="number" id="boxVolume" min="30" max="2000" placeholder="مخصص" oninput="estimateHPFromVolume()">
+                    <label>
+                        سعة الثلاجة باللتر:
+                        <span dir="ltr" style="display:inline-block; font-size:14px; font-weight:800; color:#f8fafc; margin:4px 0;">(50L - 2000L)</span>
+                        <span class="field-desc" style="margin-top:0;">تقدير القدرة الحصانية تلقائياً حسب الحجم</span>
+                    </label>
+                    <input type="number" id="boxVolume" min="30" max="2000" placeholder="مخصص" oninput="estimateHPFromVolume()" onkeyup="estimateHPFromVolume()">
                 </div>
+                
                 <div class="control-group">
-                    <label>قدرة الضاغط (CV / HP):</label>
+                    <label>قدرة الضاغط (CV / HP):<span class="field-desc">القدرة الحصانية الفعلية لضاغط التبريد</span></label>
                     <select id="compPower" onchange="setCapacityFromHP()">
                         <option value="custom" selected>-- تحديد مخصص --</option>
                         <option value="0.0833">1/12 CV</option>
@@ -250,16 +285,18 @@
                         <option value="3.00">3.0 CV</option>
                     </select>
                 </div>
+                
                 <div class="control-group">
-                    <label>نوع التكييف:</label>
+                    <label>نوع التكييف:<span class="field-desc">لأنظمة التكييف المنزلية والتجارية</span></label>
                     <select id="acTech" onchange="autoFillQCapFromBTU()">
                         <option value="none" selected>-- ليس تكييف --</option>
                         <option value="standard">مكيف عادي (On/Off)</option>
                         <option value="inverter">مكيف إنفرتر (Inverter)</option>
                     </select>
                 </div>
+                
                 <div class="control-group">
-                    <label>سعة التكييف (BTU):</label>
+                    <label>سعة التكييف (BTU):<span class="field-desc">تحديد القدرة الحرارية للمكيفات</span></label>
                     <select id="btuCapacity" onchange="autoFillQCapFromBTU()">
                         <option value="0" selected>0 (غير مطبق)</option>
                         <option value="9000">9000 BTU</option>
@@ -268,8 +305,9 @@
                         <option value="24000">24000 BTU</option>
                     </select>
                 </div>
+                
                 <div class="control-group">
-                    <label>وسيط التبريد (الأصلي):</label>
+                    <label>وسيط التبريد (الأصلي):<span class="field-desc">نوع غاز الفريون المستخدم في الدورة</span></label>
                     <select id="refType" onchange="checkRetrofitCompatibility()">
                         <option value="custom" selected>-- تحديد مخصص --</option>
                         <option value="R134a">R-134a</option><option value="R600a">R-600a</option>
@@ -280,16 +318,19 @@
                         <option value="R290">R-290</option>
                     </select>
                 </div>
+                
                 <div class="control-group">
-                    <label>درجة حرارة التبخير (°C):</label>
-                    <input type="text" id="tEvaporator" placeholder="مخصص">
+                    <label>درجة حرارة التبخير:<span class="field-desc">حرارة الغاز داخل مواسير المبخر</span></label>
+                    <input type="text" id="tEvaporator" placeholder="مخصص (°C)">
                 </div>
+                
                 <div class="control-group">
-                    <label>درجة حرارة التكثيف (°C):</label>
-                    <input type="text" id="tCondenser" placeholder="مخصص">
+                    <label>درجة حرارة التكثيف:<span class="field-desc">حرارة تحول الغاز لسائل بالمكثف</span></label>
+                    <input type="text" id="tCondenser" placeholder="مخصص (°C)">
                 </div>
+                
                 <div class="control-group">
-                    <label>القطر الداخلي للأنبوب الشعري:</label>
+                    <label>القطر الداخلي للأنبوب الشعري:<span class="field-desc">القياس الداخلي للكابلري</span></label>
                     <select id="capDiameter">
                         <option value="auto" selected>اختيار آلي للقطر المثالي (Auto)</option>
                         <option value="0.026">0.66 mm (0.026 in)</option>
@@ -316,12 +357,14 @@
                         <option value="0.100">2.54 mm (0.100 in)</option>
                     </select>
                 </div>
+                
                 <div class="control-group">
-                    <label>طول خط التبادل الحراري (SLHEX):</label>
+                    <label>طول خط التبادل الحراري (SLHEX):<span class="field-desc">التلامس مع الراجع (اختياري)</span></label>
                     <input type="text" id="slhex" placeholder="مخصص">
                 </div>
+                
                 <div class="control-group">
-                    <label>القدرة التبريدية الفعلية (Watt):</label>
+                    <label>القدرة التبريدية الفعلية (Watt):<span class="field-desc">الاستطاعة التبريدية بالواط</span></label>
                     <input type="text" id="qCap" placeholder="مخصص">
                 </div>
             </div>
@@ -472,58 +515,9 @@
         </div>
     </div>
 
-    <!-- 2. دليل أعطال ومخططات التكييف -->
-    <div id="sectionHvac" class="app-section">
-        <div class="header">
-            <h1>دليل فني التكييف الميداني والمخططات الكهربائية</h1>
-            <div class="author-info">إشراف وتطوير هندسي: م. أحمد زينور 🇩🇿</div>
-            <div class="community-info">تشخيص معتمد لمكيفات (Midea, LG, Gree, Condor, Samsung, Daikin...)</div>
-        </div>
-
-        <div class="schema-viewer-card" style="background: #070d1e; border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-bottom: 16px;">
-            <div class="schema-title" style="color: #facc15; font-size: 13px; font-weight: bold; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;"><span>⚡ مرجع ربط ومخططات الإشارة (Communication & Power Schematics)</span></div>
-            <div style="font-size: 11.5px; color: #94a3b8; line-height: 1.6;">
-                • <strong>نظام الإنفرتر (Inverter SL/N/COM أو L/N/S):</strong> خط الإشارة S أو COM يرسل نبضات PWM (غالباً 12V~24V DC متذبذبة بين الوحدة الداخلية والخارجية). عند خطأ CH05 / F3، تحقق من وجود فولطية مرجعية على طرف S وسلامة العزل والمقاومات البديلة (PTC).<br>
-                • <strong>دائرة الباور (IPM / Pre-charge):</strong> تأكد من عدم وجود شورط (Short) على مكثفات الإلغاء (300VDC) وفحص مقاومة الـ PTC قبل التشغيل.
-            </div>
-        </div>
-
-        <div class="hvac-filter-grid">
-            <select id="hvacBrandFilter" onchange="renderHvacErrors()" style="width:100%; height:38px;">
-                <option value="">جميع الماركات</option>
-                <option value="LG">LG / إل جي</option>
-                <option value="Midea">Midea / ميديا</option>
-                <option value="Gree">Gree / غري</option>
-                <option value="Condor">Condor / كوندور</option>
-                <option value="Samsung">Samsung / سامسونج</option>
-                <option value="Daikin">Daikin / دايكن</option>
-                <option value="Carrier">Carrier / كاريير</option>
-                <option value="AUX">AUX / أوكس</option>
-                <option value="TCL">TCL / تي سي إل</option>
-            </select>
-            <select id="hvacTechFilter" onchange="renderHvacErrors()" style="width:100%; height:38px;">
-                <option value="">جميع الأنواع</option>
-                <option value="Inverter">أنفرتر (Inverter)</option>
-                <option value="On/Off">عادي تقليدي (On/Off)</option>
-            </select>
-            <select id="hvacTypeFilter" onchange="renderHvacErrors()" style="width:100%; height:38px;">
-                <option value="">جميع الأشكال</option>
-                <option value="Wall">جداري عادي (Split Wall)</option>
-                <option value="Cassette">كاسيت سقفي (Cassette)</option>
-                <option value="Floor">عمودي خزانة (Floor-Standing)</option>
-                <option value="Ceiling">سقفي أرضي (Plafonnier)</option>
-                <option value="Portable">متنقل منزلي (Portable)</option>
-                <option value="VRF">مركزي (VRV / VRF)</option>
-            </select>
-        </div>
-
-        <input type="text" id="hvacCodeInput" class="hvac-search-input" placeholder="اكتب رمز الخطأ مباشرة هنا (مثال: CH01, E1, EC, 04, F3)..." oninput="renderHvacErrors()">
-        <div id="hvacResultsContainer"><div class="hvac-no-results">أدخل كود الخطأ في الخانة السفلية (مثال: CH05, E1) لظهور نتائج التشخيص والمخطط المقابل...</div></div>
-    </div>
-
 </div>
 
-<!-- نافذة الدليل الفني الأصلي الشامل -->
+<!-- نافذة الدليل الفني الأصلي الشامل مع التحديثات -->
 <div class="modal-overlay" id="guideModal">
     <div class="modal-content">
         <button class="modal-close" onclick="closeGuideModal()">&times;</button>
@@ -574,29 +568,35 @@
                     <p>تحديد الحجم (بين <span dir="ltr">50L</span> و <span dir="ltr">2000L</span>) لتقدير القدرة الحصانية للضاغط تلقائياً، مع دعم دقيق لاستطاعة <span dir="ltr">3/8 CV</span> للسعات المتوسطة (مثل <span dir="ltr">700</span> لتر).</p>
                 </div>
 
+                <!-- الإضافات الأربع المستقلة التي طلبتها بناءً على الصور -->
                 <div class="guide-item">
-                    <h4>5. حرارة التبخير والتكثيف (<span dir="ltr">T_evap & T_cond</span>):</h4>
-                    <p>تمثل ضغوط وحرارة التشغيل داخل المبخر والمكثف والتي تُبنى عليها كافة حسابات سرعة وهبوط ضغط الغاز.</p>
+                    <h4>5. درجة حرارة التبخير:</h4>
+                    <p><strong>(حرارة الغاز داخل مواسير المبخر):</strong> تمثل حرارة وضغط التشغيل داخل المبخر والتي تُبنى عليها كافة حسابات هبوط الضغط وكثافة الغاز المار في الدورة.</p>
                 </div>
 
                 <div class="guide-item">
-                    <h4>6. زر التفاعل الفوري (أعجبني ❤️):</h4>
-                    <p>زر تفاعلي في الشريط العلوي يتيح تسجيل وتقييم الإعجاب بالمنصة مع تحديث فوري لعداد التفاعل المحلي والسحابي.</p>
+                    <h4>6. درجة حرارة التكثيف:</h4>
+                    <p><strong>(حرارة تحول الغاز لسائل بالمكثف):</strong> تحدد ضغط الطرد الفعلي في النظام، وهي نقطة ارتكاز هامة لتحديد المقاومة التي يجب أن يوفرها الأنبوب الشعري.</p>
                 </div>
 
                 <div class="guide-item">
-                    <h4>7. أداة فحص التحميص والتبريد الدوني (SH & SC Diagnostics):</h4>
+                    <h4>7. طول خط التبادل الحراري (SLHEX):</h4>
+                    <p><strong>(التلامس مع الراجع - اختياري):</strong> هو طول المسافة التي يتلامس أو يلتف فيها الأنبوب الشعري حول أنبوب السحب. يعمل هذا التبادل الحراري على تحسين التبريد الدوني (Subcooling) ويرفع من كفاءة الدورة.</p>
+                </div>
+
+                <div class="guide-item">
+                    <h4>8. القدرة التبريدية الفعلية (Watt):</h4>
+                    <p><strong>(الاستطاعة التبريدية بالواط):</strong> هي كمية التبريد الفعلية المراد تحقيقها، وتُعتبر العامل الرياضي الأساسي لتقدير معدل التدفق الكتلي (Mass Flow) لغاز التبريد.</p>
+                </div>
+
+                <div class="guide-item">
+                    <h4>9. أداة فحص التحميص والتبريد الدوني (SH & SC Diagnostics):</h4>
                     <p>أداة تفاعلية لتشخيص حالة الدورة بدقة بعد تركيب الأنبوب الشعري أو شحن الغاز:</p>
                     <ul>
                         <li><strong>الرسوم التفاعلية (SVG):</strong> توضح نقاط قياس الضغط والحرارة (الضغط المنخفض والعالي)، وتدعم التكبير والتصغير باللمس بإصبعين (Pinch-to-Zoom).</li>
                         <li><strong>زر (مثالي تلقائي):</strong> يقوم بحساب وتعبئة القيم المثالية للتحميص (6K) والتبريد الدوني (4.5K) كمرجع هندسي للفني.</li>
                         <li><strong>التشخيص الآلي:</strong> يحلل القيم المدخلة ويعطيك تقريراً مباشراً (تحذير من خطر رجوع سائل للضاغط، نقص شحنة، أو أداء مثالي).</li>
                     </ul>
-                </div>
-
-                <div class="guide-item">
-                    <h4>8. دليل أعطال التكييف (HVAC Error Codes):</h4>
-                    <p>قاعدة بيانات مدمجة للبحث عن رموز الأعطال لمختلف الماركات (Midea, LG, Gree...). قم باختيار الفلاتر (الماركة، النوع، الشكل) <strong>ثم اكتب رمز الخطأ في خانة البحث السفلية</strong> لتظهر لك خطوات الفحص والصيانة مباشرة.</p>
                 </div>
             </div>
 
@@ -627,17 +627,6 @@
 </div>
 
 <script>
-    const HVAC_MASTER_DATABASE = [
-        { code: "CH01", brand: "LG", tech: "Inverter", type: "Wall", title: "خطأ في حساسة حرارة الهواء الداخلي (Room Temp Sensor)", check: "فحص توصيل الحساس أو تغييره بقيمة 10 كيلو أوم." },
-        { code: "CH02", brand: "LG", tech: "Inverter", type: "Wall", title: "خطأ في حساسة مبخر الوحدة الداخلية (Indoor Pipe Sensor)", check: "فحص الحساس وتوصيل الكارت الإلكتروني." },
-        { code: "CH05", brand: "LG", tech: "Inverter", type: "Wall", title: "خطأ في الاتصال بين الوحدة الداخلية والخارجية (Communication Error)", check: "فحص أسلاك الإشارة ونقاط الربط أو optocouplers على لوحة الباور.", img: "" },
-        { code: "EC", brand: "Midea", tech: "Inverter", type: "Wall", title: "نقص شحنة الفريون أو مشكلة تبريد بالدائرة", check: "فحص الضغوط والتسريب واختبار التحميص والتبريد الدوني." },
-        { code: "E1", brand: "Gree", tech: "Inverter", type: "Wall", title: "خطأ ضغط مرتفع أو حماية الضاغط (High Pressure Protection)", check: "فحص نظافة المكثف، مروحة الطرد، وضغوط الشحنة." },
-        { code: "P4", brand: "Midea", tech: "Inverter", type: "Wall", title: "حماية حرارة الضاغط العالية أو وحدة الـ IPM", check: "فحص تبريد وحدة الانفرتر ومعجون التبريد وضغط الغاز." },
-        { code: "04", brand: "Haier", tech: "Inverter", type: "Wall", title: "خطأ اتصال سيريالي ECU / Inverter Board", check: "فحص المقاومات التمهيدية PTC، مكثفات الترشيح، واختبار خط الإشارة." },
-        { code: "F3", brand: "Haier", tech: "Inverter", type: "Wall", title: "خطأ حساس حرارة طارد الضاغط (Discharge Temp Sensor)", check: "فحص قيمة الحساس (NTC) ومقارنتها حرارياً عند 25°C." }
-    ];
-
     const THERMO_DB = {
         'R134a': [{t:-30,p:0.04},{t:-20,p:0.32},{t:-10,p:1.00},{t:0,p:1.92},{t:10,p:3.14},{t:20,p:4.71},{t:30,p:6.70},{t:40,p:9.16},{t:50,p:12.17},{t:60,p:15.81}],
         'R600a': [{t:-30,p:-0.53},{t:-20,p:-0.40},{t:-10,p:-0.14},{t:0,p:0.56},{t:10,p:1.20},{t:20,p:2.01},{t:30,p:3.04},{t:40,p:4.30},{t:50,p:5.85},{t:60,p:7.66}],
@@ -690,49 +679,14 @@
                 }
             })
             .catch(() => {});
-
-        let savedLikes = localStorage.getItem('user_app_likes') ? parseInt(localStorage.getItem('user_app_likes')) : 214;
-        savedLikes = Math.max(214, savedLikes);
-        localStorage.setItem('user_app_likes', savedLikes);
-        document.getElementById('likeCount').textContent = savedLikes.toLocaleString('en-US');
-
-        const likeBtn = document.getElementById('likeBtn');
-        if (likeBtn) {
-            likeBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                let currentLikes = localStorage.getItem('user_app_likes') ? parseInt(localStorage.getItem('user_app_likes')) : 214;
-                currentLikes = Math.max(214, currentLikes);
-                
-                if (!localStorage.getItem('has_liked')) {
-                    currentLikes += 1;
-                    localStorage.setItem('user_app_likes', currentLikes);
-                    localStorage.setItem('has_liked', 'true');
-                    document.getElementById('likeCount').textContent = currentLikes.toLocaleString('en-US');
-                    alert("❤️ شكراً لدعمك وتفاعلكم مع المنصة!");
-                } else {
-                    alert("لقد قمت بالإعجاب مسبقاً، شكراً لك!");
-                }
-            });
-        }
     }
 
     function showApp(tabName) {
         const tabCap = document.getElementById('tabBtnCap');
-        const tabHvac = document.getElementById('tabBtnHvac');
         const secCap = document.getElementById('sectionCapillary');
-        const secHvac = document.getElementById('sectionHvac');
-
         if (tabName === 'capillary') {
             tabCap.classList.add('active'); 
-            tabHvac.classList.remove('active');
             secCap.classList.add('active'); 
-            secHvac.classList.remove('active');
-        } else {
-            tabHvac.classList.add('active'); 
-            tabCap.classList.remove('active');
-            secHvac.classList.add('active'); 
-            secCap.classList.remove('active');
-            renderHvacErrors();
         }
     }
 
@@ -1128,52 +1082,6 @@
         const diagScEl = document.getElementById('diag_sc_text');
         if (diagShEl) diagShEl.innerHTML = shText;
         if (diagScEl) diagScEl.innerHTML = scText;
-    }
-
-    function renderHvacErrors() {
-        const container = document.getElementById("hvacResultsContainer");
-        const brand = document.getElementById("hvacBrandFilter").value;
-        const tech = document.getElementById("hvacTechFilter").value;
-        const type = document.getElementById("hvacTypeFilter").value;
-        const query = document.getElementById("hvacCodeInput").value.trim().toLowerCase();
-
-        if (!query) {
-            container.innerHTML = '<div class="hvac-no-results">أدخل كود الخطأ في الخانة السفلية (مثال: CH05, E1) لظهور نتائج التشخيص...</div>';
-            return;
-        }
-
-        let filtered = HVAC_MASTER_DATABASE.filter(item => {
-            let matchBrand = !brand || item.brand === brand;
-            let matchTech = !tech || item.tech === tech;
-            let matchType = !type || item.type === type;
-            let matchQuery = item.code.toLowerCase().includes(query) || item.title.toLowerCase().includes(query);
-            return matchBrand && matchTech && matchType && matchQuery;
-        });
-
-        if (filtered.length === 0) {
-            container.innerHTML = '<div class="hvac-no-results">لا توجد نتائج مطابقة لبحثك. تأكد من كود الخطأ أو الفلتر المختار.</div>';
-            return;
-        }
-
-        container.innerHTML = filtered.map(err => {
-            let imgHtml = err.img ? `<div style="margin-top: 12px; text-align: center;"><img src="${err.img}" alt="مخطط ${err.code}" style="max-width: 100%; border-radius: 6px; border: 1px solid #1e3a8a; box-shadow: 0 4px 8px rgba(0,0,0,0.4);"></div>` : '';
-
-            return `
-            <div class="hvac-card">
-                <div class="hvac-card-top">
-                    <span class="hvac-code-title">${err.code}</span>
-                    <div style="display:flex; gap:6px;">
-                        <span class="badge-brand">${err.brand}</span>
-                        <span class="badge-tech">${err.tech}</span>
-                    </div>
-                </div>
-                <div style="font-weight:bold; margin-bottom:6px; color:#38bdf8;">${err.title}</div>
-                <div style="font-size:12px; color:#cbd5e1; background:#020617; padding:8px; border-radius:6px;">
-                    <strong>طريقة الفحص والصيانة:</strong> ${err.check}
-                </div>
-                ${imgHtml}
-            </div>
-        `}).join('');
     }
 
     const svgState = {
