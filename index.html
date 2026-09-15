@@ -140,7 +140,7 @@
     <div class="analytics-bar">
         <div class="analytics-item">
             <span class="live-dot"></span>
-            <span>المستخدمون المتفاعلون الآن: <strong style="color:#22c55e;" id="activeUsers">4</strong> فنيين</span>
+            <span>المستخدمون المتفاعلون الآن: <strong style="color:#22c55e;" id="activeUsers">0</strong> فنيين</span>
         </div>
         <div class="analytics-item">
             <span>إجمالي المشاهدات: <span class="stat-badge" id="viewCount">2,450</span></span>
@@ -676,6 +676,8 @@
             });
         }
 
+        /* 
+           تم تعطيل العداد الوهمي العشوائي ليعمل العداد الحقيقي عبر Firebase
         function updateActiveUsers() {
             const baseActive = Math.floor(Math.random() * 9) + 4;
             const hour = new Date().getHours();
@@ -686,8 +688,8 @@
             const nextUpdate = Math.floor(Math.random() * 7000) + 8000;
             setTimeout(updateActiveUsers, nextUpdate);
         }
-        
         updateActiveUsers();
+        */
     }
 
     function showApp(tabName) {
@@ -1375,5 +1377,44 @@
     initViewsCounter();
     updateAllDiagrams();
 </script>
+
+<!-- كود Firebase للعداد الحي الحقيقي -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getDatabase, ref, onValue, onDisconnect, runTransaction } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCQiRScOEX-z9Lm0_uzlsbmKGQ73",
+        authDomain: "capillary-pro-2026.firebaseapp.com",
+        databaseURL: "https://capillary-pro-2026-default-rtdb.firebaseio.com",
+        projectId: "capillary-pro-2026",
+        storageBucket: "capillary-pro-2026.appspot.com",
+        messagingSenderId: "834057170113",
+        appId: "1:834057170113:web:cc97d2418dec6b0",
+        measurementId: "G-DJNN4FMYYL"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // مرجع المتصلين
+    const activeUsersRef = ref(db, 'stats/activeUsers');
+    const countEl = document.getElementById('activeUsers');
+
+    // قراءة الرقم لحظياً وعرضه في الشاشة
+    onValue(activeUsersRef, (snapshot) => {
+        if (countEl) countEl.textContent = snapshot.val() || 0;
+    });
+
+    // زيادة العداد عند فتح التطبيق ونقصه عند الخروج
+    const connectedRef = ref(db, '.info/connected');
+    onValue(connectedRef, (snap) => {
+        if (snap.val() === true) {
+            runTransaction(activeUsersRef, (val) => (val || 0) + 1);
+            onDisconnect(activeUsersRef).runTransaction((val) => Math.max(0, (val || 1) - 1));
+        }
+    });
+</script>
+
 </body>
 </html>
