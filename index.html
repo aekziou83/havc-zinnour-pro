@@ -8,8 +8,8 @@
     <meta name="description" content="منصة التبريد والتكييف الشاملة - حساب الأنبوب الشعري">
     <title>منصة التبريد والتكييف الشاملة | م. أحمد زينور</title>
 
-    <!-- تحويل المنصة لتطبيق PWA قابل للتثبيت مباشرة -->
-    <link rel="manifest" href='data:application/manifest+json,{"name":"Capillary Sizer Pro","short_name":"Capillary Pro","start_url":".","display":"standalone","background_color":"#0b1329","theme_color":"#0284c7","icons":[{"src":"https://cdn-icons-png.flaticon.com/512/900/900782.png","sizes":"512x512","type":"image/png"}]}'>
+    <!-- ربط المنصة بملف الإعدادات لتحويلها إلى تطبيق PWA -->
+    <link rel="manifest" href="manifest.json">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
@@ -424,7 +424,7 @@
                 </div>
                 <div class="zoom-controls">
                     <button class="zoom-btn" onclick="adjustZoom('svg1', 0.2)">➕ تكبير</button>
-                    <button class="zoom-btn" onclick="adjustZoom('svg1', -0.2)">➖ تصغير</button>
+                    <button class="zoom-btn" onclick="adjustZoom('svg2', -0.2)">➖ تصغير</button>
                     <button class="zoom-btn" onclick="resetTransform('svg1')">🔄 ضبط</button>
                 </div>
                 <div class="svg-box" id="box1" data-svg="svg1">
